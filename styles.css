@@ -1,0 +1,155 @@
+html{
+    background-color: lightgray;
+    font-family: 'Josefin Sans', sans-serif;
+}
+
+.logo{
+    color: blue;
+    text-align: center;
+}
+
+.intro{
+    color: orange;
+    text-align: center;
+}
+
+#grid-container{
+    display: grid;
+    grid-auto-rows: 2rem;
+    user-select: none;
+    border: black 2px solid;
+    max-width: fit-content;
+    padding: 10px;
+    margin: auto;
+}
+
+/* The Information Bar */
+
+#info-bar{
+    display: flex;
+    gap: 5px;
+}
+
+#file-name{
+    background-color: gray;
+    width: 300px;
+    height: 20px;
+    text-align: center;
+    border: 2px black solid;
+}
+
+#load-file{
+    background-color: gray;
+    width: 25px;
+    height: 25px;
+    border-radius: 10%;
+    text-align: center;
+}
+
+/* The Navigation Bar*/
+
+#nav-bar{
+    display: flex;
+    gap: 5px;
+}
+
+#nuke-all{
+    background-color: black;
+    color: yellow;
+    width: 25px;
+    height: 25px;
+    border-radius: 20%;
+    text-align: center;
+    font-size: 20px;
+    padding: 0;
+}
+
+#add-inst{
+    background-color: gray;
+    width: 100px;
+    height: 25px;
+    border-radius: 10%;
+    text-align: center;
+}
+
+#play-all{
+    background-color: gray;
+    width: 55px;
+    height: 25px;
+    border-radius: 10%;
+    text-align: center;
+}
+
+#bpm{
+    background-color: white;
+    width: 47px;
+    height: 20px;
+    text-align: center;
+}
+
+.nav-utils *{
+    background-color: gray;
+    width: 55px;
+    height: 25px;
+    border-radius: 10%;
+    text-align: center;
+    padding: 0;
+}
+
+/* The Sequencer (Base)*/
+
+.seq-row{
+    display: flex;
+    gap: 5px;
+}
+
+.seq-row .del-inst{
+    background-color: red;
+    color: white;
+    width: 25px;
+    height: 25px;
+    border-radius: 20%;
+    text-align: center;
+}
+
+.seq-row .inst{
+    background-color: white;
+    width: 92px;
+    height: 20px;
+    text-align: center;
+}
+
+.seq-row .mute{
+    background-color: gray;
+    width: 25px;
+    height: 25px;
+    border-radius: 20%;
+}
+
+.seq-row .solo{
+    background-color: gray;
+    width: 25px;
+    height: 25px;
+    border-radius: 20%;
+}
+
+.seq-row .steps{
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+}
+
+.seq-row .steps *{
+    background-color: darkgray;
+    width: 25px;
+    height: 25px;
+    border-radius: 20%;
+}
+
+#seq-row-limit{
+    display: none;
+}
+
+.footer{
+    text-align: center;
+}

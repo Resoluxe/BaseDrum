@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>BaseDrum : Drum Pattern Playground</title>
+    <link rel="stylesheet" href="./styles.css"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@1,300&display=swap" rel="stylesheet">
+</head>
+<body>
+    <h1 class="logo">BaseDrum</h1>
+    <h2 class="intro">A Drum Pattern Playground</h2>
+
+    <hr/>
+
+    <div id="grid-container">
+
+        <div id="info-bar">
+            <div id="file-name"> </div>
+            <button id="load-file"> ⏏︎ </button>
+        </div>
+
+        <div id="nav-bar">
+            <button id="nuke-all"> ☢︎ </button>
+            <button id="add-inst"> + Instrument </button>
+            <button id="play-all"> ▶All </button>
+            <label><input id="bpm" placeholder="120" /></label>
+            <div class="nav-utils">
+                <button id="velocity"> VELO </button>
+                <button id="conditional"> ⚀COND </button>
+                <button id="ratchet"> RTCHT </button>
+                <button id="micro-timing"> MICRO </button>
+                <button id="prev-page"> ⇤PREV </button>
+                <button id="next-page"> ⇥NEXT </button>
+                <button id="config"> CONFIG </button>
+            </div>
+        </div>
+
+        <template id="row-template">
+            <div class="seq-row">
+                <button class="del-inst"> ✕ </button>
+                <label><input class="inst" placeholder="Instrument" /></label>
+                <button class="mute"> M </button>
+                <button class="solo"> S </button>
+                <div class="steps">
+                    <button class="step1"> </button>
+                    <button class="step2"> </button>
+                    <button class="step3"> </button>
+                    <button class="step4"> </button>
+                    <button class="step5"> </button>
+                    <button class="step6"> </button>
+                    <button class="step7"> </button>
+                    <button class="step8"> </button>
+                    <button class="step9"> </button>
+                    <button class="step10"> </button>
+                    <button class="step11"> </button>
+                    <button class="step12"> </button>
+                    <button class="step13"> </button>
+                    <button class="step14"> </button>
+                    <button class="step15"> </button>
+                    <button class="step16"> </button>
+                </div>
+            </div>
+        </template>
+
+    </div>
+
+    <hr/>
+
+    <h4 class="footer">Made with ❤️ from 🇰🇷 by Resoluxe (Minsoo Kang)</h4>
+    <script src="index.js" charset="utf-8"></script>
+</body>
+</html>
