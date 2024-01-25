@@ -98,12 +98,12 @@ html{
 
 /* The Sequencer (Base)*/
 
-.seq-row{
+div[id^='seq-row']{
     display: flex;
     gap: 5px;
 }
 
-.seq-row .del-inst{
+div[id^='seq-row'] .del-inst{
     background-color: red;
     color: white;
     width: 25px;
@@ -112,42 +112,38 @@ html{
     text-align: center;
 }
 
-.seq-row .inst{
+div[id^='seq-row'] .inst{
     background-color: white;
     width: 92px;
     height: 20px;
     text-align: center;
 }
 
-.seq-row .mute{
+div[id^='seq-row'] .mute{
     background-color: gray;
     width: 25px;
     height: 25px;
     border-radius: 20%;
 }
 
-.seq-row .solo{
+div[id^='seq-row'] .solo{
     background-color: gray;
     width: 25px;
     height: 25px;
     border-radius: 20%;
 }
 
-.seq-row .steps{
+div[id^='seq-row'] .steps{
     display: flex;
     flex-direction: row;
     gap: 5px;
 }
 
-.seq-row .steps *{
+div[id^='seq-row'] .steps *{
     background-color: darkgray;
     width: 25px;
     height: 25px;
     border-radius: 20%;
-}
-
-#seq-row-limit{
-    display: none;
 }
 
 .footer{

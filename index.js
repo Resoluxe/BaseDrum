@@ -1,3 +1,5 @@
+let i = 0 // Number of seq-rows (Global)
+
 // The Navigation Bar
 
 document.getElementById('nuke-all').onclick = nukeAll;
@@ -8,24 +10,24 @@ document.getElementById('conditional').onclick = changeConditionalIcon;
 
 // The Sequencer
 
-
-
 // Actual Functions //
 
 function nukeAll() {
     let nuke_confirm = confirm("This will erase ALL patterns and instruments. Are you really sure?");
     if (nuke_confirm === true) {
-        for (let i = (document.getElementById("grid-container").length - 1); i > 0; i--) {
-            document.getElementById('seq-row-' + i.toString()).remove();
+        for (i; i >= 1; i--){
+            document.querySelector('#grid-container').removeChild(document.querySelectorAll("div[id^='seq-row']")[i]);
         }
+        i = 0;
     }
 }
 
 function addRow() {
-    let new_row = document.querySelector("#row-template").content;
-    new_row.id = "seq-row-" + (document.getElementById("grid-container").length - 1).toString();
-    let targetContainer = document.querySelector('#grid-container');
+    let new_row = document.querySelector("#seq-row").cloneNode(true);
+    new_row.setAttribute("id", "seq-row-" + i.toString());
+    let targetContainer= document.querySelector('#grid-container');
     targetContainer.appendChild(document.importNode(new_row, true));
+    i++;
 }
 
 function togglePattern() {
