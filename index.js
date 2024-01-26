@@ -4,6 +4,7 @@ let i = 0 // Number of seq-rows (Global)
 
 document.getElementById('nuke-all').onclick = nukeAll;
 document.getElementById('add-inst').onclick = addRow;
+document.getElementById('del-inst').onclick = delRow;
 document.getElementById('play-all').onclick = togglePattern;
 
 document.getElementById('conditional').onclick = changeConditionalIcon;
@@ -24,10 +25,18 @@ function nukeAll() {
 
 function addRow() {
     let new_row = document.querySelector("#seq-row").cloneNode(true);
-    new_row.setAttribute("id", "seq-row-" + i.toString());
+    new_row.setAttribute("id", "seq-row-" + (i + 1).toString());
+    new_row.querySelector(".row-index").textContent = (i + 1).toString();
     let targetContainer= document.querySelector('#grid-container');
     targetContainer.appendChild(document.importNode(new_row, true));
     i++;
+}
+
+function delRow() {
+    if (i > 0) {
+        document.getElementById("seq-row-" + i.toString()).remove();
+        i--;
+    }
 }
 
 function togglePattern() {
