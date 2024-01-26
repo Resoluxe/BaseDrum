@@ -31,7 +31,6 @@ function addRow() {
     targetContainer.appendChild(document.importNode(new_row, true));
     i++;
 }
-
 function delRow() {
     if (i > 0) {
         document.getElementById("seq-row-" + i.toString()).remove();
@@ -44,7 +43,6 @@ function togglePattern() {
         document.getElementById('play-all').style.backgroundColor = "gray";
     } else document.getElementById('play-all').style.backgroundColor = "lawngreen";
 }
-
 
 function changeConditionalIcon() {
     document.getElementById('conditional').textContent = ['⚀COND', '⚁COND', '⚂COND', '⚃COND', '⚄COND', '⚅COND'][Math.floor(6 * Math.random())];
