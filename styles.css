@@ -66,7 +66,7 @@ html{
 
 #add-inst{
     background-color: gray;
-    width: 50px;
+    width: 48px;
     height: 25px;
     border-radius: 10%;
     text-align: center;
@@ -74,7 +74,7 @@ html{
 
 #del-inst{
     background-color: gray;
-    width: 50px;
+    width: 48px;
     height: 25px;
     border-radius: 10%;
     text-align: center;
@@ -106,12 +106,12 @@ html{
 
 /* The Sequencer (Base)*/
 
-div[id^='seq-row']{
+div[id^='seq-row-']{
     display: flex;
     gap: 5px;
 }
 
-div[id^='seq-row'] .row-index{
+div[id^='seq-row-'] .row-clear{
     background-color: gray;
     color: white;
     width: 25px;
@@ -120,34 +120,34 @@ div[id^='seq-row'] .row-index{
     text-align: center;
 }
 
-div[id^='seq-row'] .inst{
+div[id^='seq-row-'] .inst{
     background-color: white;
     width: 92px;
     height: 20px;
     text-align: center;
 }
 
-div[id^='seq-row'] .mute{
+div[id^='seq-row-'] .mute{
     background-color: gray;
     width: 25px;
     height: 25px;
     border-radius: 20%;
 }
 
-div[id^='seq-row'] .solo{
+div[id^='seq-row-'] .solo{
     background-color: gray;
     width: 25px;
     height: 25px;
     border-radius: 20%;
 }
 
-div[id^='seq-row'] .steps{
+div[id^='seq-row-'] .steps{
     display: flex;
     flex-direction: row;
     gap: 5px;
 }
 
-div[id^='seq-row'] .steps *{
+div[id^='seq-row-'] .steps *{
     background-color: darkgray;
     width: 25px;
     height: 25px;
