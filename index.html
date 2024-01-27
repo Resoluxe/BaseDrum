@@ -42,29 +42,31 @@
         <div id="seq-row-1">
             <button class="row-clear">1</button>
             <label for="inst-1" id="new-inst-1">New Inst...</label>
-            <input id="inst-1" type="file" accept=".mp3, .wav, .flac"/>
+            <input id="inst-1" type="file" accept=".mp3, .wav"/>
+            <audio id="audio-1" src=""></audio>
             <button class="mute"> M </button>
             <button class="solo"> S </button>
             <div class="steps">
-                <button class="step1"> </button>
-                <button class="step2"> </button>
-                <button class="step3"> </button>
-                <button class="step4"> </button>
+                <button class="step1" data-active="no"> </button>
+                <button class="step2" data-active="no"> </button>
+                <button class="step3" data-active="no"> </button>
+                <button class="step4" data-active="no"> </button>
                 <div class="divider"> ⎮ </div>
-                <button class="step5"> </button>
-                <button class="step6"> </button>
-                <button class="step7"> </button>
-                <button class="step8"> </button>
+                <button class="step5" data-active="no"> </button>
+                <button class="step6" data-active="no"> </button>
+                <button class="step7" data-active="no"> </button>
+                <button class="step8" data-active="no"> </button>
                 <div class="divider"> ⎮ </div>
-                <button class="step9"> </button>
-                <button class="step10"> </button>
-                <button class="step11"> </button>
-                <button class="step12"> </button>
+                <button class="step9" data-active="no"> </button>
+                <button class="step10" data-active="no"> </button>
+                <button class="step11" data-active="no"> </button>
+                <button class="step12" data-active="no"> </button>
                 <div class="divider"> ⎮ </div>
-                <button class="step13"> </button>
-                <button class="step14"> </button>
-                <button class="step15"> </button>
-                <button class="step16"> </button>
+                <button class="step13" data-active="no"> </button>
+                <button class="step14" data-active="no"> </button>
+                <button class="step15" data-active="no"> </button>
+                <button class="step16" data-active="no"> </button>
+                <button class="step17"> </button>
             </div>
         </div>
 
@@ -74,6 +76,8 @@
 
     <h4 class="footer">Made with ❤️ from 🇰🇷 by Resoluxe (Minsoo Kang)</h4>
     <h4 class="footer">Note : Will update patch notes & instructions later on!</h4>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="index.js" charset="utf-8"></script>
 </body>
 </html>

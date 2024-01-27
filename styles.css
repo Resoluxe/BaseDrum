@@ -176,6 +176,10 @@ div[id^='seq-row-'] .steps .divider{
     margin: 0;
 }
 
+.step17{
+    display: none;
+}
+
 .footer{
     text-align: center;
 }
