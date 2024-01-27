@@ -15,12 +15,15 @@ function toggleColor(current, active, inactive) {
 
 function toggleColumn() {
 
-    document.querySelectorAll(".step" + (pos - 1).toString()).forEach((element) => toggleColor(element, "lawngreen", "orange"));
+    if (pos > 16) {
+        document.querySelectorAll(".step16").forEach((element) => toggleColor(element, "orange", "lawngreen"));
+        pos = 1;
+    } else {
+        document.querySelectorAll(".step" + (pos - 1).toString()).forEach((element) => toggleColor(element, "lawngreen", "orange"));
+    }
+
     document.querySelectorAll(".step" + pos.toString()).forEach((element) => toggleColor(element, "orange", "lawngreen"));
 
-    if (pos === 17) {
-        pos = 1;
-    } else { pos++; }
 
     for (let row = 1; row <= totalRow; row++) {
         if (document.querySelector("#seq-row-" + row.toString() + " .step" + pos.toString()).style.backgroundColor === "orange") {
@@ -28,6 +31,8 @@ function toggleColumn() {
             document.querySelector("#audio-" + row.toString()).play();
         }
     }
+
+    pos++;
 }
 
 /* Initialize Nav Bar */
@@ -45,6 +50,22 @@ function initializeRow() {
     document.querySelector("#seq-row-" + totalRow.toString() + " .mute").style.backgroundColor = "gray";
     document.querySelector("#seq-row-" + totalRow.toString() + " .solo").style.backgroundColor = "gray";
 
+    // Toggle Step
+
+    for (let step = 1; step <= 16; step++) {
+        document.querySelector("#seq-row-" + totalRow.toString() + " .steps .step" + step.toString()).addEventListener('click', function toggleStep() {
+
+            toggleColor(this, "lawngreen", "darkgray");
+
+            if (this.getAttribute("data-active") === "no") {
+                this.setAttribute("data-active", "yes");
+            } else if (this.getAttribute("data-active") === "yes") {
+                this.setAttribute("data-active", "no");
+            }
+
+        });
+    }
+
 
     // Enable Row Clear
     document.querySelector("#seq-row-" + totalRow.toString() + " .row-clear").addEventListener('click', function rowClear() {
@@ -54,11 +75,24 @@ function initializeRow() {
     });
 
     // Enable Loading Samples
-    document.querySelector("#audio-" + totalRow.toString()).addEventListener('change', function addAudio() {
-        document.querySelector("#audio-" + totalRow.toString()).setAttribute('src',)
-    });
-    // Display their name
+    let $audio = $('#audio-' + totalRow.toString());
+    $('#inst-' + totalRow.toString()).on('change', function(e) {
+        let target = e.currentTarget;
+        let file = target.files[0];
 
+        if (target.files && file) {
+            let reader = new FileReader();
+            reader.onload = function (e) {
+                $audio.attr('src', e.target.result);
+            }
+            reader.readAsDataURL(file);
+        }
+    });
+
+    // Display their names
+    document.querySelector("#inst-" + totalRow.toString()).addEventListener('change', function displaySample(){
+        this.parentNode.querySelector("label[id^='new-inst-']").textContent = document.querySelector("#inst-" + totalRow.toString()).value.replace("C:\\fakepath\\", "");
+    });
 
     // Enable Mute Function
     document.querySelector("#seq-row-" + totalRow.toString() + " .mute").addEventListener('click', function muteRow() {
@@ -70,22 +104,6 @@ function initializeRow() {
         toggleColor(this, "orange", "gray");
     });
 
-    // Toggle Step
-    for (let row= 1; row <= totalRow; row++) {
-        for (let step = 1; step <= 16; step++) {
-            document.querySelector("#seq-row-" + row.toString() + " .steps .step" + step.toString()).addEventListener('click', function toggleStep() {
-
-                toggleColor(this, "lawngreen", "darkgray");
-
-                if (this.getAttribute("data-active") === "no") {
-                    this.setAttribute("data-active", "yes");
-                } else if (this.getAttribute("data-active") === "yes") {
-                    this.setAttribute("data-active", "no");
-                }
-
-            });
-        }
-    }
 }
 
 initializeRow();
