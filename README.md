@@ -8,10 +8,10 @@ As of 2024/01/26...
 - Has a basic interface
 - No Track limits!
 - Can add / delete tracks one by one (or, erase them all at once!)
-- Trigger / Erase Steps (which does not do anything just yet)
+- Trigger / Erase Steps
+- Play Patterns (No sound just yet)
 
 ## To-be Implemented
-- Playing patterns
 - Loading Samples
 - Saving / Loading Patterns as a file
 - Multiple pages (more than 16 steps)
