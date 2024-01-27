@@ -1,6 +1,7 @@
 let totalRow= 1; // Number of seq-rows (Global)
 let bpm = 120; // BPM (Global)
 let pos = 1; // Current Position (within 16)
+let intervalId;
 
 function toggleColor(current, active, inactive) {
     if (current.style.backgroundColor === active) {
@@ -10,24 +11,21 @@ function toggleColor(current, active, inactive) {
     }
 }
 
-function toggleColumn(position) {
-    document.querySelectorAll(".step" + position.toString()).forEach((element) => toggleColor(element, "orange", "lawngreen"));
+function toggleColumn() {
+
+    document.querySelectorAll(".step" + (pos - 1).toString()).forEach((element) => toggleColor(element, "lawngreen", "orange"));
+    document.querySelectorAll(".step" + pos.toString()).forEach((element) => toggleColor(element, "orange", "lawngreen"));
+
+    if (pos === 17) {
+        pos = 1;
+    } else { pos++; }
 }
 
-function patternPlay() {
-    for (pos; pos <= 16; pos++) {
-        if (pos === 1) {
-            toggleColumn(1);
-            toggleColumn(16);
-        } else {
-            toggleColumn(pos);
-            toggleColumn(pos - 1)
-            if (pos === 16) {
-                pos = 1
-            }
-        }
-    }
-}
+/* Initialize Nav Bar */
+
+document.querySelector("#play-all").style.backgroundColor = "gray";
+document.querySelectorAll(".nav-utils > *").forEach((element) => element.style.backgroundColor = "gray")
+
 
 function initializeRow() {
 
@@ -45,8 +43,6 @@ function initializeRow() {
             document.querySelector("#seq-row-" + this.textContent + " .steps .step" + step.toString()).style.backgroundColor = "darkgray";
         }
     });
-
-    //Display the Uploaded Sample when Uploading
 
     // Enable Mute Function
     document.querySelector("#seq-row-" + totalRow.toString() + " .mute").addEventListener('click', function muteRow() {
@@ -104,10 +100,10 @@ document.querySelector("#del-inst").addEventListener('click', function delInst()
     }
 });
 
-
+// Set BPM
 document.querySelector("#bpm-label").addEventListener('input', function setBPM() {
     if (document.querySelector("#bpm").value > 0 || document.querySelector("#bpm").value === "") {
-        bpm = 60000 / document.querySelector("#bpm").value;
+        bpm = document.querySelector("#bpm").value / 60000;
     } else {
         alert("BPM must be higher than 0!");
         document.querySelector("#bpm").value = ""
@@ -115,9 +111,20 @@ document.querySelector("#bpm-label").addEventListener('input', function setBPM()
 });
 
 // Play through pattern
+document.querySelector("#play-all").onclick = function playPattern(){
+    toggleColor(this, "lawngreen", "gray");
+    if (document.querySelector("#play-all").style.backgroundColor === "lawngreen") {
+        if (!intervalId) {
+            intervalId = setInterval(toggleColumn, bpm);
+        }
+    } else {
+        clearInterval(intervalId);
+        intervalId = null;
+    }
+};
 
 // Activate Conditional View + Change Icon
 document.querySelector("#conditional").addEventListener('click', function toggleConditional() {
-    this.textContent = ['⚀COND', '⚁COND', '⚂COND', '⚃COND', '⚄COND', '⚅COND'][Math.floor(6 * Math.random())];
     toggleColor(this, "lawngreen", "gray");
+    this.textContent = ['⚀COND', '⚁COND', '⚂COND', '⚃COND', '⚄COND', '⚅COND'][Math.floor(6 * Math.random())];
 });
