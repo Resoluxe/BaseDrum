@@ -15,12 +15,12 @@ As of 2024/01/28...
 - Advanced per-step controls :
   - Accent
   - Conditional
-  - Microtiming (0% ~ +50%)
 
 ## To-be Implemented
 - Saving / Loading Patterns as a file
   - Chaining multiple patterns
 - Advanced Features:
+  - Microtiming
   - Ratchet (Substeps)
   - Shuffle (Swing)
   - Custom beat signature(e.g. 5/4 measure)
