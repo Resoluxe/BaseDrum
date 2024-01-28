@@ -19,13 +19,15 @@ button{
 
 #grid-container{
     display: grid;
-    grid-auto-rows: 2rem;
+    grid-template-rows: repeat(2, 2rem) auto;
     user-select: none;
     border: black 2px solid;
     max-width: fit-content;
+    max-height: fit-content;
     padding: 10px;
     margin: auto;
 }
+
 
 /* The Information Bar */
 
@@ -47,6 +49,21 @@ button{
     width: 25px;
     height: 25px;
     border-radius: 10%;
+    text-align: center;
+}
+
+.info-label{
+    background-color: white;
+    max-width: 47px;
+    height: 20px;
+    text-align: center;
+    margin-right: 7px;
+}
+
+.info-input{
+    background-color: white;
+    width: 47px;
+    height: 20px;
     text-align: center;
 }
 
@@ -97,6 +114,7 @@ button{
     width: 47px;
     height: 20px;
     text-align: center;
+    margin-right: 5px;
 }
 
 #bpm{
@@ -116,6 +134,12 @@ button{
 }
 
 /* The Sequencer (Base)*/
+
+#pattern{
+    display:grid;
+    grid-auto-rows: 2rem;
+    grid-template-columns: subgrid;
+}
 
 div[id^='seq-row-']{
     display: flex;
@@ -137,6 +161,7 @@ div[id^='seq-row-'] label[id^='new-inst-'] {
     width: 100px;
     height: 25px;
     text-align: center;
+    overflow: clip;
 }
 
 input[type="file"] {
