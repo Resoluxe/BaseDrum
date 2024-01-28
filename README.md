@@ -3,22 +3,26 @@ BaseDrum is a web-based 'Drum Pattern Playground' where you can experiment with 
 The individual sounds are not the main concern here - rather it's more about the rhythm and dynamics!
 
 ## Current Features
-As of 2024/01/27...
+As of 2024/01/28...
 
-- Has a basic interface
 - No Track limits!
-- Can add / delete tracks one by one (or, erase them all at once!)
-- Trigger / Erase Steps
-- Import & Play Samples!
-- Play Patterns
+- Can add / delete tracks one by one
+- Wipe a specific row, or all of them at once! ('Nuke')
+- Trigger / erase steps
+- Import & play samples
+- Pattern playback
+- Advanced per-step controls :
+  - Accent
+  - Conditional
 
 ## To-be Implemented
 - Saving / Loading Patterns as a file
 - Multiple pages (more than 16 steps)
 - Advanced Features:
-  - Velocity
   - Micro Timing
-  - Conditional
   - Ratchet (Substeps)
+  - Shuffle (Swing)
+  - Custom beat signature / pattern length (e.g. 5/4 measure)
+- A much nicer interface
 
 Made with ❤️ from 🇰🇷 by Resoluxe (Minsoo Kang)
