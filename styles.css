@@ -118,6 +118,22 @@ button{
     text-align: center;
 }
 
+#add-col{
+      background-color: gray;
+      width: 25px;
+      height: 25px;
+      border-radius: 10%;
+      text-align: center;
+}
+
+#del-col{
+    background-color: gray;
+    width: 25px;
+    height: 25px;
+    border-radius: 10%;
+    text-align: center;
+}
+
 #play-all{
     background-color: gray;
     width: 55px;
@@ -216,10 +232,6 @@ div[id^='seq-row-'] .steps .divider{
     font-size: 20px;
     justify-content: center;
     margin: 0;
-}
-
-.step17{
-    display: none;
 }
 
 .footer{
