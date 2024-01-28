@@ -10,20 +10,20 @@
     <link rel="icon" type="image/x-icon" href="./Kinfinity%20Logo.png">
 </head>
 <body>
-    <h1 class="logo">BaseDrum</h1>
-    <h2 class="intro">A Drum Pattern Playground</h2>
+    <h1 class="logo">BaseDrum<span class="intro">A Drum Pattern Playground</span></h1>
 
     <hr/>
 
     <div id="grid-container">
 
         <div id="info-bar">
-            <div id="file-name"> </div>
+            <label id="file-name-label" for="file-name"> <input type="text" id="file-name" placeholder="filename : lowercase only!" /> </label>
             <button id="load-file"> ⏏︎ </button>
+            <button id="down-file"> ⌄ </button>
             <label class="info-label" id="acc-label"><input class="info-input" type="number" min="0.0" max="1.0" step="0.01" id="ac" placeholder="0.5" /></label>
             <label class="info-label" id="cond-label"><input class="info-input" type="number" min="0.0" max="1.0" step="0.01" id="cond" placeholder="1.0" /></label>
             <label class="info-label" id="sub-label"><input class="info-input" type="number" min="0" max="5" id="sub" placeholder="1" /></label>
-            <label class="info-label" id="micro-label"><input class="info-input" type="number" id="micro" placeholder="0" /></label>
+            <label class="info-label" id="micro-label"><input class="info-input" type="number" min="0.00" max="0.99" step="0.01" id="micro" placeholder="0.00" /></label>
 
         </div>
 
@@ -34,17 +34,17 @@
             <button id="play-all"> ▶All </button>
             <label id="bpm-label"><input type="number" id="bpm" placeholder="120" /></label>
             <div class="nav-utils">
-                <button id="config"> ⚙︎CONF </button>
                 <button id="accent"> ACCNT </button>
                 <button id="conditional"> ⚀COND </button>
                 <button id="ratchet"> RTCHT </button>
                 <button id="micro-timing"> MICRO </button>
                 <button id="prev-page"> ⇤PREV </button>
                 <button id="next-page"> ⇥NEXT </button>
+                <button id="config"> ⚙︎CONF </button>
             </div>
         </div>
 
-        <div id="pattern">
+        <div id="pattern" data-name="Unnamed Pattern">
             <div id="seq-row-1">
                 <button class="row-clear">1</button>
                 <label for="inst-1" id="new-inst-1">New Inst...</label>
@@ -53,25 +53,25 @@
                 <button class="mute"> M </button>
                 <button class="solo"> S </button>
                 <div class="steps">
-                    <button class="step1" data-active="no" data-acc="0.5" data-cond="1.0" data-sub="1" data-micro="0"></button>
-                    <button class="step2" data-active="no" data-acc="0.5" data-cond="1.0" data-sub="1" data-micro="0"></button>
-                    <button class="step3" data-active="no" data-acc="0.5" data-cond="1.0" data-sub="1" data-micro="0"></button>
-                    <button class="step4" data-active="no" data-acc="0.5" data-cond="1.0" data-sub="1" data-micro="0"></button>
+                    <button class="step1" data-active="no" data-acc="0.5" data-cond="1.0" data-sub="1" data-micro="0.00"></button>
+                    <button class="step2" data-active="no" data-acc="0.5" data-cond="1.0" data-sub="1" data-micro="0.00"></button>
+                    <button class="step3" data-active="no" data-acc="0.5" data-cond="1.0" data-sub="1" data-micro="0.00"></button>
+                    <button class="step4" data-active="no" data-acc="0.5" data-cond="1.0" data-sub="1" data-micro="0.00"></button>
                     <div class="divider">⎮</div>
-                    <button class="step5" data-active="no" data-acc="0.5" data-cond="1.0" data-sub="1" data-micro="0"></button>
-                    <button class="step6" data-active="no" data-acc="0.5" data-cond="1.0" data-sub="1" data-micro="0"></button>
-                    <button class="step7" data-active="no" data-acc="0.5" data-cond="1.0" data-sub="1" data-micro="0"></button>
-                    <button class="step8" data-active="no" data-acc="0.5" data-cond="1.0" data-sub="1" data-micro="0"></button>
+                    <button class="step5" data-active="no" data-acc="0.5" data-cond="1.0" data-sub="1" data-micro="0.00"></button>
+                    <button class="step6" data-active="no" data-acc="0.5" data-cond="1.0" data-sub="1" data-micro="0.00"></button>
+                    <button class="step7" data-active="no" data-acc="0.5" data-cond="1.0" data-sub="1" data-micro="0.00"></button>
+                    <button class="step8" data-active="no" data-acc="0.5" data-cond="1.0" data-sub="1" data-micro="0.00"></button>
                     <div class="divider">⎮</div>
-                    <button class="step9" data-active="no" data-acc="0.5" data-cond="1.0" data-sub="1" data-micro="0"></button>
-                    <button class="step10" data-active="no" data-acc="0.5" data-cond="1.0" data-sub="1" data-micro="0"></button>
-                    <button class="step11" data-active="no" data-acc="0.5" data-cond="1.0" data-sub="1" data-micro="0"></button>
-                    <button class="step12" data-active="no" data-acc="0.5" data-cond="1.0" data-sub="1" data-micro="0"></button>
+                    <button class="step9" data-active="no" data-acc="0.5" data-cond="1.0" data-sub="1" data-micro="0.00"></button>
+                    <button class="step10" data-active="no" data-acc="0.5" data-cond="1.0" data-sub="1" data-micro="0.00"></button>
+                    <button class="step11" data-active="no" data-acc="0.5" data-cond="1.0" data-sub="1" data-micro="0.00"></button>
+                    <button class="step12" data-active="no" data-acc="0.5" data-cond="1.0" data-sub="1" data-micro="0.00"></button>
                     <div class="divider">⎮</div>
-                    <button class="step13" data-active="no" data-acc="0.5" data-cond="1.0" data-sub="1" data-micro="0"></button>
-                    <button class="step14" data-active="no" data-acc="0.5" data-cond="1.0" data-sub="1" data-micro="0"></button>
-                    <button class="step15" data-active="no" data-acc="0.5" data-cond="1.0" data-sub="1" data-micro="0"></button>
-                    <button class="step16" data-active="no" data-acc="0.5" data-cond="1.0" data-sub="1" data-micro="0"></button>
+                    <button class="step13" data-active="no" data-acc="0.5" data-cond="1.0" data-sub="1" data-micro="0.00"></button>
+                    <button class="step14" data-active="no" data-acc="0.5" data-cond="1.0" data-sub="1" data-micro="0.00"></button>
+                    <button class="step15" data-active="no" data-acc="0.5" data-cond="1.0" data-sub="1" data-micro="0.00"></button>
+                    <button class="step16" data-active="no" data-acc="0.5" data-cond="1.0" data-sub="1" data-micro="0.00"></button>
                 </div>
             </div>
         </div>

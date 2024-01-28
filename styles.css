@@ -8,9 +8,10 @@ html{
     text-align: center;
 }
 
-.intro{
+.logo .intro{
     color: orange;
-    text-align: center;
+    text-align: left;
+    font-size: 1.2rem;
 }
 
 button{
@@ -36,15 +37,31 @@ button{
     gap: 5px;
 }
 
+#file-label{
+    background-color: white;
+    width: 210px;
+    height: 20px;
+    text-align: center;
+    border: 2px black solid;
+}
+
 #file-name{
-    background-color: gray;
-    width: 300px;
+    background-color: white;
+    width: 210px;
     height: 20px;
     text-align: center;
     border: 2px black solid;
 }
 
 #load-file{
+    background-color: gray;
+    width: 25px;
+    height: 25px;
+    border-radius: 10%;
+    text-align: center;
+}
+
+#down-file{
     background-color: gray;
     width: 25px;
     height: 25px;

@@ -1,7 +1,9 @@
 let totalRow= 1; // Number of seq-rows (Global)
-let bpm = 15000 / 120; // BPM (Global)
+let bpm = 60000 / 120; // BPM (Global)
 let pos = 1; // Current Position (within 16)
-let intervalId;
+let intervalId; // BPM interval
+let subIntervalId; // Substep interval
+let timerId; // MicroTiming Timeout
 let lastSelection;
 
 /* Commonly Used Functions */
@@ -14,6 +16,8 @@ function toggleColor(current, active, inactive) {
     }
 }
 
+
+// Toggle Column / Trigger steps
 function toggleColumn() {
 
     if (pos > 16) {
@@ -22,28 +26,27 @@ function toggleColumn() {
     } else {
         document.querySelectorAll(".step" + (pos - 1).toString()).forEach((element) => toggleColor(element, "lawngreen", "yellow"));
     }
-
     document.querySelectorAll(".step" + pos.toString()).forEach((element) => toggleColor(element, "yellow", "lawngreen"));
-
-
-    for (let row = 1; row <= totalRow; row++) {
-        if (document.querySelector("#seq-row-" + row.toString() + " .step" + pos.toString()).style.backgroundColor === "yellow") {
-            if (Math.random().toFixed(2) < document.querySelector("#seq-row-" + row.toString() + " .step" + pos.toString()).dataset.cond) {
-                document.querySelector("#audio-" + row.toString()).volume = document.querySelector("#seq-row-" + row.toString() + " .step" + pos.toString()).dataset.acc;
-                document.querySelector("#audio-" + row.toString()).currentTime = 0;
-                document.querySelector("#audio-" + row.toString()).play();
-            }
-        }
-    }
 
     pos++;
 }
+
+
 
 /* Initialize Nav Bar */
 
 document.querySelector("#play-all").style.backgroundColor = "gray";
 document.querySelectorAll(".nav-utils > *").forEach((element) => element.style.backgroundColor = "gray")
+document.querySelector("#file-name").addEventListener('blur', function changeFileName () {
+   document.querySelector("#pattern").dataset.name =  document.querySelector("#file-name").value;
+});
 
+// Upload Pattern
+
+// Download pattern
+
+
+/* Initialize Row (for the subsequent sequencer rows) */
 
 function initializeRow() {
 
@@ -52,20 +55,24 @@ function initializeRow() {
         document.querySelector("#seq-row-" + totalRow.toString() + " .steps .step" + step.toString()).style.backgroundColor = "darkgray";
         document.querySelector("#seq-row-" + totalRow.toString() + " .steps .step" + step.toString()).style.border = "";
     }
+
     document.querySelector("#seq-row-" + totalRow.toString() + " .mute").style.backgroundColor = "gray";
     document.querySelector("#seq-row-" + totalRow.toString() + " .solo").style.backgroundColor = "gray";
 
 
     // Toggle Step
-
     for (let step = 1; step <= 16; step++) {
-        document.querySelector("#seq-row-" + totalRow.toString() + " .steps .step" + step.toString()).addEventListener('click', function toggleStep() {
 
+        // Enable Toggling Steps
+        document.querySelector("#seq-row-" + totalRow.toString() + " .steps .step" + step.toString()).addEventListener('dblclick', function toggleStep() {
             toggleColor(this, "lawngreen", "darkgray");
+        });
 
-            if (document.querySelector("#seq-row-" + totalRow.toString() + " .steps .step" + step.toString()) === document.activeElement) {
-                document.querySelector("#seq-row-" + totalRow.toString() + " .steps .step" + step.toString()).style.border = "3px black solid";
-            }
+        // Enable Selecting Steps, and then interacting with their values
+        document.querySelector("#seq-row-" + totalRow.toString() + " .steps .step" + step.toString()).addEventListener('click', function selectStep() {
+
+            document.querySelector("#seq-row-" + totalRow.toString() + " .steps .step" + step.toString()).style.border = "3px black solid";
+
             if (lastSelection) {
                 lastSelection.style.border = "";
             }
@@ -78,56 +85,74 @@ function initializeRow() {
                 this.setAttribute("data-active", "no");
             }
 
-            document.querySelector("#ac").value = document.querySelector("#seq-row-" + totalRow.toString() + " .steps .step" + step.toString()).dataset.acc
-            document.querySelector("#cond").value = document.querySelector("#seq-row-" + totalRow.toString() + " .steps .step" + step.toString()).dataset.cond
+            document.querySelector("#ac").value = document.querySelector("#seq-row-" + totalRow.toString() + " .steps .step" + step.toString()).dataset.acc;
+            document.querySelector("#cond").value = document.querySelector("#seq-row-" + totalRow.toString() + " .steps .step" + step.toString()).dataset.cond;
+            document.querySelector("#sub").value = document.querySelector("#seq-row-" + totalRow.toString() + " .steps .step" + step.toString()).dataset.sub;
+            document.querySelector("#micro").value = document.querySelector("#seq-row-" + totalRow.toString() + " .steps .step" + step.toString()).dataset.micro;
 
-            document.querySelector("#ac").onchange = function(){document.querySelector("#seq-row-" + totalRow.toString() + " .steps .step" + step.toString()).dataset.acc = document.querySelector("#ac").value.toString()};
-            document.querySelector("#cond").onchange = function(){document.querySelector("#seq-row-" + totalRow.toString() + " .steps .step" + step.toString()).dataset.cond = document.querySelector("#cond").value.toString()};
+            document.querySelector("#ac").onchange = function () {
+                document.querySelector("#seq-row-" + totalRow.toString() + " .steps .step" + step.toString()).dataset.acc = document.querySelector("#ac").value.toString()
+            };
+            document.querySelector("#cond").onchange = function () {
+                document.querySelector("#seq-row-" + totalRow.toString() + " .steps .step" + step.toString()).dataset.cond = document.querySelector("#cond").value.toString()
+            };
+            document.querySelector("#sub").onchange = function () {
+                document.querySelector("#seq-row-" + totalRow.toString() + " .steps .step" + step.toString()).dataset.sub = document.querySelector("#sub").value.toString()
+            };
+            document.querySelector("#micro").onchange = function () {
+                document.querySelector("#seq-row-" + totalRow.toString() + " .steps .step" + step.toString()).dataset.micro = document.querySelector("#micro").value.toString()
+            };
 
+            if (this.style.backgroundColor === "darkgray") {
+                document.querySelector("#ac").value = "0.5"
+                document.querySelector("#cond").value = "1.0"
+                document.querySelector("#sub").value = "1"
+                document.querySelector("#micro").value = "0.00"
+                document.querySelector("#seq-row-" + totalRow.toString() + " .steps .step" + step.toString()).dataset.acc = "0.5"
+                document.querySelector("#seq-row-" + totalRow.toString() + " .steps .step" + step.toString()).dataset.cond = "1.0"
+                document.querySelector("#seq-row-" + totalRow.toString() + " .steps .step" + step.toString()).dataset.sub = "1"
+                document.querySelector("#seq-row-" + totalRow.toString() + " .steps .step" + step.toString()).dataset.micro = "0.00"
+            }
+        });
 
+        // Enable Row Clear
+        document.querySelector("#seq-row-" + totalRow.toString() + " .row-clear").addEventListener('click', function rowClear() {
+            for (let step = 1; step <= 16; step++) {
+                document.querySelector("#seq-row-" + this.textContent + " .steps .step" + step.toString()).style.backgroundColor = "darkgray";
+            }
+        });
+
+        // Enable Loading Samples
+        let $audio = $('#audio-' + totalRow.toString());
+        $('#inst-' + totalRow.toString()).on('change', function (e) {
+            let target = e.currentTarget;
+            let file = target.files[0];
+
+            if (target.files && file) {
+                let reader = new FileReader();
+                reader.onload = function (e) {
+                    $audio.attr('src', e.target.result);
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Display their names
+        document.querySelector("#inst-" + totalRow.toString()).addEventListener('change', function displaySample() {
+            this.parentNode.querySelector("label[id^='new-inst-']").textContent = document.querySelector("#inst-" + totalRow.toString()).value.replace("C:\\fakepath\\", "");
+        });
+
+        // Enable Mute Function
+        document.querySelector("#seq-row-" + totalRow.toString() + " .mute").addEventListener('click', function muteRow() {
+            toggleColor(this, "red", "gray");
+        });
+
+        // Enable Solo Function
+        document.querySelector("#seq-row-" + totalRow.toString() + " .solo").addEventListener('click', function soloRow() {
+            toggleColor(this, "orange", "gray");
         });
     }
-
-
-    // Enable Row Clear
-    document.querySelector("#seq-row-" + totalRow.toString() + " .row-clear").addEventListener('click', function rowClear() {
-        for (let step = 1; step <= 16; step++) {
-            document.querySelector("#seq-row-" + this.textContent + " .steps .step" + step.toString()).style.backgroundColor = "darkgray";
-        }
-    });
-
-    // Enable Loading Samples
-    let $audio = $('#audio-' + totalRow.toString());
-    $('#inst-' + totalRow.toString()).on('change', function(e) {
-        let target = e.currentTarget;
-        let file = target.files[0];
-
-        if (target.files && file) {
-            let reader = new FileReader();
-            reader.onload = function (e) {
-                $audio.attr('src', e.target.result);
-            }
-            reader.readAsDataURL(file);
-        }
-    });
-
-    // Display their names
-    document.querySelector("#inst-" + totalRow.toString()).addEventListener('change', function displaySample(){
-        this.parentNode.querySelector("label[id^='new-inst-']").textContent = document.querySelector("#inst-" + totalRow.toString()).value.replace("C:\\fakepath\\", "");
-    });
-
-    // Enable Mute Function
-    document.querySelector("#seq-row-" + totalRow.toString() + " .mute").addEventListener('click', function muteRow() {
-        toggleColor(this, "red", "gray");
-    });
-
-    // Enable Solo Function
-    document.querySelector("#seq-row-" + totalRow.toString() + " .solo").addEventListener('click', function soloRow() {
-        toggleColor(this, "orange", "gray");
-    });
-
 }
-
 initializeRow();
 
 /* Navigation Bar */
@@ -174,7 +199,7 @@ document.querySelector("#del-inst").addEventListener('click', function delInst()
 // Set BPM
 document.querySelector("#bpm-label").addEventListener('input', function setBPM() {
     if (document.querySelector("#bpm").value > 0 || document.querySelector("#bpm").value === "") {
-        bpm = 15000 / document.querySelector("#bpm").value;
+        bpm = 60000 / document.querySelector("#bpm").value;
         clearInterval(intervalId);
         intervalId = null;
         intervalId = setInterval(toggleColumn, bpm);
@@ -186,13 +211,12 @@ document.querySelector("#bpm-label").addEventListener('input', function setBPM()
     }
 });
 
-// Play through pattern
-document.querySelector("#play-all").onclick = function playPattern(){
+// Play through pattern / Trigger Steps
+document.querySelector("#play-all").onclick = function playPattern() {
     toggleColor(this, "lawngreen", "gray");
-    if (document.querySelector("#play-all").style.backgroundColor === "lawngreen") {
-        if (!intervalId) {
-            intervalId = setInterval(toggleColumn, bpm);
-        }
+    if (this.style.backgroundColor === "lawngreen") {
+        clearInterval(intervalId);
+        intervalId = setInterval(toggleColumn, bpm);
     } else {
         clearInterval(intervalId);
         intervalId = null;
