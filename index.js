@@ -34,10 +34,10 @@ function toggleColumn() {
         if (document.querySelector("#seq-row-" + row.toString() + " .step" + pos.toString()).style.backgroundColor === "yellow") {
 
             if (Math.random().toFixed(2) < document.querySelector("#seq-row-" + row.toString() + " .step" + pos.toString()).dataset.cond) {
-                document.querySelector("#audio-" + row.toString()).volume = document.querySelector("#seq-row-" + row.toString() + " .step" + pos.toString()).dataset.acc;
 
-                    document.querySelector("#audio-" + row.toString()).currentTime = 0;
-                    document.querySelector("#audio-" + row.toString()).play();
+                document.querySelector("#audio-" + row.toString()).volume = document.querySelector("#seq-row-" + row.toString() + " .step" + pos.toString()).dataset.acc;
+                document.querySelector("#audio-" + row.toString()).currentTime = 0;
+                document.querySelector("#audio-" + row.toString()).play();
             }
         }
     }
