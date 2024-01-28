@@ -1,5 +1,5 @@
 let totalRow= 1; // Number of seq-rows (Global)
-let bpm = 60000 / 120; // BPM (Global)
+let bpm = 60000 / (120 * 4); // BPM (Global)
 let pos = 1; // Current Position
 let maxPos = 16; // maximum position
 let intervalId; // BPM interval
@@ -259,7 +259,7 @@ document.querySelector("#del-col").addEventListener('click', function delCol() {
 // Set BPM
 document.querySelector("#bpm-label").addEventListener('input', function setBPM() {
     if (document.querySelector("#bpm").value > 0 || document.querySelector("#bpm").value === "") {
-        bpm = 60000 / document.querySelector("#bpm").value;
+        bpm = 60000 / (document.querySelector("#bpm").value * 4);
         clearInterval(intervalId);
         intervalId = null;
         intervalId = setInterval(toggleColumn, bpm);
