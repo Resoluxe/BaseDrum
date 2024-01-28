@@ -32,19 +32,18 @@ function toggleColumn() {
 
     for (let row = 1; row <= totalRow; row++) {
         if (document.querySelector("#seq-row-" + row.toString() + " .step" + pos.toString()).style.backgroundColor === "yellow") {
-            if (Math.random().toFixed(2) < document.querySelector("#seq-row-" + row.toString() + " .step" + pos.toString()).dataset.cond) {
 
+            if (Math.random().toFixed(2) < document.querySelector("#seq-row-" + row.toString() + " .step" + pos.toString()).dataset.cond) {
                 document.querySelector("#audio-" + row.toString()).volume = document.querySelector("#seq-row-" + row.toString() + " .step" + pos.toString()).dataset.acc;
 
-                timerId = setTimeout(function toggleMicro() {
                     document.querySelector("#audio-" + row.toString()).currentTime = 0;
                     document.querySelector("#audio-" + row.toString()).play();
-                }, bpm * Number(document.querySelector("#seq-row-" + row.toString() + " .steps .step" + pos.toString()).dataset.micro));
             }
         }
-        pos++;
-        }
     }
+    pos++;
+}
+
 
 
 
@@ -169,7 +168,10 @@ function initializeRow(row) {
         });
     }
 }
-initializeRow(1);
+
+window.onload = function (){
+    initializeRow(1);
+}
 
 /* Navigation Bar */
 
@@ -200,6 +202,7 @@ document.querySelector("#add-inst").addEventListener('click', function addRow() 
     new_row.querySelector("audio").setAttribute("id", "audio-" + totalRow.toString());
     let targetContainer= document.querySelector('#pattern');
     targetContainer.appendChild(document.importNode(new_row, true));
+
     initializeRow(totalRow);
 
 });
