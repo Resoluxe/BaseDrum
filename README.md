@@ -11,18 +11,19 @@ As of 2024/01/28...
 - Trigger / erase steps
 - Import & play samples
 - Pattern playback
+- Variable pattern length
 - Advanced per-step controls :
   - Accent
   - Conditional
+  - Microtiming (0% ~ +50%)
 
 ## To-be Implemented
 - Saving / Loading Patterns as a file
-- Multiple pages (more than 16 steps)
+  - Chaining multiple patterns
 - Advanced Features:
-  - Micro Timing
   - Ratchet (Substeps)
   - Shuffle (Swing)
-  - Custom beat signature / pattern length (e.g. 5/4 measure)
+  - Custom beat signature(e.g. 5/4 measure)
 - A much nicer interface
 
 Made with ❤️ from 🇰🇷 by Resoluxe (Minsoo Kang)
