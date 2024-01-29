@@ -237,21 +237,19 @@ document.querySelector("#del-inst").addEventListener('click', function delInst()
 document.querySelector("#add-col").addEventListener('click', function addCol() {
 
     maxPos ++;
-    let newCol = document.createElement("button");
-    newCol.setAttribute("class","step" + maxPos.toString());
-    newCol.setAttribute("data-active", "no");
-    newCol.setAttribute("data-acc", "0.5");
-    newCol.setAttribute("data-cond", "1.0");
-    newCol.setAttribute("data-sub", "1");
-    newCol.setAttribute("data-micro", "0.00");
-    newCol.style.backgroundColor = "darkgray";
 
-    if (maxPos % 4 === 1) {
-        let divider = document.querySelector(".divider").cloneNode(true);
-        document.querySelectorAll(".steps").forEach((element) => element.appendChild(divider));
+    for (let row = 1; row <= totalRow; row++) {
+
+        if (maxPos % 4 === 1) {
+            let divider = document.querySelector(".divider").cloneNode(true);
+            document.querySelector("#seq-row-" + row.toString() + " .steps").appendChild(divider);
+        }
+
+        let newStep = document.querySelector(".step1").cloneNode(true);
+        newStep.setAttribute("class", "step" + maxPos.toString());
+        document.querySelector("#seq-row-" + row.toString() + " .steps").appendChild(newStep);
+
     }
-
-    document.querySelectorAll(".steps").forEach((element) => element.appendChild(newCol));
 
     for (let i = 1; i <= totalRow; i++) {
         initializeRow(i);
