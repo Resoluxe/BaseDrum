@@ -3,7 +3,7 @@ BaseDrum is a web-based 'Drum Pattern Playground' where you can experiment with 
 The individual sounds are not the main concern here - rather it's more about the rhythm and dynamics!
 
 ## Current Features
-As of 2024/01/28...
+As of 2024/01/29...
 
 - No Track limits!
 - Can add / delete tracks one by one
@@ -16,15 +16,15 @@ As of 2024/01/28...
 - Advanced per-step controls :
   - Accent
   - Conditional
+  - Microtiming (0% ~ +50%)
+  - Ratchet (Substeps) - Activates when other active steps are nearby
+- Custom beat signatures
 
 ## To-be Implemented
 - Saving / Loading Patterns as a file
   - Chaining multiple patterns
 - Advanced Features:
-  - Microtiming
-  - Ratchet (Substeps)
   - Shuffle (Swing)
-  - Custom beat signature(e.g. 5/4 measure)
 - A much nicer interface
 
 Made with ❤️ from 🇰🇷 by Resoluxe (Minsoo Kang)
