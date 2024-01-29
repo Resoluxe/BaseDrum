@@ -180,7 +180,6 @@ div[id^='seq-row-']{
 }
 
 div[id^='seq-row-'] .row-clear{
-    background-color: gray;
     color: white;
     width: 25px;
     height: 25px;

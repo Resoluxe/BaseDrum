@@ -31,21 +31,21 @@ function toggleColumn() {
     document.querySelectorAll(".step" + pos.toString()).forEach((element) => toggleColor(element, "yellow", "lawngreen"));
 
     for (let row = 1; row <= totalRow; row++) {
+        document.querySelector("#seq-row-" + row.toString() + " .row-clear").style.backgroundColor = "gray";
         if (document.querySelector("#seq-row-" + row.toString() + " .step" + pos.toString()).style.backgroundColor === "yellow") {
 
             if (Math.random().toFixed(2) < document.querySelector("#seq-row-" + row.toString() + " .step" + pos.toString()).dataset.cond) {
 
+                document.querySelector("#seq-row-" + row.toString() + " .step" + pos.toString()).textContent = '';
                 document.querySelector("#audio-" + row.toString()).volume = document.querySelector("#seq-row-" + row.toString() + " .step" + pos.toString()).dataset.acc;
+                toggleColor(document.querySelector("#seq-row-" + row.toString() + " .row-clear"), "yellow", "gray");
                 document.querySelector("#audio-" + row.toString()).currentTime = 0;
                 document.querySelector("#audio-" + row.toString()).play();
-            }
+            } else {document.querySelector("#seq-row-" + row.toString() + " .step" + pos.toString()).textContent = 'X';}
         }
     }
     pos++;
 }
-
-
-
 
 
 /* Initialize Nav Bar */
@@ -65,18 +65,18 @@ document.querySelector("#file-name").addEventListener('blur', function changeFil
 
 function initializeRow(row) {
 
-    // Make all buttons inactive before doing anything
-    for (let step = 1; step <= maxPos; step++) {
-        document.querySelector("#seq-row-" + row.toString() + " .steps .step" + step.toString()).style.backgroundColor = "darkgray";
-        document.querySelector("#seq-row-" + row.toString() + " .steps .step" + step.toString()).style.border = "";
-    }
+    let clone = document.querySelector("#seq-row-" + row.toString()).cloneNode(true);
+    document.querySelector("#pattern").replaceChild(clone, document.querySelector("#seq-row-" + row.toString()));
 
+    // Make all buttons inactive before doing anything
+
+    document.querySelector("#seq-row-" + row.toString() + " .row-clear").style.backgroundColor = "gray";
     document.querySelector("#seq-row-" + row.toString() + " .mute").style.backgroundColor = "gray";
     document.querySelector("#seq-row-" + row.toString() + " .solo").style.backgroundColor = "gray";
 
-
-    // Toggle Step
     for (let step = 1; step <= maxPos; step++) {
+        document.querySelector("#seq-row-" + row.toString() + " .steps .step" + step.toString()).style.backgroundColor = "darkgray";
+        document.querySelector("#seq-row-" + row.toString() + " .steps .step" + step.toString()).style.border = "";
 
         // Enable Toggling Steps
         document.querySelector("#seq-row-" + row.toString() + " .steps .step" + step.toString()).addEventListener('dblclick', function toggleStep() {
@@ -85,7 +85,6 @@ function initializeRow(row) {
 
         // Enable Selecting Steps, and then interacting with their values
         document.querySelector("#seq-row-" + row.toString() + " .steps .step" + step.toString()).addEventListener('click', function selectStep() {
-
             document.querySelector("#seq-row-" + row.toString() + " .steps .step" + step.toString()).style.border = "3px black solid";
 
             if (lastSelection) {
@@ -129,45 +128,64 @@ function initializeRow(row) {
                 document.querySelector("#seq-row-" + row.toString() + " .steps .step" + step.toString()).dataset.micro = "0.00"
             }
         });
-
-        // Enable Row Clear
-        document.querySelector("#seq-row-" + row.toString() + " .row-clear").addEventListener('click', function rowClear() {
-            for (let step = 1; step <= maxPos; step++) {
-                document.querySelector("#seq-row-" + this.textContent + " .steps .step" + step.toString()).style.backgroundColor = "darkgray";
-            }
-        });
-
-        // Enable Loading Samples
-        let $audio = $('#audio-' + row.toString());
-        $('#inst-' + row.toString()).on('change', function (e) {
-            let target = e.currentTarget;
-            let file = target.files[0];
-
-            if (target.files && file) {
-                let reader = new FileReader();
-                reader.onload = function (e) {
-                    $audio.attr('src', e.target.result);
-                }
-                reader.readAsDataURL(file);
-            }
-        });
-
-        // Display their names
-        document.querySelector("#inst-" + row.toString()).addEventListener('change', function displaySample() {
-            this.parentNode.querySelector("label[id^='new-inst-']").textContent = document.querySelector("#inst-" + row.toString()).value.replace("C:\\fakepath\\", "");
-        });
-
-        // Enable Mute Function
-        document.querySelector("#seq-row-" + row.toString() + " .mute").addEventListener('click', function muteRow() {
-            toggleColor(this, "red", "gray");
-        });
-
-        // Enable Solo Function
-        document.querySelector("#seq-row-" + row.toString() + " .solo").addEventListener('click', function soloRow() {
-            toggleColor(this, "orange", "gray");
-        });
     }
+
+    // Enable Row Clear
+    document.querySelector("#seq-row-" + row.toString() + " .row-clear").addEventListener('click', function rowClear() {
+        for (let step = 1; step <= maxPos; step++) {
+            document.querySelector("#seq-row-" + this.textContent + " .steps .step" + step.toString()).style.backgroundColor = "darkgray";
+        }
+    });
+
+    // Enable Loading Samples
+    let $audio = $('#audio-' + row.toString());
+    $('#inst-' + row.toString()).on('change', function (e) {
+        let target = e.currentTarget;
+        let file = target.files[0];
+
+        if (target.files && file) {
+            let reader = new FileReader();
+            reader.onload = function (e) {
+                $audio.attr('src', e.target.result);
+            }
+            reader.readAsDataURL(file);
+        }
+    });
+
+    // Display their names
+    document.querySelector("#inst-" + row.toString()).addEventListener('change', function displaySample() {
+        this.parentNode.querySelector("label[id^='new-inst-']").textContent = document.querySelector("#inst-" + row.toString()).value.replace("C:\\fakepath\\", "");
+    });
+
+    // Enable Mute Function
+    document.querySelector("#seq-row-" + row.toString() + " .mute").addEventListener('click', function muteRow()  {
+        toggleColor(this, "red", "gray");
+        document.querySelector("#audio-" + row.toString()).muted = this.style.backgroundColor === "red";
+    });
+
+    // Enable Solo Function
+    document.querySelector("#seq-row-" + row.toString() + " .solo").addEventListener('click', function soloRow() {
+        toggleColor(this, "orange", "gray");
+
+        if (this.style.backgroundColor === "orange") {
+            let otherRows = [...Array(totalRow).keys()].map((element) => element + 1).filter(function(x) { return x !== row; });
+            for (let i = 0; i < otherRows.length; i++) {
+                document.querySelector("#seq-row-" + otherRows[i].toString() + " .solo").style.backgroundColor = "gray";
+                document.querySelector("#seq-row-" + otherRows[i].toString() + " .mute").style.backgroundColor = "red";
+                document.querySelector("#audio-" + otherRows[i].toString()).muted = true;
+            }
+            document.querySelector("#seq-row-" + row.toString() + " .mute").style.backgroundColor = "gray";
+            document.querySelector("#audio-" + row.toString()).muted = false;
+        } else {
+            for (let i = 1; i <= totalRow; i++) {
+                document.querySelector("#seq-row-" + i.toString() + " .solo").style.backgroundColor = "gray";
+                document.querySelector("#seq-row-" + i.toString() + " .mute").style.backgroundColor = "gray";
+                document.querySelector("#audio-" + i.toString()).muted = false;
+            }
+        }
+    });
 }
+
 
 window.onload = function (){
     initializeRow(1);
@@ -235,10 +253,9 @@ document.querySelector("#add-col").addEventListener('click', function addCol() {
 
     document.querySelectorAll(".steps").forEach((element) => element.appendChild(newCol));
 
-    for (let i = 1 ; i <= totalRow; i++) {
+    for (let i = 1; i <= totalRow; i++) {
         initializeRow(i);
     }
-
 
 });
 
@@ -246,19 +263,22 @@ document.querySelector("#add-col").addEventListener('click', function addCol() {
 document.querySelector("#del-col").addEventListener('click', function delCol() {
     if (maxPos > 1) {
         for (let row = 1; row <= totalRow; row++) {
+            document.querySelector("#seq-row-" + row.toString() + " .steps").removeChild(document.querySelector("#seq-row-" + row.toString() + " .steps").lastElementChild);
             if (document.querySelector("#seq-row-" + row.toString() + " .steps").lastElementChild.textContent === "⎮") {
                 document.querySelector("#seq-row-" + row.toString() + " .steps").removeChild(document.querySelector("#seq-row-" + row.toString() + " .steps").lastElementChild);
             }
-            document.querySelector("#seq-row-" + row.toString() + " .steps").removeChild(document.querySelector("#seq-row-" + row.toString() + " .steps").lastElementChild);
         }
         maxPos--;
+        for (let i = 1; i <= totalRow; i++) {
+            initializeRow(i);
+        }
     }
 });
 
 
 // Set BPM
 document.querySelector("#bpm-label").addEventListener('input', function setBPM() {
-    if (document.querySelector("#bpm").value > 0 || document.querySelector("#bpm").value === "") {
+    if (document.querySelector("#bpm").value > 0) {
         bpm = 60000 / (document.querySelector("#bpm").value * 4);
         clearInterval(intervalId);
         intervalId = null;
