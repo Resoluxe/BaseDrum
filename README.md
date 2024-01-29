@@ -11,6 +11,7 @@ As of 2024/01/28...
 - Trigger / erase steps
 - Import & play samples
 - Pattern playback
+- Mute / Solo tracks
 - Variable pattern length
 - Advanced per-step controls :
   - Accent
