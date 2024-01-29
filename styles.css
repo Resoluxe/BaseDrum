@@ -157,6 +157,21 @@ button{
     text-align: center;
 }
 
+#beat-label{
+    background-color: white;
+    width: 47px;
+    height: 20px;
+    text-align: center;
+    margin-right: 5px;
+}
+
+#beat{
+    background-color: white;
+    width: 47px;
+    height: 20px;
+    text-align: center;
+}
+
 .nav-utils *{
     background-color: gray;
     width: 55px;
@@ -166,7 +181,15 @@ button{
     padding: 0;
 }
 
+#stop{
+    background-color: red !important;
+}
+
 /* The Sequencer (Base)*/
+
+#unique-divider{
+    display: none;
+}
 
 #pattern{
     display:grid;

@@ -14,6 +14,8 @@
 
     <hr/>
 
+    <div id="unique-divider">⎮</div>
+
     <div id="grid-container">
 
         <div id="info-bar">
@@ -23,8 +25,9 @@
             <label class="info-label" id="acc-label"><input class="info-input" type="number" min="0.0" max="1.0" step="0.01" id="ac" placeholder="0.5" /></label>
             <label class="info-label" id="cond-label"><input class="info-input" type="number" min="0.0" max="1.0" step="0.01" id="cond" placeholder="1.0" /></label>
             <label class="info-label" id="sub-label"><input class="info-input" type="number" min="0" max="5" id="sub" placeholder="1" /></label>
-            <label class="info-label" id="micro-label"><input class="info-input" type="number" min="0.00" max="0.50" step="0.01" id="micro" placeholder="0.00" /></label>
-            <label id="bpm-label"><input type="number" id="bpm" placeholder="120" /></label>
+            <label class="info-label" id="micro-label"><input class="info-input" type="number" min="0.00" max="0.30" step="0.01" id="micro" placeholder="0.00" /></label>
+            <label class="info-label" id="bpm-label"><input class="info-input" type="number" id="bpm" placeholder="120" /></label>
+            <label class="info-label" id="beat-label"><input class="info-input" type="number" id="beat" placeholder="4" min = "1" /></label>
 
         </div>
 
@@ -40,9 +43,9 @@
                 <button id="conditional"> ⚀COND </button>
                 <button id="ratchet"> RTCHT </button>
                 <button id="micro-timing"> MICRO </button>
-                <button id="config"> TEMPO </button>
-                <button id="prev-page"> ⇤PREV </button>
-                <button id="next-page"> ⇥NEXT </button>
+                <button id="tempo"> TEMPO </button>
+                <button id="sign"> SIGN </button>
+                <button id="stop"> STOP </button>
             </div>
         </div>
 
