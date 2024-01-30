@@ -84,6 +84,14 @@ button{
     text-align: center;
 }
 
+#loop{
+    background-color: gray;
+    width: 55px;
+    height: 25px;
+    border-radius: 10%;
+    text-align: center;
+}
+
 /* The Navigation Bar*/
 
 #nav-bar{
@@ -180,13 +188,42 @@ button{
     text-align: center;
     padding: 0;
 }
+
+button[id^="page"]{
+    background-color: gray;
+    width: 25px;
+    height: 25px;
+    border-radius: 10%;
+    text-align: center;
+}
+
+#add-page{
+    background-color: gray;
+    width: 55px;
+    height: 25px;
+    border-radius: 10%;
+    text-align: center;
+}
+
+#del-page{
+    background-color: gray;
+    width: 55px;
+    height: 25px;
+    border-radius: 10%;
+    text-align: center;
+}
+
 /* The Sequencer (Base)*/
+
+.invisible{
+    display: none !important;
+}
 
 #unique-divider{
     display: none;
 }
 
-#pattern{
+div[id^="pattern-"]{
     display:grid;
     grid-auto-rows: 2rem;
     grid-template-columns: subgrid;
@@ -245,13 +282,6 @@ div[id^='seq-row-'] .steps button[class^='step']{
     border-radius: 20%;
 }
 
-button[class="step0"]{
-    display: none !important;
-}
-
-button[class="step-1"]{
-    display: none !important;
-}
 
 div[id^='seq-row-'] .steps .divider{
     font-size: 20px;
