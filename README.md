@@ -6,8 +6,7 @@ The individual sounds are not the main concern here - rather it's more about the
 As of 2024/01/29...
 
 - No Track limits!
-- Can add / delete tracks one by one
-- Wipe a specific row, or all of them at once! ('Nuke')
+- Pattern Erase : Per row / Entire Pattern (Nuke)
 - Trigger / erase steps
 - Import & play samples
 - Pattern playback
@@ -17,7 +16,7 @@ As of 2024/01/29...
   - Accent
   - Conditional
   - Microtiming (0% ~ +50%)
-  - Ratchet (Substeps) - Activates when other active steps are nearby
+  - Ratchet (Substeps)
 - Custom beat signatures
 
 ## To-be Implemented
