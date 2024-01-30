@@ -180,11 +180,6 @@ button{
     text-align: center;
     padding: 0;
 }
-
-#stop{
-    background-color: red !important;
-}
-
 /* The Sequencer (Base)*/
 
 #unique-divider{
@@ -248,6 +243,14 @@ div[id^='seq-row-'] .steps button[class^='step']{
     width: 25px;
     height: 25px;
     border-radius: 20%;
+}
+
+button[class="step0"]{
+    display: none !important;
+}
+
+button[class="step-1"]{
+    display: none !important;
 }
 
 div[id^='seq-row-'] .steps .divider{

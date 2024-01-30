@@ -3,9 +3,8 @@ let baseVal = 4; // Time Signature
 let bpm = 120; // BPM (Global)
 let pos = 1; // Current Position
 let maxPos = 16; // maximum position
-let intervalId; // BPM interval
+let intervalId; // BPM interval (in timeout form)
 let lastSelection;
-
 
 
 /* Commonly Used Functions */
@@ -18,43 +17,58 @@ function toggleColor(current, active, inactive) {
     }
 }
 
+
 // Toggle Column
 function toggleColumn() {
 
-    document.querySelectorAll(".step" + (pos - 1).toString()).forEach((element) => toggleColor(element, "yellow", "lawngreen"));
-
-    document.querySelectorAll(".step" + pos.toString()).forEach((element) => toggleColor(element, "yellow", "lawngreen"));
+    let tempPos= pos;
 
     for (let row = 1; row <= totalRow; row++) {
-        if (document.querySelector("#seq-row-" + row.toString() + " .step" + pos.toString()).style.backgroundColor === "yellow") {
-            toggleColor(document.querySelector("#seq-row-" + row.toString() + " .row-clear"), "yellow", "gray");
 
-            if (Math.random() < Number(document.querySelector("#seq-row-" + row.toString() + " .step" + pos.toString()).dataset.cond)) {
+        let current_step = document.querySelector("#seq-row-" + row.toString() + " .step" + tempPos.toString());
 
-                document.querySelector("#audio-" + row.toString()).volume = Number(document.querySelector("#seq-row-" + row.toString() + " .step" + pos.toString()).dataset.acc);
+        document.querySelector("#accent").style.backgroundColor = "gray";
+        document.querySelector("#tempo").style.backgroundColor = "gray";
+        document.querySelector("#page").style.backgroundColor = "gray";
 
+        if (pos === 1) {
+            document.querySelector("#tempo").style.backgroundColor = "orange";
+            document.querySelector("#page").style.backgroundColor = "orange";
+        } else if (pos % baseVal === 1) {
+            document.querySelector("#tempo").style.backgroundColor = "orange";
+        }
+
+        if (current_step.dataset.active === "yes") {
+            if (Math.random() < current_step.dataset.cond) {
+                current_step.textContent = current_step.dataset.sub;
+                document.querySelector("#audio-" + row.toString()).volume = Number(current_step.dataset.acc);
                 setTimeout(function () {
-                    let subCount = Number(document.querySelector("#seq-row-" + row.toString() + " .step" + pos.toString()).dataset.sub);
-                    for (let sub = 1; sub <= subCount; sub++) {
+                    for (let sub = 1; sub <= Number(current_step.dataset.sub); sub++) {
                         setTimeout(function () {
-                            toggleColor(document.querySelector("#seq-row-" + row.toString() + " .row-clear"), "yellow", "gray");
+                            toggleColor(document.querySelector("#accent"), "#" + Math.floor(Number(current_step.dataset.acc) * 255).toString(16) + "0000", "gray");
+                            toggleColor((document.querySelector("#seq-row-" + row.toString() + " .row-clear")), 'yellow', 'gray');
+                            toggleColor(current_step, 'yellow', 'lawngreen');
                             document.querySelector("#audio-" + row.toString()).currentTime = 0;
-                            document.querySelector("#audio-" + row.toString()).play();
+                            document.querySelector("#audio-" + row.toString()).play()
                         }, 60000 / (bpm * baseVal * sub));
+                        toggleColor((document.querySelector("#seq-row-" + row.toString() + " .row-clear")), 'yellow', 'gray');
+                        toggleColor(current_step, 'yellow', 'lawngreen');
                     }
-                }, (60000 * Number(document.querySelector("#seq-row-" + row.toString() + " .step" + pos.toString()).dataset.micro)) / (bpm * baseVal));
+                }, (60000 * Number(current_step.dataset.micro)) / (bpm * baseVal));
             } else {
-                document.querySelector("#seq-row-" + row.toString() + " .step" + pos.toString()).textContent = 'X';
+                document.querySelector("#conditional").style.backgroundColor = "orange";
+                current_step.textContent = "X";
             }
         }
     }
+
     pos++;
 
     if (pos > maxPos) {
         pos = 1;
-        document.querySelectorAll(".step" + maxPos.toString()).forEach((element) => toggleColor(element, "yellow", "lawngreen"));
     }
 }
+
 
 /* Initialize Nav Bar */
 
@@ -67,7 +81,18 @@ document.querySelector("#file-name").addEventListener('blur', function changeFil
 // Upload Pattern
 
 // Download pattern
+function downloadInnerHtml(fileName, elId, mimeType) {
+    let elHtml = document.getElementById(elId).innerHTML;
+    let link = document.createElement('a');
+    mimeType = mimeType || 'text/plain';
 
+    link.setAttribute('download', fileName);
+    link.setAttribute('href', 'data:' + mimeType  +  ';charset=utf-8,' + encodeURIComponent(elHtml));
+    link.click();
+}
+$('#down-file').click(function(){
+    downloadInnerHtml(document.querySelector("#file-name").value, 'index','text/html');
+});
 
 /* Initialize Row (for the subsequent sequencer rows) */
 
@@ -86,10 +111,11 @@ function initializeRow(row) {
     document.querySelector("#seq-row-" + row.toString() + " .solo").style.backgroundColor = "gray";
 
     for (let step = 1; step <= maxPos; step++) {
-        document.querySelector("#seq-row-" + row.toString() + " .steps .step" + step.toString()).style.backgroundColor = "darkgray";
-        document.querySelector("#seq-row-" + row.toString() + " .steps .step" + step.toString()).style.border = "";
+        document.querySelector("#seq-row-" + row.toString() + " .step" + step.toString()).style.backgroundColor = "darkgray";
+        document.querySelector("#seq-row-" + row.toString() + " .step" + step.toString()).style.border = "";
         document.querySelector("#seq-row-" + row.toString() + " .step" + step.toString()).style.color = "#7F0000";
         document.querySelector("#seq-row-" + row.toString() + " .step" + step.toString()).style.fontWeight = "bolder";
+        document.querySelector("#seq-row-" + row.toString() + " .step" + step.toString()).dataset.active = "no";
 
         // Enable Toggling Steps
         document.querySelector("#seq-row-" + row.toString() + " .steps .step" + step.toString()).addEventListener('dblclick', function toggleStep() {
@@ -108,7 +134,7 @@ function initializeRow(row) {
         });
 
 
-        // Enable Selecting Steps, and then interacting with their values
+        // Enable Selecting Steps, and then interacting with their values (+ Triggers Sound)
         document.querySelector("#seq-row-" + row.toString() + " .steps .step" + step.toString()).addEventListener('click', function selectStep() {
 
             document.querySelector("#seq-row-" + row.toString() + " .steps .step" + step.toString()).style.border = "3px black solid";
@@ -151,6 +177,7 @@ function initializeRow(row) {
                 document.querySelector("#seq-row-" + row.toString() + " .step" + step.toString()).dataset.sub = "1"
                 document.querySelector("#seq-row-" + row.toString() + " .step" + step.toString()).dataset.micro = "0.00"
             }
+
         });
     }
 
@@ -253,7 +280,6 @@ document.querySelector("#add-inst").addEventListener('click', function addRow() 
     targetContainer.appendChild(document.importNode(new_row, true));
 
     initializeRow(totalRow);
-
 });
 
 // Remove the lowermost instrument
@@ -312,7 +338,9 @@ document.querySelector("#bpm-label").addEventListener('input', function setBPM()
     if (document.querySelector("#bpm").value > 0) {
         bpm = document.querySelector("#bpm").value
         clearInterval(intervalId);
-        intervalId = setInterval(toggleColumn, 60000 / (bpm * baseVal));
+        if (document.querySelector("#play-all").style.backgroundColor === "lawngreen") {
+            intervalId = setInterval(toggleColumn, 60000 / (bpm * baseVal));
+        }
     } else {
         alert("BPM must be higher than 0!");
         document.querySelector("#bpm").value = ""
@@ -326,15 +354,16 @@ document.querySelector("#play-all").onclick = function playPattern() {
     toggleColor(this, "lawngreen", "gray");
 
     if (this.style.backgroundColor === "lawngreen") {
+        pos = 1;
         intervalId = setInterval(toggleColumn, 60000 / (bpm * baseVal));
     } else {clearInterval(intervalId);}
-
 }
 
 // Signature Change
 document.querySelector("#beat").onchange = function beatChange() {
 
     baseVal = Number(this.value);
+
     let divider = document.querySelector(".divider").cloneNode(true);
     $(".divider").remove();
 
@@ -342,14 +371,9 @@ document.querySelector("#beat").onchange = function beatChange() {
         for (let step = 1; step <= maxPos; step++) {
             if (step % baseVal === 0) {
                 let dividerClone = divider.cloneNode(true);
-                $(dividerClone).insertAfter("#seq-row-" + row.toString() + " .steps .step" + step.toString())
+                $(dividerClone).insertAfter("#seq-row-" + row.toString() + " .steps .step" + step.toString());
             }
         }
         initializeRow(row);
     }
-}
-
-// Emergency Stop (Work in Progress)
-document.querySelector("#stop").onclick = function emergencyStop() {
-
 }
