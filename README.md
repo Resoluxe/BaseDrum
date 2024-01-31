@@ -18,13 +18,13 @@ The sky, and my HTML + CSS + JS spaghetti "code" is the limit.
 3. File manipulation - Sample import / Pattern Save & Load!  
 Since I do not have any ability or whatsoever to tinker with the backend, there is literally no way for myself to store your information.  
 Please be assured that everything you do in BaseDrum is done locally.  
-(Technically, samples are loaded as links to your audio files, and patterns are saved / loaded as HTML files.  
-Realistically, the only case you should be cautious is when sharing your patterns.)  
+(Technically, samples are loaded as links to your audio files, and patterns are saved / loaded as HTML files.
+When saving patterns, links to your audio files are automatically erased for added security when sharing patterns.)   
 
-4. Maximum Blinkiness!  
+5. Maximum Blinkiness!  
 After all, that's what you came for, is it not?
  
-## License: 
+## License
 - You are free to use this application (BaseDrum) as-is (with no warranty provided, so if anything bad happens I cannot take any responsibility).
 - You can also modify its code to your heart's content and publish even better version of BaseDrum. (Though I would appreciate direct contributions for my learning)
 - If you decide to make money with BaseDrum and my code, do contact me through davidk1118@gmail.com.
