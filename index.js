@@ -10,7 +10,6 @@ let currentPage = 1; // Current Page
 let pageCount = 1; // Pattern Count
 let loadedProject;
 
-
 /* Commonly Used Functions */
 
 function toggleColor(current, active, inactive) {
@@ -254,32 +253,30 @@ function initializeRow(page, row) {
 
     for (let step = 1; step <= maxPos; step++) {
 
-        if (document.querySelector("#pattern-" + page.toString() + " #seq-row-" + row.toString() + "-" + page.toString()  + " .steps .step" + step.toString()).dataset.active === "yes") {
-            document.querySelector("#pattern-" + page.toString() + " #seq-row-" + row.toString() + "-" + page.toString()  + " .steps .step" + step.toString()).style.backgroundColor = "lawngreen";
-            document.querySelector("#pattern-" + page.toString() + " #seq-row-" + row.toString() + "-" + page.toString()  + " .steps .step" + step.toString()).textContent = document.querySelector("#pattern-" + page.toString() + " #seq-row-" + row.toString() + "-" + page.toString()  + " .steps .step" + step.toString()).dataset.sub;
+        if (document.querySelector("#pattern-" + page.toString() + " #seq-row-" + row.toString() + "-" + page.toString() + " .steps .step" + step.toString()).dataset.active === "yes") {
+            document.querySelector("#pattern-" + page.toString() + " #seq-row-" + row.toString() + "-" + page.toString() + " .steps .step" + step.toString()).style.backgroundColor = "lawngreen";
+            document.querySelector("#pattern-" + page.toString() + " #seq-row-" + row.toString() + "-" + page.toString() + " .steps .step" + step.toString()).textContent = document.querySelector("#pattern-" + page.toString() + " #seq-row-" + row.toString() + "-" + page.toString() + " .steps .step" + step.toString()).dataset.sub;
+        } else {
+            document.querySelector("#pattern-" + page.toString() + " #seq-row-" + row.toString() + "-" + page.toString() + " .steps .step" + step.toString()).style.backgroundColor = "darkgray"
         }
-        else {document.querySelector("#pattern-" + page.toString() + " #seq-row-" + row.toString() + "-" + page.toString()  + " .steps .step" + step.toString()).style.backgroundColor = "darkgray"}
         document.querySelector("#pattern-" + page.toString() + " #seq-row-" + row.toString() + "-" + page.toString() + " .step" + step.toString()).style.paddingLeft = (5 + Number(document.querySelector("#pattern-" + page.toString() + " #seq-row-" + row.toString() + "-" + page.toString() + " .steps .step" + step.toString()).dataset.micro) * 10).toString() + "px";
 
         // Enable Toggling Steps
-        document.querySelector("#pattern-" + page.toString() + " #seq-row-" + row.toString() + "-" + page.toString()  + " .steps .step" + step.toString()).addEventListener('dblclick', function toggleStep() {
+        document.querySelector("#pattern-" + page.toString() + " #seq-row-" + row.toString() + "-" + page.toString() + " .steps .step" + step.toString()).addEventListener('click', function toggleStep() {
 
             toggleColor(this, "lawngreen", "darkgray");
 
             if (this.textContent === "") {
-                this.textContent = document.querySelector("#pattern-" + page.toString() + " #seq-row-" + row.toString() + "-" + page.toString()  + " .step" + step.toString()).dataset.sub;
-            } else {this.textContent = "";}
+                this.textContent = document.querySelector("#pattern-" + page.toString() + " #seq-row-" + row.toString() + "-" + page.toString() + " .step" + step.toString()).dataset.sub;
+            } else {
+                this.textContent = "";
+            }
 
             if (this.getAttribute("data-active") === "no") {
                 this.setAttribute("data-active", "yes");
             } else if (this.getAttribute("data-active") === "yes") {
                 this.setAttribute("data-active", "no");
             }
-        });
-
-
-        // Enable Selecting Steps, and then interacting with their values (+ Triggers Sound)
-        document.querySelector("#pattern-" + page.toString() + " #seq-row-" + row.toString() + "-" + page.toString() + " .steps .step" + step.toString()).addEventListener('click', function selectStep() {
 
             document.querySelector("#pattern-" + page.toString() + " #seq-row-" + row.toString() + "-" + page.toString() + " .steps .step" + step.toString()).style.border = "3px black solid";
 
@@ -321,10 +318,8 @@ function initializeRow(page, row) {
                 document.querySelector("#pattern-" + page.toString() + " #seq-row-" + row.toString() + "-" + page.toString() + " .step" + step.toString()).dataset.sub = "1"
                 document.querySelector("#pattern-" + page.toString() + " #seq-row-" + row.toString() + "-" + page.toString() + " .step" + step.toString()).dataset.micro = "0.00"
             }
-
         });
     }
-
 
     // Enable Row Clear
     document.querySelector("#pattern-" + page.toString() + " #seq-row-" + row.toString() + "-" + page.toString() + " .row-clear").addEventListener('click', function rowClear() {
@@ -504,6 +499,10 @@ document.querySelector("#play-all").onclick = function playPattern() {
 
     toggleColor(this, "lawngreen", "gray");
 
+    if (document.querySelector("#loop").style.backgroundColor === "lawngreen") {
+        document.querySelector("#loop").style.backgroundColor = "gray"
+    }
+
     if (this.style.backgroundColor === "lawngreen") {
         clearInterval(intervalId);
         pos = 1;
@@ -521,6 +520,10 @@ document.querySelector("#play-all").onclick = function playPattern() {
 document.querySelector("#loop").onclick = function loopPattern() {
 
     toggleColor(this, "lawngreen", "gray");
+
+    if (document.querySelector("#play-all").style.backgroundColor === "lawngreen") {
+        document.querySelector("#play-all").style.backgroundColor = "gray"
+    }
 
     if (this.style.backgroundColor === "lawngreen") {
         clearInterval(intervalId);
