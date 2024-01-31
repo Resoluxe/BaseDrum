@@ -16,9 +16,9 @@ The sky, and my HTML + CSS + JS spaghetti "code" is the limit.
 \* Note: If you know how to implement negative microtiming, and therefore swings(shuffles) then feel free to contribute!
 
 3. File manipulation - Sample import / Pattern Save & Load!  
-Since I do not have any ability or whatsoever to tinker with the backend, there is literally no way for myself to store your information.
-Please be assured that everything you do in BaseDrum is done locally.
-(Technically, samples are loaded as links to your audio files, and patterns are saved / loaded as HTML files.
+Since I do not have any ability or whatsoever to tinker with the backend, there is literally no way for myself to store your information.  
+Please be assured that everything you do in BaseDrum is done locally.  
+(Technically, samples are loaded as links to your audio files, and patterns are saved / loaded as HTML files.  
 Realistically, the only case you should be cautious is when sharing your patterns.)  
 
 4. Maximum Blinkiness!  
@@ -33,7 +33,7 @@ After all, that's what you came for, is it not?
     - Report a bug (there's an issue tracker for that though...),
     - or (even better) provide me with good career opportunities. (No spam please. Had enough with Python.)
 
-My intention of making BaseDrum was to share the joy of crafting drum patterns with everyone (even those without software(DAW)/hardware drum sequencers).
-At least I had a lot of fun with it, and I hope you can have some fun too! (Also hope there are no critical bugs anymore...) 
+My intention of making BaseDrum was to share the joy of crafting drum patterns with everyone (even those without software(DAW)/hardware drum sequencers).  
+At least I had a lot of fun with it, and I hope you can have some fun too! (Also hope there are no critical bugs anymore...)  
 
-Made with ❤️ from 🇰🇷 by Resoluxe (Minsoo Kang)
+Made with ❤️ from 🇰🇷 by Resoluxe (Minsoo Kang)  
