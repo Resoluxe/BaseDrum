@@ -33,58 +33,6 @@ function toggleColumn() {
 
     let tempPos= pos;
 
-        for (let row = 1; row <= totalRow; row++) {
-
-            let current_step = document.querySelector("#pattern-" + currentPage.toString() + " #seq-row-" + row.toString() + "-" + currentPage.toString() + " .step" + tempPos.toString());
-
-            document.querySelector("#accent").style.backgroundColor = "gray";
-            document.querySelector("#tempo").style.backgroundColor = "gray";
-            document.querySelector("#page_right").style.backgroundColor = "gray";
-            document.querySelector("#conditional").style.backgroundColor = "gray";
-
-            if (pos === 1) {
-                document.querySelector("#tempo").style.backgroundColor = "orange";
-                document.querySelector("#page_right").style.backgroundColor = "orange";
-            } else if (pos % baseVal === 1) {
-                document.querySelector("#tempo").style.backgroundColor = "orange";
-            }
-
-            if (current_step.dataset.active === "yes") {
-                if (Math.random() < current_step.dataset.cond) {
-                    current_step.textContent = current_step.dataset.sub;
-                    document.querySelector("#audio-" + row.toString()).volume = Number(current_step.dataset.acc);
-                    setTimeout(function () {
-                        for (let sub = 1; sub <= Number(current_step.dataset.sub); sub++) {
-                            setTimeout(function () {
-                                toggleColor(document.querySelector("#accent"), "#" + Math.floor(Number(current_step.dataset.acc) * 255).toString(16) + "0000", "gray");
-                                toggleColor((document.querySelector("#seq-row-" + row.toString() + "-" + currentPage.toString()  + " .row-clear")), 'yellow', 'gray');
-                                toggleColor(current_step, 'yellow', 'lawngreen');
-                                document.querySelector("#audio-" + row.toString()).currentTime = 0;
-                                document.querySelector("#audio-" + row.toString()).play()
-                            }, 60000 / (bpm * baseVal * sub));
-                            toggleColor((document.querySelector("#seq-row-" + row.toString() + "-" + currentPage.toString()  + " .row-clear")), 'yellow', 'gray');
-                            toggleColor(current_step, 'yellow', 'lawngreen');
-                        }
-                    }, (60000 * Number(current_step.dataset.micro)) / (bpm * baseVal));
-                } else {
-                    document.querySelector("#conditional").style.backgroundColor = "orange";
-                    current_step.textContent = "X";
-                }
-            }
-        }
-
-    pos++;
-
-    if (pos > maxPos) {
-        pos = 1;
-    }
-}
-
-// Toggle Column (Through All Pages)
-function toggleColumnAll() {
-
-    let tempPos= pos;
-
     for (let row = 1; row <= totalRow; row++) {
 
         let current_step = document.querySelector("#pattern-" + currentPage.toString() + " #seq-row-" + row.toString() + "-" + currentPage.toString() + " .step" + tempPos.toString());
@@ -109,7 +57,7 @@ function toggleColumnAll() {
                     for (let sub = 1; sub <= Number(current_step.dataset.sub); sub++) {
                         setTimeout(function () {
                             toggleColor(document.querySelector("#accent"), "#" + Math.floor(Number(current_step.dataset.acc) * 255).toString(16) + "0000", "gray");
-                            toggleColor((document.querySelector("#seq-row-" + row.toString() + "-" + currentPage.toString()  + " .row-clear")), 'yellow', 'gray');
+                            toggleColor(document.querySelector("#seq-row-" + row.toString() + "-" + currentPage.toString()  + " .row-clear"), 'yellow', 'gray');
                             toggleColor(current_step, 'yellow', 'lawngreen');
                             document.querySelector("#audio-" + row.toString()).currentTime = 0;
                             document.querySelector("#audio-" + row.toString()).play()
@@ -127,24 +75,79 @@ function toggleColumnAll() {
 
     pos++;
 
-    if (pos * currentPage > maxPosAll) {
+    if (pos > maxPos) {
+        pos = 1;
+    }
+}
+
+// Toggle Column (Through All Pages)
+function toggleColumnAll() {
+
+    let tempPos= pos;
+    let tempPage = currentPage;
+
+    for (let row = 1; row <= totalRow; row++) {
+
+        let current_step = document.querySelector("#pattern-" + tempPage.toString() + " #seq-row-" + row.toString() + "-" + tempPage.toString() + " .step" + tempPos.toString());
+
+        document.querySelector("#accent").style.backgroundColor = "gray";
+        document.querySelector("#tempo").style.backgroundColor = "gray";
+        document.querySelector("#page_right").style.backgroundColor = "gray";
+        document.querySelector("#conditional").style.backgroundColor = "gray";
+
+        if (pos === 1) {
+            document.querySelector("#tempo").style.backgroundColor = "orange";
+            document.querySelector("#page_right").style.backgroundColor = "orange";
+        } else if (pos % baseVal === 1) {
+            document.querySelector("#tempo").style.backgroundColor = "orange";
+        }
+
+        if (current_step.dataset.active === "yes") {
+            if (Math.random() < current_step.dataset.cond) {
+                current_step.textContent = current_step.dataset.sub;
+                document.querySelector("#audio-" + row.toString()).volume = Number(current_step.dataset.acc);
+                setTimeout(function () {
+                    for (let sub = 1; sub <= Number(current_step.dataset.sub); sub++) {
+                        setTimeout(function () {
+                            toggleColor(document.querySelector("#accent"), "#" + Math.floor(Number(current_step.dataset.acc) * 255).toString(16) + "0000", "gray");
+                            toggleColor(document.querySelector("#seq-row-" + row.toString() + "-" + tempPage.toString()  + " .row-clear"), 'yellow', 'gray');
+                            toggleColor(current_step, 'yellow', 'lawngreen');
+                            document.querySelector("#audio-" + row.toString()).currentTime = 0;
+                            document.querySelector("#audio-" + row.toString()).play()
+                        }, 60000 / (bpm * baseVal * sub));
+                        toggleColor((document.querySelector("#seq-row-" + row.toString() + "-" + tempPage.toString()  + " .row-clear")), 'yellow', 'gray');
+                        toggleColor(current_step, 'yellow', 'lawngreen');
+                    }
+                }, (60000 * Number(current_step.dataset.micro)) / (bpm * baseVal));
+            } else {
+                document.querySelector("#conditional").style.backgroundColor = "orange";
+                current_step.textContent = "X";
+            }
+        }
+    }
+
+    pos++;
+
+    if (pos > maxPos) {
+        currentPage++;
+        pos = 1;
+        for (let page = 1; page <= pageCount; page++) {
+            $("#pattern-" + page.toString()).addClass("invisible");
+        }
+        $("#pattern-" + currentPage.toString()).removeClass("invisible");
+    }
+
+    if (currentPage > pageCount) {
+        currentPage = 1;
+        pos = 1;
         for (let page = 1; page <= pageCount; page++) {
             $("#pattern-" + page.toString()).addClass("invisible");
         }
         $("#pattern-1".toString()).removeClass("invisible");
-        document.querySelector("#subptn").value = "1"
-        currentPage = 1;
-        pos = 1;
     }
-    else if ((maxPosAll * currentPage) / pageCount < pos) {
-        for (let page = 1; page <= pageCount; page++) {
-            $("#pattern-" + page.toString()).addClass("invisible");
-        }
-        $("#pattern-" + (Number(document.querySelector("#subptn").value) + 1).toString()).removeClass("invisible");
-        document.querySelector("#subptn").value = (Number(document.querySelector("#subptn").value) + 1).toString();
-        currentPage++;
-        pos = 1;
-    }
+
+    document.querySelector("#subptn").value = currentPage.toString();
+
 }
 
 
@@ -186,9 +189,10 @@ document.querySelector("#upload-input").onchange = function replaceProject() {
             }
         }
         $("#pattern-1").removeClass("invisible");
+
+
+         document.querySelector("#file-name").value = document.querySelector("#project").dataset.name;
         document.querySelector("#subptn").value = "1";
-
-
         currentPage = 1;
         pos = 1;
         lastSelection = null;
@@ -214,7 +218,7 @@ function downloadInnerHtml(filename, elId, mimeType) {
 }
 
 $('#downloadLink').click(function(){
-    downloadInnerHtml("BaseDrum - " + document.querySelector("#project").dataset.name, 'grid-container','text/html');
+    downloadInnerHtml("BDv1 - " + document.querySelector("#project").dataset.name, 'grid-container','text/html');
 });
 document.querySelector("#download").addEventListener('click', function downloadPattern () {
     document.querySelector("#downloadLink").click();
@@ -590,8 +594,18 @@ document.querySelector("#add-page").onclick = function addPage() {
 
     for (let page = 1; page <= pageCount; page++) {
         $("#pattern-" + page.toString()).addClass("invisible");
+        for (let row = 1; row <= totalRow; row++) {
+            document.querySelectorAll(".continue").forEach((element) => element.textContent = ">");
+            document.querySelectorAll(".continue").forEach((element) => element.style.backgroundColor = "lawngreen");
+        }
     }
     $("#pattern-" + pageCount).removeClass("invisible");
+
+    for (let row = 1; row <= totalRow; row++) {
+        document.querySelector("#seq-row-" + row.toString() + "-" + pageCount.toString() + " .continue").textContent = "<";
+        document.querySelector("#seq-row-" + row.toString() + "-" + pageCount.toString() + " .continue").style.backgroundColor = "red";
+    }
+
     document.querySelector("#subptn").value = pageCount.toString();
 
 }
@@ -600,17 +614,25 @@ document.querySelector("#del-page").onclick = function delPage() {
     if (pageCount > 1) {
         pageCount--;
         maxPosAll = maxPosAll * pageCount;
+        pos = 1;
         document.querySelector("#project").removeChild(document.querySelector("#project").lastElementChild);
         for (let page = 1; page <= pageCount; page++) {
             $("#pattern-" + page.toString()).addClass("invisible");
+            for (let row = 1; row <= totalRow; row++) {
+                document.querySelectorAll(".continue").forEach((element) => element.textContent = ">");
+                document.querySelectorAll(".continue").forEach((element) => element.style.backgroundColor = "lawngreen");
+            }
         }
         if (Number(document.querySelector("#subptn").value) === pageCount) {
             $("#pattern-1").removeClass("invisible");
             document.querySelector("#subptn").value = "1";
+            currentPage = 1;
         } else {
             $("#pattern-" + pageCount.toString()).removeClass("invisible");
-            document.querySelector("#subptn").value = pageCount.toString();
-        currentPage = 1;
+        }
+        for (let row = 1; row <= totalRow; row++) {
+            document.querySelector("#seq-row-" + row.toString() + "-" + pageCount.toString() + " .continue").textContent = "<";
+            document.querySelector("#seq-row-" + row.toString() + "-" + pageCount.toString() + " .continue").style.backgroundColor = "red";
         }
     } else {
         alert("Cannot delete Page 1!");
@@ -619,6 +641,7 @@ document.querySelector("#del-page").onclick = function delPage() {
 
 document.querySelector("#subptn").onchange = function pageNav() {
     if (this.value > 0 && this.value < pageCount) {
+        currentPage = Number(this.value);
         for (let page = 1; page <= pageCount; page++) {
             $("#pattern-" + page.toString()).addClass("invisible");
         }

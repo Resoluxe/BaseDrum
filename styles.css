@@ -298,6 +298,14 @@ div[id^='seq-row-'] .steps .divider{
     margin: 0;
 }
 
+.continue{
+    font-weight: bolder;
+    background-color: red;
+    width: 25px;
+    height: 25px;
+    border-radius: 20%;
+}
+
 .footer{
     text-align: center;
 }
