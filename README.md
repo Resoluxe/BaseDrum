@@ -3,11 +3,11 @@ BaseDrum is a web-based 'Drum Pattern Playground' where you can experiment with 
 The individual sounds are not the main concern here - rather it's more about the rhythm and dynamics!
 
 ## Features
-1. BaseDrum DOES NOT place artificial limitations on well... most of things. 
+1. BaseDrum DOES NOT place artificial limitations on well... most of things.  
 If you want a 2-minute sequence of 8 parts with 17/5 time signature running at 200BPM, then go for it! (Note: Unfound Claim.)  
 The sky, and my HTML + CSS + JS spaghetti "code" is the limit.
 
-2. BaseDrum features precise per-step manipulations, like:
+2. BaseDrum features precise per-step manipulations, like:  
 - Accents (Default at 50% = 0.5, 0% ~ 100%)
 - Conditionals (Default at 100% = 1.0, 0% ~ 100%)
 - Microtiming\* (Default at 0 delay ~ +50% delay)
@@ -15,13 +15,13 @@ The sky, and my HTML + CSS + JS spaghetti "code" is the limit.
 
 \* Note: If you know how to implement negative microtiming, and therefore swings(shuffles) then feel free to contribute!
 
-3. File manipulation - Sample import / Pattern Save & Load!
+3. File manipulation - Sample import / Pattern Save & Load!  
 Since I do not have any ability or whatsoever to tinker with the backend, there is literally no way for myself to store your information.
 Please be assured that everything you do in BaseDrum is done locally.
 (Technically, samples are loaded as links to your audio files, and patterns are saved / loaded as HTML files.
 Realistically, the only case you should be cautious is when sharing your patterns.)  
 
-4. Maximum Blinkiness!
+4. Maximum Blinkiness!  
 After all, that's what you came for, is it not?
  
 ## License: 
