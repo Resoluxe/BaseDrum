@@ -23,11 +23,8 @@ Realistically, the only case you should be cautious is when sharing your pattern
 
 4. Maximum Blinkiness!
 After all, that's what you came for, is it not?
-
-My intention of making BaseDrum was to share the joy of crafting drum patterns with everyone (even those without software(DAW)/hardware drum sequencers).
-At least I had a lot of fun with it, and I hope you can have some fun too! (Also hope there are no critical bugs anymore...)  
-
-**License :** 
+ 
+## License: 
 - You are free to use this application (BaseDrum) as-is (with no warranty provided, so if anything bad happens I cannot take any responsibility).
 - You can also modify its code to your heart's content and publish even better version of BaseDrum. (Though I would appreciate direct contributions for my learning)
 - If you decide to make money with BaseDrum and my code, do contact me through davidk1118@gmail.com.
@@ -35,5 +32,8 @@ At least I had a lot of fun with it, and I hope you can have some fun too! (Also
     - Say thanks,
     - Report a bug (there's an issue tracker for that though...),
     - or (even better) provide me with good career opportunities. (No spam please. Had enough with Python.)
+
+My intention of making BaseDrum was to share the joy of crafting drum patterns with everyone (even those without software(DAW)/hardware drum sequencers).
+At least I had a lot of fun with it, and I hope you can have some fun too! (Also hope there are no critical bugs anymore...) 
 
 Made with ❤️ from 🇰🇷 by Resoluxe (Minsoo Kang)
