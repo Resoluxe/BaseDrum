@@ -47,26 +47,10 @@ button{
 
 #file-name{
     background-color: white;
-    width: 210px;
+    width: 150px;
     height: 20px;
     text-align: center;
     border: 2px black solid;
-}
-
-#load-file{
-    background-color: gray;
-    width: 25px;
-    height: 25px;
-    border-radius: 10%;
-    text-align: center;
-}
-
-#down-file{
-    background-color: gray;
-    width: 25px;
-    height: 25px;
-    border-radius: 10%;
-    text-align: center;
 }
 
 .info-label{
@@ -90,6 +74,31 @@ button{
     height: 25px;
     border-radius: 10%;
     text-align: center;
+}
+
+#download{
+    background-color: gray;
+    width: 25px;
+    height: 25px;
+    border-radius: 10%;
+    text-align: center;
+}
+
+
+#upload{
+    background-color: gray;
+    width: 25px;
+    height: 25px;
+    border-radius: 10%;
+    text-align: center;
+}
+
+#upload-input{
+    display: none;
+}
+
+#downloadLink{
+    display: none;
 }
 
 /* The Navigation Bar*/

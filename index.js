@@ -8,6 +8,7 @@ let intervalId; // BPM interval (in timeout form)
 let lastSelection;
 let currentPage = 1; // Current Page
 let pageCount = 1; // Pattern Count
+let loadedProject;
 
 
 /* Commonly Used Functions */
@@ -19,6 +20,12 @@ function toggleColor(current, active, inactive) {
         current.style.backgroundColor = active;
     }
 }
+
+let convertStringToHTML = function (str) {
+    let parser = new DOMParser();
+    let doc = parser.parseFromString(str, 'text/html');
+    return doc.body;
+};
 
 
 // Toggle Column
@@ -147,26 +154,85 @@ document.querySelector("#play-all").style.backgroundColor = "gray";
 document.querySelector("#loop").style.backgroundColor = "gray";
 document.querySelectorAll(".nav-utils > *").forEach((element) => element.style.backgroundColor = "gray")
 document.querySelector("#file-name").addEventListener('blur', function changeFileName () {
-   document.querySelector("#project").dataset.name =  document.querySelector("#file-name").value;
+    document.querySelector("#project").dataset.name =  document.querySelector("#file-name").value;
 });
 
 // Upload Pattern
 
-// Download pattern
-function downloadInnerHtml(fileName, elId, mimeType) {
+document.querySelector("#upload-input").onchange = function replaceProject() {
+
+    let file = document.querySelector("#upload-input").files[0];
+    const projectReader = new FileReader();
+    projectReader.onload = () => {
+
+        loadedProject = convertStringToHTML(projectReader.result).querySelector("#project");
+
+        bpm = Number(loadedProject.dataset.tempo);
+        baseVal = Number(loadedProject.dataset.sign);
+        document.querySelector("#bpm").value = loadedProject.dataset.tempo;
+        document.querySelector("#beat").value = loadedProject.dataset.sign;
+        pageCount = loadedProject.children.length;
+        maxPos = Number(loadedProject.dataset.steps);
+        maxPosAll = pageCount * maxPos;
+        document.querySelector("#project").dataset.name =  loadedProject.dataset.name;
+        totalRow = loadedProject.querySelector("#pattern-1").children.length;
+
+        document.querySelector("#grid-container").replaceChild(loadedProject, document.querySelector("#project"));
+
+        for (let page = 1; page <= pageCount; page++) {
+            $("#pattern-" + page.toString()).addClass("invisible");
+            for (let row = 1; row <= totalRow; row++) {
+                initializeRow(page, row);
+            }
+        }
+        $("#pattern-1").removeClass("invisible");
+        document.querySelector("#subptn").value = "1";
+
+
+        currentPage = 1;
+        pos = 1;
+        lastSelection = null;
+        clearInterval(intervalId);
+    };
+    projectReader.readAsText(file);
+}
+
+document.querySelector("#upload").addEventListener('click', function uploadProject() {
+    document.querySelector("#upload-input").click()
+});
+
+// Download pattern (as HTML)
+
+function downloadInnerHtml(filename, elId, mimeType) {
     let elHtml = document.getElementById(elId).innerHTML;
     let link = document.createElement('a');
     mimeType = mimeType || 'text/plain';
 
-    link.setAttribute('download', fileName);
+    link.setAttribute('download', filename);
     link.setAttribute('href', 'data:' + mimeType  +  ';charset=utf-8,' + encodeURIComponent(elHtml));
     link.click();
 }
-$('#down-file').click(function(){
-    downloadInnerHtml(document.querySelector("#file-name").value, 'index','text/html');
+
+$('#downloadLink').click(function(){
+    downloadInnerHtml("BaseDrum - " + document.querySelector("#project").dataset.name, 'grid-container','text/html');
+});
+document.querySelector("#download").addEventListener('click', function downloadPattern () {
+    document.querySelector("#downloadLink").click();
 });
 
 /* Initialize Row (for the subsequent sequencer rows) */
+
+function clearRow(page, row) {
+    for (let step = 1; step <= maxPos; step++) {
+        document.querySelector("#pattern-" + page.toString() + " #seq-row-" + row.toString() + "-" + page.toString() + " .steps .step" + step.toString()).style.backgroundColor = "darkgray";
+        document.querySelector("#pattern-" + page.toString() + " #seq-row-" + row.toString() + "-" + page.toString() + " .steps .step" + step.toString()).textContent = "";
+        document.querySelector("#pattern-" + page.toString() + " #seq-row-" + row.toString() + "-" + page.toString() + " .steps .step" + step.toString()).dataset.active = "no";
+        document.querySelector("#pattern-" + page.toString() + " #seq-row-" + row.toString() + "-" + page.toString() + " .steps .step" + step.toString()).dataset.acc = "0.5"
+        document.querySelector("#pattern-" + page.toString() + " #seq-row-" + row.toString() + "-" + page.toString() + " .steps .step" + step.toString()).dataset.cond = "1.0"
+        document.querySelector("#pattern-" + page.toString() + " #seq-row-" + row.toString() + "-" + page.toString() + " .steps .step" + step.toString()).dataset.sub = "1"
+        document.querySelector("#pattern-" + page.toString() + " #seq-row-" + row.toString() + "-" + page.toString() + " .steps .step" + step.toString()).dataset.micro = "0.00"
+    }
+}
 
 function initializeRow(page, row) {
 
@@ -174,20 +240,19 @@ function initializeRow(page, row) {
     for (let i = 1; i <= maxPos; i++) {
         clone.querySelector(".steps .step" + i.toString()).textContent = "";
     }
+
     document.querySelector("#pattern-" + page.toString()).replaceChild(clone, document.querySelector("#pattern-" + page.toString() + " #seq-row-" + row.toString() + "-" + page.toString()));
 
-    // Make all buttons inactive before doing anything
-
     document.querySelector("#pattern-" + page.toString() + " #seq-row-" + row.toString() + "-" + page.toString()  + " .row-clear").style.backgroundColor = "gray";
-    document.querySelector("#pattern-" + page.toString() + " #seq-row-" + row.toString() + "-" + page.toString()  + " .mute").style.backgroundColor = "gray";
-    document.querySelector("#pattern-" + page.toString() + " #seq-row-" + row.toString() + "-" + page.toString()  + " .solo").style.backgroundColor = "gray";
 
     for (let step = 1; step <= maxPos; step++) {
-        document.querySelector("#pattern-" + page.toString() + " #seq-row-" + row.toString() + "-" + page.toString()  + " .step" + step.toString()).style.backgroundColor = "darkgray";
-        document.querySelector("#pattern-" + page.toString() + " #seq-row-" + row.toString() + "-" + page.toString()  + " .step" + step.toString()).style.border = "";
-        document.querySelector("#pattern-" + page.toString() + " #seq-row-" + row.toString() + "-" + page.toString()  + " .step" + step.toString()).style.color = "#7F0000";
-        document.querySelector("#pattern-" + page.toString() + " #seq-row-" + row.toString() + "-" + page.toString()  + " .step" + step.toString()).style.fontWeight = "bolder";
-        document.querySelector("#pattern-" + page.toString() + " #seq-row-" + row.toString() + "-" + page.toString()  + " .step" + step.toString()).dataset.active = "no";
+
+        if (document.querySelector("#pattern-" + page.toString() + " #seq-row-" + row.toString() + "-" + page.toString()  + " .steps .step" + step.toString()).dataset.active === "yes") {
+            document.querySelector("#pattern-" + page.toString() + " #seq-row-" + row.toString() + "-" + page.toString()  + " .steps .step" + step.toString()).style.backgroundColor = "lawngreen";
+            document.querySelector("#pattern-" + page.toString() + " #seq-row-" + row.toString() + "-" + page.toString()  + " .steps .step" + step.toString()).textContent = document.querySelector("#pattern-" + page.toString() + " #seq-row-" + row.toString() + "-" + page.toString()  + " .steps .step" + step.toString()).dataset.sub;
+        }
+        else {document.querySelector("#pattern-" + page.toString() + " #seq-row-" + row.toString() + "-" + page.toString()  + " .steps .step" + step.toString()).style.backgroundColor = "darkgray"}
+        document.querySelector("#pattern-" + page.toString() + " #seq-row-" + row.toString() + "-" + page.toString() + " .step" + step.toString()).style.paddingLeft = (5 + Number(document.querySelector("#pattern-" + page.toString() + " #seq-row-" + row.toString() + "-" + page.toString() + " .steps .step" + step.toString()).dataset.micro) * 10).toString() + "px";
 
         // Enable Toggling Steps
         document.querySelector("#pattern-" + page.toString() + " #seq-row-" + row.toString() + "-" + page.toString()  + " .steps .step" + step.toString()).addEventListener('dblclick', function toggleStep() {
@@ -252,6 +317,7 @@ function initializeRow(page, row) {
 
         });
     }
+
 
     // Enable Row Clear
     document.querySelector("#pattern-" + page.toString() + " #seq-row-" + row.toString() + "-" + page.toString() + " .row-clear").addEventListener('click', function rowClear() {
@@ -353,6 +419,7 @@ document.querySelector("#add-inst").addEventListener('click', function addRow() 
         let targetContainer= document.querySelector('#pattern-' + page.toString());
         targetContainer.appendChild(document.importNode(new_row, true));
         initializeRow(page, totalRow);
+        clearRow(page, totalRow);
     }
 });
 
@@ -370,6 +437,7 @@ document.querySelector("#del-inst").addEventListener('click', function delInst()
 document.querySelector("#add-col").addEventListener('click', function addCol() {
 
     maxPos ++;
+    document.querySelector("#project").dataset.step = maxPos.toString();
 
     for (let page = 1; page <= pageCount; page++) {
         for (let row = 1; row <= totalRow; row++) {
@@ -394,6 +462,7 @@ document.querySelector("#add-col").addEventListener('click', function addCol() {
 document.querySelector("#del-col").addEventListener('click', function delCol() {
     if (maxPos > 1) {
         maxPos--;
+        document.querySelector("#project").dataset.step = maxPos.toString();
         for (let page = 1; page <= pageCount; page++) {
             for (let row = 1; row <= totalRow; row++) {
                 document.querySelector("#seq-row-" + row.toString() + "-" + page.toString()  + " .steps").removeChild(document.querySelector("#seq-row-" + row.toString() + "-" + page.toString()  + " .steps").lastElementChild);
@@ -410,6 +479,7 @@ document.querySelector("#del-col").addEventListener('click', function delCol() {
 document.querySelector("#bpm-label").addEventListener('input', function setBPM() {
     if (document.querySelector("#bpm").value > 0) {
         bpm = document.querySelector("#bpm").value
+        document.querySelector("#project").dataset.tempo = bpm.toString();
         clearInterval(intervalId);
         if (document.querySelector("#play-all").style.backgroundColor === "lawngreen") {
             intervalId = setInterval(toggleColumnAll, 60000 / (bpm * baseVal));
@@ -455,6 +525,7 @@ document.querySelector("#loop").onclick = function loopPattern() {
 document.querySelector("#beat").onchange = function beatChange() {
 
     baseVal = Number(this.value);
+    document.querySelector("#project").dataset.sign = baseVal.toString();
 
     let divider = document.querySelector(".divider").cloneNode(true);
     $(".divider").remove();
@@ -514,6 +585,7 @@ document.querySelector("#add-page").onclick = function addPage() {
     for (let row = 1; row <= totalRow; row++) {
         document.querySelector("#new-inst-" + row.toString()).textContent = document.querySelector("#pattern-1" + " #inst-" + row.toString()).value.replace("C:\\fakepath\\", "");
         initializeRow(pageCount, row);
+        clearRow(pageCount, row);
     }
 
     for (let page = 1; page <= pageCount; page++) {
