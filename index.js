@@ -249,6 +249,8 @@ function initializeRow(page, row) {
     document.querySelector("#pattern-" + page.toString()).replaceChild(clone, document.querySelector("#pattern-" + page.toString() + " #seq-row-" + row.toString() + "-" + page.toString()));
 
     document.querySelector("#pattern-" + page.toString() + " #seq-row-" + row.toString() + "-" + page.toString()  + " .row-clear").style.backgroundColor = "gray";
+    document.querySelector("#pattern-" + page.toString() + " #seq-row-" + row.toString() + "-" + page.toString()  + " .mute").style.backgroundColor = "gray";
+    document.querySelector("#pattern-" + page.toString() + " #seq-row-" + row.toString() + "-" + page.toString()  + " .solo").style.backgroundColor = "gray";
 
     for (let step = 1; step <= maxPos; step++) {
 
@@ -360,6 +362,7 @@ function initializeRow(page, row) {
 
     // Enable Solo Function
     document.querySelector("#pattern-" + page.toString() + " #seq-row-" + row.toString() + "-" + page.toString() + " .solo").addEventListener('click', function soloRow() {
+
         toggleColor(this, "orange", "gray");
 
         if (this.style.backgroundColor === "orange") {
@@ -367,10 +370,10 @@ function initializeRow(page, row) {
             for (let i = 0; i < otherRows.length; i++) {
                 document.querySelector("#pattern-" + page.toString() + " #seq-row-" + otherRows[i].toString() + "-" + page.toString() + " .solo").style.backgroundColor = "gray";
                 document.querySelector("#pattern-" + page.toString() + " #seq-row-" + otherRows[i].toString() + "-" + page.toString() + " .mute").style.backgroundColor = "red";
-                document.querySelector("#pattern-" + page.toString() + " #audio-" + otherRows[i].toString() + "-" + page.toString()).muted = true;
+                document.querySelector("#pattern-" + page.toString() + " #audio-" + otherRows[i].toString()).muted = true;
             }
             document.querySelector("#pattern-" + page.toString() + " #seq-row-" + row.toString() + "-" + page.toString() + " .mute").style.backgroundColor = "gray";
-            document.querySelector("#pattern-" + page.toString() + " #audio-" + row.toString() + "-" + page.toString()).muted = false;
+            document.querySelector("#pattern-" + page.toString() + " #audio-" + row.toString()).muted = false;
         } else {
             for (let i = 1; i <= totalRow; i++) {
                 document.querySelector("#pattern-" + page.toString() + " #seq-row-" + i.toString() + "-" + page.toString() + " .solo").style.backgroundColor = "gray";

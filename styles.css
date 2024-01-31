@@ -309,3 +309,12 @@ div[id^='seq-row-'] .steps .divider{
 .footer{
     text-align: center;
 }
+
+.instruction{
+    text-align: center;
+}
+
+.instruction_item{
+    text-align: center;
+    list-style: none;
+}
