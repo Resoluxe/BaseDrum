@@ -28,7 +28,8 @@ After all, that's what you came for, is it not?
  
 ## License
 - You are free to use this application (BaseDrum) as-is (with no warranty provided, so if anything bad happens I cannot take any responsibility).
-- You can also modify its code to your heart's content and publish even better version of BaseDrum. (Though I would appreciate direct contributions for my learning)
+- You can also modify its code to your heart's content and publish even better version of BaseDrum, but make sure **you also share your source code** (Pay forward!)  
+  - (Though I would appreciate direct contributions for my learning)
 - If you decide to make money with BaseDrum and my code, do contact me through davidk1118@gmail.com.
   - You can also use the same e-mail address to :
     - Say thanks,
