@@ -185,6 +185,7 @@ document.querySelector("#upload-input").onchange = function replaceProject() {
         for (let page = 1; page <= pageCount; page++) {
             $("#pattern-" + page.toString()).addClass("invisible");
             for (let row = 1; row <= totalRow; row++) {
+                document.querySelector("#pattern-" + page.toString() + " #seq-row-" + row.toString() + "-" + page.toString() + " #audio-" + row.toString()).setAttribute("src", "");
                 initializeRow(page, row);
             }
         }
