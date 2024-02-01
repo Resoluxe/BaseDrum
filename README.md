@@ -12,8 +12,8 @@ The sky, and my HTML + CSS + JS spaghetti "code" is the limit.
 2. BaseDrum features precise per-step manipulations, like:  
 - Accents (Default at 50% = 0.5, 0% ~ 100%)
 - Conditionals (Default at 100% = 1.0, 0% ~ 100%)
-- Microtiming\* (Default at 0 delay ~ +50% delay)
 - Substeps (Default at 1, maximum of 5)
+- Microtiming\* (Default at 0 delay ~ +50% delay)
 
 \* Note: If you know how to implement negative microtiming, and therefore swings(shuffles) then feel free to contribute!
 
@@ -25,6 +25,41 @@ When saving patterns, links to your audio files are automatically erased for add
 
 5. Maximum Blinkiness!  
 After all, that's what you came for, is it not?
+
+## Interface
+![BaseDrum Interface Explanation](./BaseDrum_104_Interface@2x.png)
+1. File management : Filename input / display - Upload - Download
+   - Files are downloaded / uploaded as HTML files with 'bdv(major version number)-' prefix.
+2. Playback control : Loop (one pattern) - Play All (through all patterns)
+3. Step parameter control : Accent - Conditional - Substep - Microtiming
+   - After a particular step is toggled, its parameters will be displayed on this section.
+   - You can then manipulate those values to perform per-step manipulations.
+4. Project parameter Control : Tempo (BPM) / Length of a beat
+   - 1 Tick = (60000 ms) / (bpm * beat length)
+5. Page Management : Current page display / input - Navigation buttons - Add page - Delete page
+   - The target of page addition / deletion is always the last page.
+6. Erase all (Nuke) button
+   - Does not stop playback, or erase links to your samples
+7. Track (Row) clear button + Track trigger indicator
+8. Instrument (Sample) load / display section
+   - Samples are loaded as (local) links to your audio files.
+   - Tip: You can even replace samples while playing through a pattern!
+9. Mute / Solo button / indicator
+10. Steps
+    - Default setup: 16 steps per pattern, 4 steps = 1 beat
+    - Per-step parameters will be also reflected here visually:
+      - Accent : The text content gets redder
+      - Conditional : 'X' will be displayed whenever the step isn't triggered
+      - Substep : Displayed as the text content
+      - Microtiming : Substep text will be shifted to the right
+    - Also, beat dividers will be adjusted accordingly as you change beat length / steps per pattern.
+11. Last page indicator
+    - Green when there are more pages ahead, red when it's the last page.
+12. Instrument (Sample) Add / Delete button
+    - In a smiliar manner to page manipulation, the last instrument becomes the target.
+13. Steps per pattern (Column) Add / Delete button
+    - Again, it's the last step that gets affected first.
+    - Since it's done by cloning the first step of pattern 1, it might be a good idea to deactivate that particular step before tinkering with columns...
  
 ## License
 - You are free to use this application (BaseDrum) as-is (with no warranty provided, so if anything bad happens I cannot take any responsibility).
