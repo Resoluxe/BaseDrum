@@ -9,6 +9,7 @@ let lastSelection;
 let currentPage = 1; // Current Page
 let pageCount = 1; // Pattern Count
 let loadedProject;
+let coll = document.getElementsByClassName("collapsible");
 
 /* Commonly Used Functions */
 
@@ -656,4 +657,16 @@ document.querySelector("#subptn").onchange = function pageNav() {
     } else {
         alert("Page out of bounds!")
     }
+}
+
+for (let i = 0; i < coll.length; i++) {
+    coll[i].addEventListener("click", function() {
+        this.classList.toggle("active");
+        let content = this.nextElementSibling;
+        if (content.style.display === "block") {
+            content.style.display = "none";
+        } else {
+            content.style.display = "block";
+        }
+    });
 }
