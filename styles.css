@@ -6,12 +6,20 @@ html{
 .logo{
     color: blue;
     text-align: center;
+    font-weight: bolder;
+}
+
+#version-number{
+    color: black;
+    font-size: 1rem;
+    text-align: left;
 }
 
 .logo .intro{
-    color: orange;
-    text-align: left;
+    color: black;
+    text-align: center;
     font-size: 1.2rem;
+    font-weight: bold;
 }
 
 button{
@@ -58,7 +66,7 @@ button{
     max-width: 47px;
     height: 20px;
     text-align: center;
-    margin-right: 7px;
+    margin-right: 8px;
 }
 
 .info-input{
@@ -164,7 +172,6 @@ button{
     width: 47px;
     height: 20px;
     text-align: center;
-    margin-right: 5px;
 }
 
 #bpm{
@@ -312,6 +319,7 @@ div[id^='seq-row-'] .steps .divider{
 
 .instruction{
     text-align: center;
+    font-weight: bolder;
 }
 
 .instruction_item{
