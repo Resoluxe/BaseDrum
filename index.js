@@ -472,10 +472,10 @@ document.querySelector("#del-col").addEventListener('click', function delCol() {
         document.querySelector("#project").dataset.step = maxPos.toString();
         for (let page = 1; page <= pageCount; page++) {
             for (let row = 1; row <= totalRow; row++) {
-                document.querySelector("#seq-row-" + row.toString() + "-" + page.toString()  + " .steps").removeChild(document.querySelector("#seq-row-" + row.toString() + "-" + page.toString()  + " .steps").lastElementChild);
                 if (document.querySelector("#seq-row-" + row.toString() + "-" + page.toString()  + " .steps").lastElementChild.textContent === "⎮") {
                     document.querySelector("#seq-row-" + row.toString() + "-" + page.toString()  + " .steps").removeChild(document.querySelector("#seq-row-" + row.toString() + "-" + page.toString()  + " .steps").lastElementChild);
                 }
+                document.querySelector("#seq-row-" + row.toString() + "-" + page.toString()  + " .steps").removeChild(document.querySelector("#seq-row-" + row.toString() + "-" + page.toString()  + " .steps").lastElementChild);
             }
         }
     }
@@ -600,7 +600,6 @@ document.querySelector("#add-page").onclick = function addPage() {
     for (let row = 1; row <= totalRow; row++) {
         document.querySelector("#new-inst-" + row.toString()).textContent = document.querySelector("#pattern-1" + " #inst-" + row.toString()).value.replace("C:\\fakepath\\", "");
         initializeRow(pageCount, row);
-        clearRow(pageCount, row);
     }
 
     for (let page = 1; page <= pageCount; page++) {
