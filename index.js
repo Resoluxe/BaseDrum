@@ -338,6 +338,7 @@ function initializeRow(page, row) {
             document.querySelector("#pattern-" + page.toString() + " #seq-row-" + this.textContent + "-" + page.toString() + " .steps .step" + step.toString()).style.backgroundColor = "darkgray";
             document.querySelector("#pattern-" + page.toString() + " #seq-row-" + this.textContent + "-" + page.toString() + " .steps .step" + step.toString()).textContent = "";
             document.querySelector("#pattern-" + page.toString() + " #seq-row-" + this.textContent + "-" + page.toString() + " .steps .step" + step.toString()).dataset.active = "no"
+            document.querySelector("#pattern-" + page.toString() + " #seq-row-" + this.textContent + "-" + page.toString() + " .steps .step" + step.toString()).style.color = "#7f0000";
         }
     });
 
@@ -402,7 +403,7 @@ function initializeRow(page, row) {
 
 window.onload = function (){
     initializeRow(1, 1);
-    document.querySelector("#subptn").value = 1
+    document.querySelector("#subptn").value = 1;
 }
 
 /* Navigation Bar */
@@ -411,6 +412,9 @@ window.onload = function (){
 document.querySelector("#nuke-all").addEventListener('click', function nukeAll() {
     let nukeConfirm = confirm("This will ERASE ALL patterns. Are you really sure?");
     if (nukeConfirm === true) {
+        clearInterval(intervalId);
+        document.querySelector("#play-all").style.backgroundColor = "gray"
+        document.querySelector("#loop").style.backgroundColor = "gray"
         document.querySelectorAll(".steps button").forEach((element) => element.style.backgroundColor = "darkgray");
         document.querySelectorAll(".steps button").forEach((element) => element.dataset.acc = "0.5");
         document.querySelectorAll(".steps button").forEach((element) => element.dataset.cond = "1.0");
@@ -418,11 +422,18 @@ document.querySelector("#nuke-all").addEventListener('click', function nukeAll()
         document.querySelectorAll(".steps button").forEach((element) => element.dataset.micro = "0.0");
         document.querySelectorAll(".steps button").forEach((element) => element.dataset.active = "no");
 
-        document.querySelector("#ac").value = "0.5"
-        document.querySelector("#cond").value = "1.0"
-        document.querySelector("#sub").value = "1"
-        document.querySelector("#micro").value = "0.0"
-        document.querySelectorAll(".steps button").forEach((element) => element.textContent = "")
+        document.querySelector("#ac").value = "0.5";
+        document.querySelector("#cond").value = "1.0";
+        document.querySelector("#sub").value = "1";
+        document.querySelector("#micro").value = "0.0";
+        document.querySelectorAll(".steps button").forEach((element) => element.textContent = "");
+        document.querySelectorAll(".steps button").forEach((element) => element.style.color = "#7f0000");
+
+        if (pageCount >= 2) {
+            for (let i = 1; i < pageCount; i++) {
+                document.querySelector("#del-page").click();
+            }
+        }
     }
 });
 
