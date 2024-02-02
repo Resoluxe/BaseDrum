@@ -53,13 +53,16 @@ After all, that's what you came for, is it not?
       - Substep : Displayed as the text content
       - Microtiming : Substep text will be shifted to the right
     - Also, beat dividers will be adjusted accordingly as you change beat length / steps per pattern.
-11. Last page indicator
+11. Last page indicator / Sample audition button
     - Green when there are more pages ahead, red when it's the last page.
 12. Instrument (Sample) Add / Delete button
     - In a smiliar manner to page manipulation, the last instrument becomes the target.
 13. Steps per pattern (Column) Add / Delete button
     - Again, it's the last step that gets affected first.
-    - Since it's done by cloning the first step of pattern 1, it might be a good idea to deactivate that particular step before tinkering with columns...
+   
+## Keyboard Shortcuts
+When the 'Keyboard Mode' is toggled on with 'K', those additional inputs will be available :
+![BaseDrum Keyboard Shortcuts](./BaseDrum_kbd.png)
  
 ## License
 - You are free to use this application (BaseDrum) as-is (with no warranty provided, so if anything bad happens I cannot take any responsibility).
