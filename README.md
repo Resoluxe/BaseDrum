@@ -59,7 +59,10 @@ After all, that's what you came for, is it not?
     - In a smiliar manner to page manipulation, the last instrument becomes the target.
 13. Steps per pattern (Column) Add / Delete button
     - Again, it's the last step that gets affected first.
-    - Since it's done by cloning the first step of pattern 1, it might be a good idea to deactivate that particular step before tinkering with columns...
+   
+## Keyboard Shortcuts
+When the 'Keyboard Mode' is toggled on with 'K', those additional inputs will be available :
+![BaseDrum Keyboard Shortcuts](./BaseDrum_kbd.png)
  
 ## License
 - You are free to use this application (BaseDrum) as-is (with no warranty provided, so if anything bad happens I cannot take any responsibility).
