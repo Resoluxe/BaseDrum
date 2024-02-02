@@ -53,7 +53,7 @@ After all, that's what you came for, is it not?
       - Substep : Displayed as the text content
       - Microtiming : Substep text will be shifted to the right
     - Also, beat dividers will be adjusted accordingly as you change beat length / steps per pattern.
-11. Last page indicator
+11. Last page indicator / Sample audition button
     - Green when there are more pages ahead, red when it's the last page.
 12. Instrument (Sample) Add / Delete button
     - In a smiliar manner to page manipulation, the last instrument becomes the target.
