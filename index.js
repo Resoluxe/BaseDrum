@@ -327,6 +327,7 @@ function initializeRow(page, row) {
         for (let step = 1; step <= maxPos; step++) {
             document.querySelector("#pattern-" + page.toString() + " #seq-row-" + this.textContent + "-" + page.toString() + " .steps .step" + step.toString()).style.backgroundColor = "darkgray";
             document.querySelector("#pattern-" + page.toString() + " #seq-row-" + this.textContent + "-" + page.toString() + " .steps .step" + step.toString()).textContent = "";
+            document.querySelector("#pattern-" + page.toString() + " #seq-row-" + this.textContent + "-" + page.toString() + " .steps .step" + step.toString()).dataset.active = "no"
         }
     });
 
@@ -344,6 +345,7 @@ function initializeRow(page, row) {
             reader.readAsDataURL(file);
         }
     });
+
 
     // Display their names
     document.querySelector("#pattern-" + page.toString() + " #inst-" + row.toString()).addEventListener('change', function displaySample() {
@@ -453,7 +455,8 @@ document.querySelector("#add-col").addEventListener('click', function addCol() {
                 document.querySelector("#seq-row-" + row.toString() + "-" + page.toString()  + " .steps").appendChild(divider);
             }
 
-            let newStep = document.querySelector(".step1").cloneNode(true);
+            let newStep = document.querySelector(".step-").cloneNode(true);
+            newStep.setAttribute("style","display : inline");
             newStep.setAttribute("class", "step" + maxPos.toString());
             document.querySelector("#seq-row-" + row.toString() + "-" + page.toString()  + " .steps").appendChild(newStep);
 

@@ -6,15 +6,16 @@
     <link rel="stylesheet" href="./styles.css"/>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@1,300&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="icon" type="image/x-icon" href="./Kinfinity%20Logo.png">
 </head>
 <body>
-    <h1 class="logo">BaseDrum<span id="version-number">v1.0.5</span><br/><span class="intro">A Web-Based Drum Machine / Pattern Playground</span></h1>
+    <h1 class="logo">BaseDrum<span id="version-number">v1.0.6</span><br/><span class="intro">A Web-Based Drum Machine / Pattern Playground</span></h1>
 
     <hr/>
 
     <div id="unique-divider">⎮</div>
+    <button class="step-" data-active="no" data-acc="0.5" data-cond="1.0" data-sub="1" data-micro="0.00"></button>
 
     <div id="grid-container">
 
@@ -101,64 +102,66 @@
         <ol id="instruction-list">
             <li>File management : Filename input / display - Upload - Download
                 <ul>
-                    <li>Files are downloaded / uploaded as HTML files with 'bdv(major version number)-' prefix.</li>
+                    <li><span class = "instruction-light">Files are downloaded / uploaded as HTML files with 'bdv(major version number)-' prefix.</span></li>
                 </ul>
             </li>
             <li>Pattern control : Loop (one pattern) - Play All (through all patterns)</li>
             <li>Step parameter control : Accent - Conditional - Substep - Microtiming
             <ul>
-                <li>After a particular step is toggled, its parameters will be displayed on this section.</li>
-                <li>You can then manipulate those values to perform per-step manipulations.</li>
+                <li><span class = "instruction-light">After a particular step is toggled, its parameters will be displayed on this section.</span></li>
+                <li><span class = "instruction-light">You can then manipulate those values to perform per-step manipulations.</span></li>
             </ul>
             </li>
             <li>Project parameter Control : Tempo (BPM) / Length of a beat
                 <ul>
-                    <li>1 Tick = (60000 ms) / (bpm * beat length)</li>
+                    <li><span class = "instruction-light">1 Tick = (60000 ms) / (bpm * beat length)</span></li>
                 </ul>
             </li>
             <li>Page Management : Current page display / input - Navigation buttons - Add page - Delete page
                 <ul>
-                    <li>The target of page addition / deletion is always the last page.</li>
+                    <li><span class = "instruction-light">The target of page addition / deletion is always the last page.</span></li>
                 </ul>
             </li>
             <li>Erase all (Nuke) button
                 <ul>
-                    <li>Does not stop playback, or erase links to your samples</li>
+                    <li><span class = "instruction-light">Does not stop playback, or erase links to your samples.</span></li>
                 </ul>
             </li>
             <li>Track (Row) clear button + Track trigger indicator</li>
             <li>Instrument (Sample) load / display section
                 <ul>
-                    <li>Samples are loaded as (local) links to your audio files.</li>
-                    <li>Tip: You can even replace samples while playing through a pattern!</li>
+                    <li><span class = "instruction-light">Samples are loaded as (local) links to your audio files.</span></li>
+                    <li><span class = "instruction-light">Tip: You can even replace samples while playing through a pattern!</span></li>
                 </ul>
             </li>
             <li>Mute / Solo button / indicator</li>
             <li>Steps
                 <ul>
-                    <li>Default setup: 16 steps per pattern, 4 steps = 1 beat
-                    <li>Per-step parameters will be also reflected here visually:</li>
-                    <li>Accent : The text content gets redder</li>
-                    <li>Conditional : 'X' will be displayed whenever the step isn't triggered</li>
-                    <li>Substep : Displayed as the text content</li>
-                    <li>Microtiming : Substep text will be shifted to the right</li>
-                    <li>Also, beat dividers will be adjusted accordingly as you change beat length / steps per pattern.</li>
+                    <li><span class = "instruction-light">Default setup: 16 steps per pattern, 4 steps = 1 beat</span></li>
+                    <li><span class = "instruction-light">Per-step parameters will be also reflected here visually:</span>
+                        <ol>
+                            <li><span class = "instruction-light">Accent : The text content gets redder</span></li>
+                            <li><span class = "instruction-light">Conditional : 'X' will be displayed whenever the step isn't triggered</span></li>
+                            <li><span class = "instruction-light">Substep : Displayed as the text content</span></li>
+                            <li><span class = "instruction-light">Microtiming : Substep text will be shifted to the right</span></li>
+                        </ol>
+                    </li>
+                    <li><span class = "instruction-light">Also, beat dividers will be adjusted accordingly as you change beat length / steps per pattern.</span></li>
                 </ul>
             </li>
             <li>Last page indicator
                 <ul>
-                    <li>Green when there are more pages ahead, red when it's the last page.</li>
+                    <li><span class = "instruction-light">Green when there are more pages ahead, red when it's the last page.</span></li>
                 </ul>
             </li>
             <li>Instrument (Sample) Add / Delete button
                 <ul>
-                    <li>In a smiliar manner to page manipulation, the last instrument becomes the target.</li>
+                    <li><span class = "instruction-light">In a similar manner to page manipulation, the last instrument becomes the target.</span></li>
                 </ul>
             </li>
             <li>Steps per pattern (Column) Add / Delete button
                 <ul>
-                    <li>Again, it's the last step that gets affected first.</li>
-                    <li>Since it's done by cloning the first step of pattern 1, it might be a good idea to deactivate that particular step before tinkering with columns...</li>
+                    <li><span class = "instruction-light">Again, it's the last step that gets affected first.</span></li>
                 </ul>
             </li>
         </ol>

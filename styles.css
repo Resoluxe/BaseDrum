@@ -1,6 +1,6 @@
 html{
     background-color: lightgray;
-    font-family: 'Josefin Sans', sans-serif;
+    font-family: 'Chakra Petch', sans-serif;
 }
 
 .logo{
@@ -22,7 +22,7 @@ html{
     font-weight: bold;
 }
 
-button{
+button {
     cursor: pointer;
 }
 
@@ -298,6 +298,14 @@ div[id^='seq-row-'] .steps button[class^='step']{
     border-radius: 20%;
 }
 
+.step- {
+    display: none;
+    background-color: darkgray;
+    width: 25px;
+    height: 25px;
+    border-radius: 20%;
+}
+
 
 div[id^='seq-row-'] .steps .divider{
     font-size: 20px;
@@ -346,4 +354,8 @@ div[id^='seq-row-'] .steps .divider{
 
 #instruction-list{
     font-weight: bolder;
+}
+
+.instruction-light{
+    font-weight: normal !important;
 }
