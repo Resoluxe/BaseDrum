@@ -296,6 +296,7 @@ div[id^='seq-row-'] .steps button[class^='step']{
     width: 25px;
     height: 25px;
     border-radius: 20%;
+    font-weight: bold;
 }
 
 .step- {
@@ -304,6 +305,7 @@ div[id^='seq-row-'] .steps button[class^='step']{
     width: 25px;
     height: 25px;
     border-radius: 20%;
+    font-weight: bold;
 }
 
 
@@ -323,6 +325,7 @@ div[id^='seq-row-'] .steps .divider{
 
 .footer{
     text-align: center;
+    font-weight: normal;
 }
 
 .collapsible {
