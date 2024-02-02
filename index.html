@@ -10,7 +10,8 @@
     <link rel="icon" type="image/x-icon" href="./Kinfinity%20Logo.png">
 </head>
 <body>
-    <h1 class="logo">BaseDrum<span id="version-number">v1.0.8</span><br/><span class="intro">A Web-Based Drum Machine / Pattern Playground</span></h1>
+    <h1 class="logo">BaseDrum<span id="version-number">v1.0.9</span><br/><span class="intro">A Web-Based Drum Machine / Pattern Playground</span></h1>
+    <h2 id="kb-mode">Keyboard Mode: <span id="kb-indicator">OFF</span></h2>
 
     <hr/>
 
@@ -28,7 +29,7 @@
             <button id="loop">LOOP</button>
             <label class="info-label" id="acc-label"><input class="info-input" type="number" min="0.0" max="1.0" step="0.01" id="ac" placeholder="0.5" /></label>
             <label class="info-label" id="cond-label"><input class="info-input" type="number" min="0.0" max="1.0" step="0.01" id="cond" placeholder="1.0" /></label>
-            <label class="info-label" id="sub-label"><input class="info-input" type="number" min="0" max="5" id="sub" placeholder="1" /></label>
+            <label class="info-label" id="sub-label"><input class="info-input" type="number" min="0" max="10" id="sub" placeholder="1" /></label>
             <label class="info-label" id="micro-label"><input class="info-input" type="number" min="0.00" max="0.50" step="0.01" id="micro" placeholder="0.00" /></label>
             <label class="info-label" id="bpm-label"><input class="info-input" type="number" id="bpm" placeholder="120" /></label>
             <label class="info-label" id="beat-label"><input class="info-input" type="number" id="beat" placeholder="4" min = "1" /></label>
@@ -96,7 +97,7 @@
 
     <hr/>
 
-    <button type="button" class="collapsible" id="instruction_btn">Interface Manual</button>
+    <button type="button" class="collapsible" id="instruction_btn">Interface / Keyboard Manual</button>
     <div id="instruction">
         <img id="instruction_pic" src="./BaseDrum_104_Interface@2x.png" alt="A screenshot of BaseDrum interface" />
         <ol id="instruction-list">
@@ -149,7 +150,7 @@
                     <li><span class = "instruction-light">Also, beat dividers will be adjusted accordingly as you change beat length / steps per pattern.</span></li>
                 </ul>
             </li>
-            <li>Last page indicator
+            <li>Last page indicator / Sample Audition (Click)
                 <ul>
                     <li><span class = "instruction-light">Green when there are more pages ahead, red when it's the last page.</span></li>
                 </ul>
@@ -165,6 +166,7 @@
                 </ul>
             </li>
         </ol>
+        <img id="kbd_pic" src="./BaseDrum_kbd.png" alt="A screenshot of BaseDrum Keyboard Shortcuts" />
     </div>
 
     <hr/>

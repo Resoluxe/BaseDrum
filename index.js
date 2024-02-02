@@ -6,6 +6,8 @@ let maxPos = 16; // maximum position (per pattern)
 let maxPosAll = 16; //maximum position across all pages
 let intervalId; // BPM interval (in timeout form)
 let lastSelection;
+let kbMode= false; // Keyboard Navigation Mode
+let currentKBLocation = null; // Keyboard Cursor Location : Normally Array([row,col])
 let currentPage = 1; // Current Page
 let pageCount = 1; // Pattern Count
 let loadedProject;
@@ -191,9 +193,8 @@ document.querySelector("#upload-input").onchange = function replaceProject() {
         }
         $("#pattern-1").removeClass("invisible");
 
-
-         document.querySelector("#file-name").value = document.querySelector("#project").dataset.name;
-        document.querySelector("#subptn").value = "1";
+        document.querySelector("#file-name").value = document.querySelector("#project").dataset.name;
+        document.querySelector("#subptn").value = 1;
         currentPage = 1;
         pos = 1;
         lastSelection = null;
@@ -250,9 +251,9 @@ function initializeRow(page, row) {
 
     document.querySelector("#pattern-" + page.toString()).replaceChild(clone, document.querySelector("#pattern-" + page.toString() + " #seq-row-" + row.toString() + "-" + page.toString()));
 
-    document.querySelector("#pattern-" + page.toString() + " #seq-row-" + row.toString() + "-" + page.toString()  + " .row-clear").style.backgroundColor = "gray";
-    document.querySelector("#pattern-" + page.toString() + " #seq-row-" + row.toString() + "-" + page.toString()  + " .mute").style.backgroundColor = "gray";
-    document.querySelector("#pattern-" + page.toString() + " #seq-row-" + row.toString() + "-" + page.toString()  + " .solo").style.backgroundColor = "gray";
+    document.querySelector("#pattern-" + page.toString() + " #seq-row-" + row.toString() + "-" + page.toString() + " .row-clear").style.backgroundColor = "gray";
+    document.querySelector("#pattern-" + page.toString() + " #seq-row-" + row.toString() + "-" + page.toString() + " .mute").style.backgroundColor = "gray";
+    document.querySelector("#pattern-" + page.toString() + " #seq-row-" + row.toString() + "-" + page.toString() + " .solo").style.backgroundColor = "gray";
 
     for (let step = 1; step <= maxPos; step++) {
 
@@ -362,7 +363,7 @@ function initializeRow(page, row) {
     });
 
     // Enable Mute Function
-    document.querySelector("#pattern-" + page.toString() + " #seq-row-" + row.toString() + "-" + page.toString() + " .mute").addEventListener('click', function muteRow()  {
+    document.querySelector("#pattern-" + page.toString() + " #seq-row-" + row.toString() + "-" + page.toString() + " .mute").addEventListener('click', function muteRow() {
         toggleColor(this, "red", "gray");
         document.querySelector("#pattern-" + page.toString() + " #audio-" + row.toString()).muted = this.style.backgroundColor === "red";
     });
@@ -373,7 +374,9 @@ function initializeRow(page, row) {
         toggleColor(this, "orange", "gray");
 
         if (this.style.backgroundColor === "orange") {
-            let otherRows = [...Array(totalRow).keys()].map((element) => element + 1).filter(function(x) { return x !== row; });
+            let otherRows = [...Array(totalRow).keys()].map((element) => element + 1).filter(function (x) {
+                return x !== row;
+            });
             for (let i = 0; i < otherRows.length; i++) {
                 document.querySelector("#pattern-" + page.toString() + " #seq-row-" + otherRows[i].toString() + "-" + page.toString() + " .solo").style.backgroundColor = "gray";
                 document.querySelector("#pattern-" + page.toString() + " #seq-row-" + otherRows[i].toString() + "-" + page.toString() + " .mute").style.backgroundColor = "red";
@@ -389,11 +392,17 @@ function initializeRow(page, row) {
             }
         }
     });
-}
 
+    // Audition samples
+    document.querySelector("#pattern-" + page.toString() + " #seq-row-" + row.toString() + "-" + page.toString() + " .continue").onclick = function auditionSample() {
+        document.querySelector("#audio-" + row.toString()).currentTime = 0;
+        document.querySelector("#audio-" + row.toString()).play()
+    }
+}
 
 window.onload = function (){
     initializeRow(1, 1);
+    document.querySelector("#subptn").value = 1
 }
 
 /* Navigation Bar */
@@ -568,7 +577,7 @@ document.querySelector("#beat").onchange = function beatChange() {
 
 
 document.querySelector("#page_left").onclick = function pageLeft() {
-    if (pageCount > 1) {
+    if (currentPage > 1 && document.querySelector("#subptn").value !== null) {
         for (let page = 1; page <= pageCount; page++) {
             $("#pattern-" + page.toString()).addClass("invisible");
         }
@@ -581,7 +590,7 @@ document.querySelector("#page_left").onclick = function pageLeft() {
 }
 
 document.querySelector("#page_right").onclick = function pageRight() {
-    if (Number(document.querySelector("#subptn").value) < pageCount) {
+    if (Number(document.querySelector("#subptn").value) < pageCount && document.querySelector("#subptn").value !== null) {
         for (let page = 1; page <= pageCount; page++) {
             $("#pattern-" + page.toString()).addClass("invisible");
         }
@@ -681,3 +690,110 @@ for (let i = 0; i < coll.length; i++) {
         }
     });
 }
+
+// Keyboard Input Support
+
+// Keyboard input support
+document.addEventListener('keydown', function kbControl(event) {
+
+    if (kbMode === false && event.key === "k") {
+        kbMode = true;
+        document.querySelector("#kb-indicator").textContent = "ON";
+        document.querySelector("#kb-indicator").style.color = "red";
+    } else if (kbMode === true && event.key === "k") {
+        kbMode = false;
+        document.querySelector("#kb-indicator").textContent = "OFF";
+        document.querySelector("#kb-indicator").style.color = "black";
+    }
+
+    if (kbMode === true) {
+        if (currentKBLocation === null) {
+            currentKBLocation = [1,1];
+        } else if (currentKBLocation[1] > 1 && event.key === "ArrowLeft") {
+            currentKBLocation[1]--;
+        }  else if (currentKBLocation[1] < maxPos && event.key === "ArrowRight") {
+            currentKBLocation[1]++;
+        } else if (currentKBLocation[0] > 1 && event.key === "ArrowUp") {
+            currentKBLocation[0]--;
+        } else if (currentKBLocation[0] < totalRow && event.key === "ArrowDown") {
+            currentKBLocation[0]++;
+        }
+        document.querySelector("#pattern-" + currentPage.toString() + " #seq-row-" + currentKBLocation[0].toString() + "-" + currentPage.toString() + " .step" + (currentKBLocation[1]).toString()).focus();
+
+        if (currentKBLocation !== null && event.key === "Space") {
+            document.activeElement.click();
+        }
+
+        if (event.key === "p") {
+            document.querySelector("#play-all").click();
+        }
+
+        if (event.key === "o") {
+            document.querySelector("#loop").click();
+        }
+
+        if (event.key === "m") {
+            document.querySelector("#pattern-" + currentPage.toString() + " #seq-row-" + currentKBLocation[0].toString() + "-" + currentPage.toString() + " .mute").click()
+        }
+
+        if (event.key === "s") {
+            document.querySelector("#pattern-" + currentPage.toString() + " #seq-row-" + currentKBLocation[0].toString() + "-" + currentPage.toString() + " .solo").click()
+        }
+
+        if (event.key === "l") {
+            document.querySelector("#new-inst-" + currentKBLocation[0].toString()).click();
+        }
+
+        if (event.key === "=") {
+            document.querySelector("#add-inst").click();
+        }
+
+        if (event.key === "-") {
+            document.querySelector("#del-inst").click();
+        }
+
+        if (event.key === "[") {
+            document.querySelector("#del-col").click();
+        }
+
+        if (event.key === "]") {
+            document.querySelector("#add-col").click();
+        }
+
+        if (event.key === ",") {
+            document.querySelector("#page_left").click();
+        }
+
+        if (event.key === ".") {
+            document.querySelector("#page_right").click();
+        }
+
+        if (event.key === "a") {
+            document.querySelector("#pattern-" + currentPage.toString() + " #seq-row-" + currentKBLocation[0].toString() + "-" + currentPage.toString() + " .continue").click();
+        }
+
+        if (event.key === "q") {
+            document.querySelector("#ac").focus()
+        }
+
+        if (event.key === "w") {
+            document.querySelector("#cond").focus()
+        }
+
+        if (event.key === "e") {
+            document.querySelector("#sub").focus()
+        }
+
+        if (event.key === "r") {
+            document.querySelector("#micro").focus()
+        }
+
+        if (event.key === "t") {
+            document.querySelector("#bpm").focus()
+        }
+
+        if (event.key === "y") {
+            document.querySelector("#beat").focus()
+        }
+    }
+});
