@@ -237,7 +237,7 @@ function downloadInnerHtml(filename, elId, mimeType) {
 }
 
 $('#downloadLink').click(function(){
-    downloadInnerHtml("BDv1 - " + document.querySelector("#project").dataset.name, 'grid-container','text/html');
+    downloadInnerHtml("BDv1_1 - " + document.querySelector("#project").dataset.name, 'grid-container','text/html');
 });
 document.querySelector("#download").addEventListener('click', function downloadPattern () {
     document.querySelector("#downloadLink").click();
