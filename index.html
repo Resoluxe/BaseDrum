@@ -10,7 +10,7 @@
     <link rel="icon" type="image/x-icon" href="./Kinfinity%20Logo.png">
 </head>
 <body>
-    <h1 class="logo">BaseDrum<span id="version-number">v1.1.0</span><br/><span class="intro">A Web-Based Drum Machine / Pattern Playground</span></h1>
+    <h1 class="logo">BaseDrum<span id="version-number">v1.1.1</span><br/><span class="intro">A Web-Based Drum Machine / Pattern Playground</span></h1>
     <h2 id="kb-mode">Keyboard Mode: <span id="kb-indicator">OFF</span></h2>
 
     <hr/>
@@ -99,9 +99,10 @@
 
     <button type="button" class="collapsible" id="instruction_btn">Interface / Keyboard Manual</button>
     <div id="instruction">
-        <img id="instruction_pic" src="./BaseDrum_104_Interface@2x.png" alt="A screenshot of BaseDrum interface" />
+        <img id="instruction_pic" src="./BaseDrum_v1_1_Interface@2x.png" alt="A screenshot of BaseDrum interface" />
         <ol id="instruction-list">
-            <li>File management : Filename input / display - Upload - Download
+            <li>File management : Filename input / display</li>
+            <li>File Upload - Download
                 <ul>
                     <li><span class = "instruction-light">Files are downloaded / uploaded as HTML files with 'bdv(major version number)-' prefix.</span></li>
                 </ul>
@@ -126,6 +127,21 @@
             <li>Erase all (Nuke) button
                 <ul>
                     <li><span class = "instruction-light">Erases everything except instrument tracks, BPM, and beat length.</span></li>
+                </ul>
+            </li>
+            <li>Randomize (Chaos) Button
+                <ul>
+                    <li><span class = "instruction-light">Can randomize a certain row, or the whole pattern.</span></li>
+                </ul>
+            </li>
+            <li>Instrument (Sample) Add / Delete button
+                <ul>
+                    <li><span class = "instruction-light">In a similar manner to page manipulation, the last instrument becomes the target.</span></li>
+                </ul>
+            </li>
+            <li>Steps per pattern (Column) Add / Delete button
+                <ul>
+                    <li><span class = "instruction-light">Again, it's the last step that gets affected first.</span></li>
                 </ul>
             </li>
             <li>Track (Row) clear button + Track trigger indicator</li>
@@ -153,16 +169,6 @@
             <li>Last page indicator / Sample Audition (Click)
                 <ul>
                     <li><span class = "instruction-light">Green when there are more pages ahead, red when it's the last page.</span></li>
-                </ul>
-            </li>
-            <li>Instrument (Sample) Add / Delete button
-                <ul>
-                    <li><span class = "instruction-light">In a similar manner to page manipulation, the last instrument becomes the target.</span></li>
-                </ul>
-            </li>
-            <li>Steps per pattern (Column) Add / Delete button
-                <ul>
-                    <li><span class = "instruction-light">Again, it's the last step that gets affected first.</span></li>
                 </ul>
             </li>
         </ol>
