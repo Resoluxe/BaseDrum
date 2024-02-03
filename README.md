@@ -1,4 +1,4 @@
-![BaseDrum Interface](./BaseDrum_example@2x.png)
+![BaseDrum Interface](./BaseDrum_v1_1@2x.png)
 
 ## BaseDrum
 BaseDrum is a web-based 'Drum Pattern Playground' where you can experiment with various rhythmic elements.  
@@ -27,7 +27,7 @@ When saving patterns, links to your audio files are automatically erased for add
 After all, that's what you came for, is it not?
 
 ## Interface
-![BaseDrum Interface Explanation](./BaseDrum_104_Interface@2x.png)
+![BaseDrum Interface Explanation](./BaseDrum_v1_1_Interface@2x.png)
 1. File management : Filename input / display - Upload - Download
    - Files are downloaded / uploaded as HTML files with 'bdv(major version number)-' prefix.
 2. Playback control : Loop (one pattern) - Play All (through all patterns)
