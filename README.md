@@ -40,6 +40,8 @@ After all, that's what you came for, is it not?
    - The target of page addition / deletion is always the last page.
 6. Erase all (Nuke) button
    - Erases everything except instrument tracks, BPM, and beat length.
+6.5. Randomize Steps (Not visible, the red button with a white dice)  
+   - Can randomize a row, or the whole pattern
 7. Track (Row) clear button + Track trigger indicator
 8. Instrument (Sample) load / display section
    - Samples are loaded as (local) links to your audio files.
