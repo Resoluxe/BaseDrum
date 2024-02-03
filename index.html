@@ -10,7 +10,7 @@
     <link rel="icon" type="image/x-icon" href="./Kinfinity%20Logo.png">
 </head>
 <body>
-    <h1 class="logo">BaseDrum<span id="version-number">v1.0.10</span><br/><span class="intro">A Web-Based Drum Machine / Pattern Playground</span></h1>
+    <h1 class="logo">BaseDrum<span id="version-number">v1.0.11</span><br/><span class="intro">A Web-Based Drum Machine / Pattern Playground</span></h1>
     <h2 id="kb-mode">Keyboard Mode: <span id="kb-indicator">OFF</span></h2>
 
     <hr/>
@@ -35,11 +35,11 @@
             <label class="info-label" id="beat-label"><input class="info-input" type="number" id="beat" placeholder="4" min = "1" /></label>
             <label class="info-label" id="subptn-label"><input class="info-input" type="number" id="subptn" placeholder="1" min = "1" /></label>
             <button id="add-page">P.ADD</button>
-
         </div>
 
         <div id="nav-bar">
             <button id="nuke-all"> ☢︎ </button>
+            <button id="chaos"> ⚀ </button>
             <button id="add-inst"> Inst+ </button>
             <button id="del-inst"> Inst- </button>
             <button id="add-col"> + </button>
@@ -47,11 +47,11 @@
             <button id="play-all"> ▶All </button>
             <div class="nav-utils">
                 <button id="accent"> ACCNT </button>
-                <button id="conditional"> ⚀COND </button>
+                <button id="conditional"> COND </button>
                 <button id="ratchet"> RTCHT </button>
                 <button id="micro-timing"> MICRO </button>
                 <button id="tempo"> TEMPO </button>
-                <button id="sign"> SIGN </button>
+                <button id="sign"> BEAT </button>
                 <button id="page_left"> < </button>
                 <button id="page_right"> > </button>
             </div>
@@ -88,7 +88,7 @@
                         <button class="step15" data-active="no" data-acc="0.5" data-cond="1.0" data-sub="1" data-micro="0.00"></button>
                         <button class="step16" data-active="no" data-acc="0.5" data-cond="1.0" data-sub="1" data-micro="0.00"></button>
                     </div>
-                    <button class="continue"><</button>
+                    <button class="continue">►</button>
                 </div>
             </div>
         </div>

@@ -53,7 +53,6 @@ button {
     margin: auto;
 }
 
-
 /* The Information Bar */
 
 #info-bar{
@@ -71,7 +70,7 @@ button {
 
 #file-name{
     background-color: white;
-    width: 150px;
+    width: 155px;
     height: 20px;
     text-align: center;
     border: 2px black solid;
@@ -79,7 +78,7 @@ button {
 
 .info-label{
     background-color: white;
-    max-width: 47px;
+    max-width: 45px;
     height: 20px;
     text-align: center;
     margin-right: 8px;
@@ -87,7 +86,7 @@ button {
 
 .info-input{
     background-color: white;
-    width: 47px;
+    width: 45px;
     height: 20px;
     text-align: center;
 }
@@ -135,12 +134,19 @@ button {
 #nuke-all{
     background-color: black;
     color: yellow;
-    width: 50px;
+    width: 25px;
     height: 25px;
-    border-radius: 20%;
+    border-radius: 10%;
     text-align: center;
-    font-size: 20px;
-    padding: 0;
+}
+
+#chaos{
+    background-color: red;
+    color: white;
+    width: 25px;
+    height: 25px;
+    border-radius: 10%;
+    text-align: center;
 }
 
 #add-inst{
@@ -180,35 +186,6 @@ button {
     width: 55px;
     height: 25px;
     border-radius: 10%;
-    text-align: center;
-}
-
-#bpm-label{
-    background-color: white;
-    width: 47px;
-    height: 20px;
-    text-align: center;
-}
-
-#bpm{
-    background-color: white;
-    width: 47px;
-    height: 20px;
-    text-align: center;
-}
-
-#beat-label{
-    background-color: white;
-    width: 47px;
-    height: 20px;
-    text-align: center;
-    margin-right: 5px;
-}
-
-#beat{
-    background-color: white;
-    width: 47px;
-    height: 20px;
     text-align: center;
 }
 
