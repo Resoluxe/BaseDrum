@@ -39,7 +39,7 @@ After all, that's what you came for, is it not?
 5. Page Management : Current page display / input - Navigation buttons - Add page - Delete page
    - The target of page addition / deletion is always the last page.
 6. Erase all (Nuke) button
-   - Does not stop playback, or erase links to your samples
+   - Erases everything except instrument tracks, BPM, and beat length.
 7. Track (Row) clear button + Track trigger indicator
 8. Instrument (Sample) load / display section
    - Samples are loaded as (local) links to your audio files.
