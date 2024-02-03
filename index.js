@@ -59,9 +59,6 @@ function toggleColumn() {
                 setTimeout(function () {
                     for (let sub = 1; sub <= Number(current_step.dataset.sub); sub++) {
                         setTimeout(function () {
-                            if (Number(current_step.dataset.sub) > 1) {
-                                toggleColor(document.querySelector("#ratchet"), 'yellow', 'gray');
-                            }
                             toggleColor(document.querySelector("#seq-row-" + row.toString() + "-" + currentPage.toString()  + " .row-clear"), 'yellow', 'gray');
                             toggleColor(current_step, 'yellow', 'lawngreen');
                             document.querySelector("#audio-" + row.toString()).currentTime = 0;
@@ -71,11 +68,6 @@ function toggleColumn() {
                         toggleColor(current_step, 'yellow', 'lawngreen');
                     }
                 }, (60000 * Number(current_step.dataset.micro)) / (bpm * baseVal));
-
-                if (Number(current_step.dataset.sub) > 1) {
-                    toggleColor(document.querySelector("#ratchet"), 'yellow', 'gray');
-                }
-
             } else {
                 document.querySelector("#conditional").style.backgroundColor = "orange";
                 current_step.textContent = "X";
@@ -121,9 +113,6 @@ function toggleColumnAll() {
                 setTimeout(function () {
                     for (let sub = 1; sub <= Number(current_step.dataset.sub); sub++) {
                         setTimeout(function () {
-                            if (Number(current_step.dataset.sub) > 1) {
-                                toggleColor(document.querySelector("#ratchet"), 'yellow', 'gray');
-                            }
                             toggleColor(document.querySelector("#seq-row-" + row.toString() + "-" + tempPage.toString()  + " .row-clear"), 'yellow', 'gray');
                             toggleColor(current_step, 'yellow', 'lawngreen');
                             document.querySelector("#audio-" + row.toString()).currentTime = 0;
@@ -133,11 +122,6 @@ function toggleColumnAll() {
                         toggleColor(current_step, 'yellow', 'lawngreen');
                     }
                 }, (60000 * Number(current_step.dataset.micro)) / (bpm * baseVal));
-
-                if (Number(current_step.dataset.sub) > 1) {
-                    toggleColor(document.querySelector("#ratchet"), 'yellow', 'gray');
-                }
-
             } else {
                 document.querySelector("#conditional").style.backgroundColor = "orange";
                 current_step.textContent = "X";
@@ -473,12 +457,38 @@ document.querySelector("#chaos").addEventListener('click', function totalChaos()
                 }
             }
         }
-    }  else if (parseInt(chaosVal) >= 1 || parseInt(chaosVal) <= totalRow) {
+    }  else if (parseInt(chaosVal) >= 1 && parseInt(chaosVal) <= totalRow) {
         document.querySelector("#pattern-" + currentPage.toString() + " #seq-row-" + chaosVal.toString() + "-" + currentPage.toString() + " .row-clear").click();
         for (let step = 1; step <= maxPos; step++) {
             if (Math.random() > 0.75) {
                 document.querySelector("#pattern-" + currentPage.toString() + " #seq-row-" + chaosVal.toString() + "-" + currentPage.toString() + " .step" + step.toString()).click();
             }
+        }
+    } else if (parseInt(chaosVal) === -1) {
+        let trueChaosConfirm = confirm("-TOP SECRET-\nThis will randomize all steps along with its parameters.\nCHECK YOUR VOLUME BEFORE PROCEEDING.\nAre you REALLY sure?");
+        if (trueChaosConfirm === true) {
+            clearInterval(intervalId);
+            document.querySelector("#play-all").style.backgroundColor = "gray";
+            document.querySelector("#loop").style.backgroundColor = "gray";
+
+            for (let row = 1; row <= totalRow; row++) {
+                document.querySelector("#pattern-" + currentPage.toString() + " #seq-row-" + row.toString() + "-" + currentPage.toString() + " .row-clear").click();
+                for (let step = 1; step <= maxPos; step++) {
+                    if (Math.random() > 0.75) {
+                        document.querySelector("#pattern-" + currentPage.toString() + " #seq-row-" + row.toString() + "-" + currentPage.toString() + " .step" + step.toString()).click();
+                        document.querySelector("#pattern-" + currentPage.toString() + " #seq-row-" + row.toString() + "-" + currentPage.toString() + " .step" + step.toString()).dataset.acc = Math.random().toString();
+                        document.querySelector("#pattern-" + currentPage.toString() + " #seq-row-" + row.toString() + "-" + currentPage.toString() + " .step" + step.toString()).dataset.cond = Math.random().toString();
+                        document.querySelector("#pattern-" + currentPage.toString() + " #seq-row-" + row.toString() + "-" + currentPage.toString() + " .step" + step.toString()).dataset.sub = Math.ceil(Math.random() * 5).toString();
+                        document.querySelector("#pattern-" + currentPage.toString() + " #seq-row-" + row.toString() + "-" + currentPage.toString() + " .step" + step.toString()).dataset.micro = (Math.random() / 2).toString();
+
+                        document.querySelector("#pattern-" + currentPage.toString() + " #seq-row-" + row.toString() + "-" + currentPage.toString() + " .step" + step.toString()).style.color = "#" + Math.floor(Number(document.querySelector("#pattern-" + currentPage.toString() + " #seq-row-" + row.toString() + "-" + currentPage.toString() + " .steps .step" + step.toString()).dataset.acc) * 255).toString(16) + "0000";
+                        document.querySelector("#pattern-" + currentPage.toString() + " #seq-row-" + row.toString() + "-" + currentPage.toString() + " .step" + step.toString()).style.paddingLeft = (5 + Number(document.querySelector("#pattern-" + currentPage.toString() + " #seq-row-" + row.toString() + "-" + currentPage.toString() + " .steps .step" + step.toString()).dataset.micro) * 10).toString() + "px";
+                        document.querySelector("#pattern-" + currentPage.toString() + " #seq-row-" + row.toString() + "-" + currentPage.toString() + " .steps .step" + step.toString()).textContent = document.querySelector("#pattern-" + currentPage.toString() + " #seq-row-" + row.toString() + "-" + currentPage.toString() + " .steps .step" + step.toString()).dataset.sub;
+                    }
+                }
+            }
+
+            alert("h a v e  f u n !");
         }
     }
 });
