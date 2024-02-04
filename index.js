@@ -11,8 +11,45 @@ let currentPage = 1; // Current Page
 let pageCount = 1; // Pattern Count
 let loadedProject;
 let coll = document.getElementsByClassName("collapsible");
+let selectedRow = 1; // Which row to import samples to
 
 /* Commonly Used Functions */
+
+document.querySelector("#load-cancel").onclick = function closeDialog() {
+    document.getElementById("load-dialog").close();
+}
+
+document.querySelector("#load-own").onclick = function loadSample(e) {
+    document.querySelector("#temp-input").click();
+    document.getElementById("load-dialog").close();
+}
+
+document.querySelector("#temp-input").addEventListener('change', function loadSample(e) {
+    let target = e.currentTarget;
+    let file = target.files[0];
+
+    if (target.files && file) {
+        let reader = new FileReader();
+        reader.onload = function (e) {
+            $('#audio-' + selectedRow.toString()).attr('src', e.target.result);
+        }
+        reader.readAsDataURL(file);
+    }
+    document.querySelector("#new-inst-" + selectedRow.toString()).textContent = target.files[0].name;
+});
+
+document.querySelector("#load-preset").onclick = function browsePresets() {
+    document.getElementById("load-dialog").close();
+    document.getElementById("preset-dialog").showModal();
+}
+
+document.querySelector("#preset-list").onchange = function loadPreset() {
+    document.getElementById("preset-dialog").close();
+    $('#audio-' + selectedRow.toString()).attr('src', "./presets/" + this.value + ".wav");
+    document.querySelector("#new-inst-" + selectedRow.toString()).textContent = this.value;
+}
+
+
 
 function toggleColor(current, active, inactive) {
     if (current.style.backgroundColor === active) {
@@ -188,7 +225,6 @@ document.querySelector("#upload-input").onchange = function replaceProject() {
         for (let page = 1; page <= pageCount; page++) {
             $("#pattern-" + page.toString()).addClass("invisible");
             for (let row = 1; row <= totalRow; row++) {
-                document.querySelector("#pattern-" + page.toString() + " #seq-row-" + row.toString() + "-" + page.toString() + " #audio-" + row.toString()).setAttribute("src", "");
                 initializeRow(page, row);
             }
         }
@@ -211,7 +247,16 @@ document.querySelector("#upload").addEventListener('click', function uploadProje
 // Download pattern (as HTML)
 
 function downloadInnerHtml(filename, elId, mimeType) {
-    let elHtml = document.getElementById(elId).innerHTML;
+
+    let clonedProject = document.querySelector("#grid-container").cloneNode(true);
+
+    for (let row = 1; row <= totalRow; row++) {
+        if (clonedProject.querySelector("#audio-" + row.toString()).src.endsWith(".wav") === false) {
+            clonedProject.querySelector("#audio-" + row.toString()).src = ""
+        }
+    }
+
+    let elHtml = clonedProject.innerHTML;
     let link = document.createElement('a');
     mimeType = mimeType || 'text/plain';
 
@@ -255,6 +300,8 @@ function initializeRow(page, row) {
     document.querySelector("#pattern-" + page.toString() + " #seq-row-" + row.toString() + "-" + page.toString() + " .row-clear").style.backgroundColor = "gray";
     document.querySelector("#pattern-" + page.toString() + " #seq-row-" + row.toString() + "-" + page.toString() + " .mute").style.backgroundColor = "gray";
     document.querySelector("#pattern-" + page.toString() + " #seq-row-" + row.toString() + "-" + page.toString() + " .solo").style.backgroundColor = "gray";
+    document.querySelector("#pattern-" + page.toString() + " #seq-row-" + row.toString() + "-" + page.toString() + " .continue").textContent = "►";
+
 
     for (let step = 1; step <= maxPos; step++) {
 
@@ -342,25 +389,12 @@ function initializeRow(page, row) {
             }
     });
 
-    // Enable Loading Samples
-    let $audio = $('#audio-' + row.toString());
-    $('#inst-' + row.toString()).on('change', function (e) {
-        let target = e.currentTarget;
-        let file = target.files[0];
+    // Enable Loading Samples / presets
 
-        if (target.files && file) {
-            let reader = new FileReader();
-            reader.onload = function (e) {
-                $audio.attr('src', e.target.result);
-            }
-            reader.readAsDataURL(file);
-        }
-    });
-
-
-    // Display their names
-    document.querySelector("#pattern-" + page.toString() + " #inst-" + row.toString()).addEventListener('change', function displaySample() {
-        this.parentNode.querySelector("label[id^='new-inst-']").textContent = document.querySelector("#pattern-" + page.toString() + " #inst-" + row.toString()).value.replace("C:\\fakepath\\", "");
+    $('#inst-' + row.toString()).on('click', function chooseSample(e) {
+        selectedRow = row;
+        e.preventDefault();
+        document.getElementById("load-dialog").showModal();
     });
 
     // Enable Mute Function

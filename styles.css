@@ -42,6 +42,12 @@ button {
     cursor: pointer;
 }
 
+#preset-list{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 #grid-container{
     display: grid;
     grid-template-rows: repeat(2, 2rem) auto;
@@ -129,6 +135,7 @@ button {
 #nav-bar{
     display: flex;
     gap: 5px;
+    margin-bottom: 5px;
 }
 
 #nuke-all{

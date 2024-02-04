@@ -10,13 +10,110 @@
     <link rel="icon" type="image/x-icon" href="./Kinfinity%20Logo.png">
 </head>
 <body>
-    <h1 class="logo">BaseDrum<span id="version-number">v1.1.1</span><br/><span class="intro">A Web-Based Drum Machine / Pattern Playground</span></h1>
+    <h1 class="logo">BaseDrum<span id="version-number">v1.1.2</span><br/><span class="intro">A Web-Based Drum Machine / Pattern Playground</span></h1>
     <h2 id="kb-mode">Keyboard Mode: <span id="kb-indicator">OFF</span></h2>
+
+    <dialog id="load-dialog">
+        <p>How would you like to load your sample?</p>
+        <button id="load-own">Upload your own</button>
+        <button id="load-preset">Browse Presets</button>
+        <button id="load-cancel">Cancel</button>
+    </dialog>
+
+    <dialog id="preset-dialog">
+        <p>Please search / select the preset you want to load:</p>
+        <p>Samples obtained <a href="https://github.com/oramics/sampled">Here</a></p>
+        <input list="presets" id="preset-list">
+        <datalist id="presets">
+            <option>78-Bongo(Hi)</option>
+            <option>78-Bongo(Lo)</option>
+            <option>78-Conga(Lo)</option>
+            <option>78-Cowbell</option>
+            <option>78-Cymbal</option>
+            <option>78-Guiro(Long)</option>
+            <option>78-Guiro(Short)</option>
+            <option>78-HiHat</option>
+            <option>78-HiHat(Accent)</option>
+            <option>78-HiHat(Metal)</option>
+            <option>78-Kick</option>
+            <option>78-Kick(Accent)</option>
+            <option>78-Rimshot</option>
+            <option>78-Snare</option>
+            <option>78-Snare(Accent)</option>
+            <option>78-Tambourine(Long)</option>
+            <option>78-Tambourine(Short)</option>
+            <option>808-Bass</option>
+            <option>808-Clap</option>
+            <option>808-Clave</option>
+            <option>808-Closed HiHat</option>
+            <option>808-Conga(Hi)</option>
+            <option>808-Conga(Lo)</option>
+            <option>808-Conga(Mid)</option>
+            <option>808-Cowbell</option>
+            <option>808-Cymbal</option>
+            <option>808-Maracas</option>
+            <option>808-Open HiHat</option>
+            <option>808-Rimshot</option>
+            <option>808-Snare</option>
+            <option>808-Tom(Hi)</option>
+            <option>808-Tom(Lo)</option>
+            <option>808-Tom(Mid)</option>
+            <option>909-Clap1</option>
+            <option>909-Clap2</option>
+            <option>909-Closed HiHat1</option>
+            <option>909-Closed HiHat2</option>
+            <option>909-Cymbal</option>
+            <option>909-Kick</option>
+            <option>909-Kick2</option>
+            <option>909-Open HiHat1</option>
+            <option>909-Open HiHat2</option>
+            <option>909-Ride Cymbal</option>
+            <option>909-Rimshot</option>
+            <option>909-Snare</option>
+            <option>909-Snare(Short)</option>
+            <option>909-Tom(Hi)</option>
+            <option>909-Tom(Lo)</option>
+            <option>909-Tom(Mid)</option>
+            <option>LM2-Cabasa</option>
+            <option>LM2-Clap</option>
+            <option>LM2-Closed HiHat</option>
+            <option>LM2-Closed HiHat(Long)</option>
+            <option>LM2-Closed HiHat(Short)</option>
+            <option>LM2-Conga</option>
+            <option>LM2-Conga(Hi)</option>
+            <option>LM2-Conga(Hi+)</option>
+            <option>LM2-Conga(Lo--)</option>
+            <option>LM2-Conga(Lo-)</option>
+            <option>LM2-Conga(Lo)</option>
+            <option>LM2-Cowbell</option>
+            <option>LM2-Crash</option>
+            <option>LM2-Kick</option>
+            <option>LM2-Kick2</option>
+            <option>LM2-Open HiHat</option>
+            <option>LM2-Ride Cymbal</option>
+            <option>LM2-SideStick</option>
+            <option>LM2-SideStick(Hi)</option>
+            <option>LM2-SideStick(Lo)</option>
+            <option>LM2-Snare</option>
+            <option>LM2-Snare(Hi)</option>
+            <option>LM2-Snare(Lo)</option>
+            <option>LM2-Tambourine</option>
+            <option>LM2-Tom</option>
+            <option>LM2-Tom(Hi)</option>
+            <option>LM2-Tom(Hi+)</option>
+            <option>LM2-Tom(Lo)</option>
+            <option>LM2-TOMll</option>
+        </datalist>
+    </dialog>
+
+    <input id="temp-input"  class="invisible" type="file" accept=".mp3, .wav"/>
 
     <hr/>
 
     <div id="unique-divider">⎮</div>
     <button class="step-" data-active="no" data-acc="0.5" data-cond="1.0" data-sub="1" data-micro="0.00"></button>
+
+
 
     <div id="grid-container">
 
