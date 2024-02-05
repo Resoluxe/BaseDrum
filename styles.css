@@ -42,6 +42,27 @@ button {
     cursor: pointer;
 }
 
+button:hover {
+    background-color: #04AA6D;
+    color: white;
+}
+
+.dialog-button{
+    background-color: gray;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 16px;
+    margin-bottom: 5px;
+    transition-duration: 0.4s;
+}
+
+
 #preset-list{
     display: block;
     margin-left: auto;
@@ -263,8 +284,11 @@ div[id^='seq-row-'] label[id^='new-inst-'] {
     background-color: gray;
     width: 100px;
     height: 25px;
+    display: block;
+    white-space: nowrap;
     text-align: center;
-    overflow: clip;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 
 input[type="file"] {

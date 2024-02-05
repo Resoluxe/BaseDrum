@@ -10,21 +10,32 @@
     <link rel="icon" type="image/x-icon" href="./Kinfinity%20Logo.png">
 </head>
 <body>
-    <h1 class="logo">BaseDrum<span id="version-number">v1.1.2</span><br/><span class="intro">A Web-Based Drum Machine / Pattern Playground</span></h1>
+    <h1 class="logo">BaseDrum<span id="version-number">v1.1.3</span><br/><span class="intro">A Web-Based Drum Machine / Pattern Playground</span></h1>
     <h2 id="kb-mode">Keyboard Mode: <span id="kb-indicator">OFF</span></h2>
+
 
     <dialog id="load-dialog">
         <p>How would you like to load your sample?</p>
-        <button id="load-own">Upload your own</button>
-        <button id="load-preset">Browse Presets</button>
-        <button id="load-cancel">Cancel</button>
+        <button id="load-kit" class="dialog-button">Load a kit</button>
+        <button id="load-preset" class="dialog-button">Browse Presets</button>
+        <button id="load-own" class="dialog-button">Upload your own</button>
+        <button id="load-cancel" class="dialog-button">Cancel</button>
+    </dialog>
+
+    <dialog id="kit-dialog">
+        <p>Here are some kits to get started with:</p>
+        <button id="kit-78" class="dialog-button">78</button>
+        <button id="kit-808" class="dialog-button">808</button>
+        <button id="kit-909" class="dialog-button">909</button>
+        <button id="kit-LM2" class="dialog-button">LM2</button>
+        <button id="kit-cancel" class="dialog-button">Cancel</button>
     </dialog>
 
     <dialog id="preset-dialog">
         <p>Please search / select the preset you want to load:</p>
-        <p>Samples obtained <a href="https://github.com/oramics/sampled">Here</a></p>
-        <input list="presets" id="preset-list">
-        <datalist id="presets">
+        <p>Samples obtained from <a href="https://github.com/oramics/sampled">Here</a></p>
+        <input onfocus="this.value=''" list="presets" id="preset-list" placeholder="">
+        <datalist autofocus id="presets">
             <option>78-Bongo(Hi)</option>
             <option>78-Bongo(Lo)</option>
             <option>78-Conga(Lo)</option>
@@ -104,6 +115,7 @@
             <option>LM2-Tom(Lo)</option>
             <option>LM2-TOMll</option>
         </datalist>
+        <button id="preset-cancel" class="dialog-button">Cancel</button>
     </dialog>
 
     <input id="temp-input"  class="invisible" type="file" accept=".mp3, .wav"/>
@@ -241,10 +253,10 @@
                     <li><span class = "instruction-light">Again, it's the last step that gets affected first.</span></li>
                 </ul>
             </li>
-            <li>Track (Row) clear button + Track trigger indicator</li>
-            <li>Instrument (Sample) load / display section
+            <li>Track (Row) clear button + Step trigger indicator</li>
+            <li>Instrument (Sample / Kit) load / display section
                 <ul>
-                    <li><span class = "instruction-light">Samples are loaded as (local) links to your audio files.</span></li>
+                    <li><span class = "instruction-light">Your own samples are loaded as (local) links to your audio files.</span></li>
                     <li><span class = "instruction-light">Tip: You can even replace samples while playing through a pattern!</span></li>
                 </ul>
             </li>

@@ -1,0 +1,163 @@
+
+
+        <div id="info-bar">
+            <label id="file-name-label" for="file-name"> <input type="text" id="file-name" placeholder="filename : lowercase only!"> </label>
+            <a href="#" id="downloadLink">Download Pattern</a>
+            <input id="upload-input" type="file" name="uploaded-file" accept="text/html">
+            <button id="upload">⏏︎</button>
+            <button id="download">↓</button>
+            <button id="loop" style="background-color: gray;">LOOP</button>
+            <label class="info-label" id="acc-label"><input class="info-input" type="number" min="0.0" max="1.0" step="0.01" id="ac" placeholder="0.5"></label>
+            <label class="info-label" id="cond-label"><input class="info-input" type="number" min="0.0" max="1.0" step="0.01" id="cond" placeholder="1.0"></label>
+            <label class="info-label" id="sub-label"><input class="info-input" type="number" min="0" max="10" id="sub" placeholder="1"></label>
+            <label class="info-label" id="micro-label"><input class="info-input" type="number" min="0.00" max="0.50" step="0.01" id="micro" placeholder="0.00"></label>
+            <label class="info-label" id="bpm-label"><input class="info-input" type="number" id="bpm" placeholder="120"></label>
+            <label class="info-label" id="beat-label"><input class="info-input" type="number" id="beat" placeholder="4" min="1"></label>
+            <label class="info-label" id="subptn-label"><input class="info-input" type="number" id="subptn" placeholder="1" min="1"></label>
+            <button id="add-page">P.ADD</button>
+        </div>
+
+        <div id="nav-bar">
+            <button id="nuke-all"> ☢︎ </button>
+            <button id="chaos"> ⚀ </button>
+            <button id="add-inst"> Inst+ </button>
+            <button id="del-inst"> Inst- </button>
+            <button id="add-col"> + </button>
+            <button id="del-col"> - </button>
+            <button id="play-all" style="background-color: gray;"> ▶All </button>
+            <div class="nav-utils">
+                <button id="accent" style="background-color: gray;"> ACCNT </button>
+                <button id="conditional" style="background-color: gray;"> COND </button>
+                <button id="ratchet" style="background-color: gray;"> RTCHT </button>
+                <button id="micro-timing" style="background-color: gray;"> MICRO </button>
+                <button id="tempo" style="background-color: gray;"> TEMPO </button>
+                <button id="sign" style="background-color: gray;"> BEAT </button>
+                <button id="page_left" style="background-color: gray;"> &lt; </button>
+                <button id="page_right" style="background-color: gray;"> &gt; </button>
+            </div>
+            <button id="del-page">P.DEL</button>
+        </div>
+
+        <div id="project" data-name="909-example" data-steps="16" data-sign="4" data-tempo="120" data-step="16">
+            <div id="pattern-1" class="">
+                <div id="seq-row-1-1">
+                    <button class="row-clear" style="background-color: gray;">1</button>
+                    <label for="inst-1" id="new-inst-1">909-Kick</label>
+                    <input id="inst-1" type="file" accept=".mp3, .wav">
+                    <audio id="audio-1" src="./presets/909-Kick.wav" autoplay=""></audio>
+                    <button class="mute" style="background-color: gray;"> M </button>
+                    <button class="solo" style="background-color: gray;"> S </button>
+                    <div class="steps">
+                        <button class="step1" data-active="yes" data-acc="0.5" data-cond="1.0" data-sub="1" data-micro="0.00" style="background-color: lawngreen; color: rgb(127, 0, 0); padding-left: 5px;">1</button>
+                        <button class="step2" data-active="no" data-acc="0.5" data-cond="1.0" data-sub="1" data-micro="0.00" style="background-color: darkgray; color: rgb(127, 0, 0); padding-left: 5px;"></button>
+                        <button class="step3" data-active="no" data-acc="0.5" data-cond="1.0" data-sub="1" data-micro="0.00" style="background-color: darkgray; color: rgb(127, 0, 0); padding-left: 5px;"></button>
+                        <button class="step4" data-active="no" data-acc="0.5" data-cond="1.0" data-sub="1" data-micro="0.00" style="background-color: darkgray; color: rgb(127, 0, 0); padding-left: 5px;"></button>
+                        <div class="divider">⎮</div>
+                        <button class="step5" data-active="yes" data-acc="0.5" data-cond="1.0" data-sub="1" data-micro="0.00" style="background-color: lawngreen; color: rgb(127, 0, 0); padding-left: 5px;">1</button>
+                        <button class="step6" data-active="no" data-acc="0.5" data-cond="1.0" data-sub="1" data-micro="0.00" style="background-color: darkgray; color: rgb(127, 0, 0); padding-left: 5px;"></button>
+                        <button class="step7" data-active="no" data-acc="0.5" data-cond="1.0" data-sub="1" data-micro="0.00" style="background-color: darkgray; color: rgb(127, 0, 0); padding-left: 5px;"></button>
+                        <button class="step8" data-active="no" data-acc="0.5" data-cond="1.0" data-sub="1" data-micro="0.00" style="background-color: darkgray; color: rgb(127, 0, 0); padding-left: 5px;"></button>
+                        <div class="divider">⎮</div>
+                        <button class="step9" data-active="no" data-acc="0.5" data-cond="1.0" data-sub="1" data-micro="0.00" style="background-color: darkgray; color: rgb(127, 0, 0); padding-left: 5px;"></button>
+                        <button class="step10" data-active="yes" data-acc="0.5" data-cond="1.0" data-sub="1" data-micro="0.00" style="background-color: lawngreen; color: rgb(127, 0, 0); padding-left: 5px;">1</button>
+                        <button class="step11" data-active="no" data-acc="0.5" data-cond="1.0" data-sub="1" data-micro="0.00" style="background-color: darkgray; color: rgb(127, 0, 0); padding-left: 5px;"></button>
+                        <button class="step12" data-active="no" data-acc="0.5" data-cond="1.0" data-sub="1" data-micro="0.00" style="background-color: darkgray; color: rgb(127, 0, 0); padding-left: 5px;"></button>
+                        <div class="divider">⎮</div>
+                        <button class="step13" data-active="yes" data-acc="0.5" data-cond="1.0" data-sub="1" data-micro="0.00" style="background-color: lawngreen; color: rgb(127, 0, 0); padding-left: 5px;">1</button>
+                        <button class="step14" data-active="no" data-acc="0.5" data-cond="1.0" data-sub="1" data-micro="0.00" style="background-color: darkgray; color: rgb(127, 0, 0); padding-left: 5px;"></button>
+                        
+                        
+                    <button class="step15" data-active="no" data-acc="0.5" data-cond="1.0" data-sub="1" data-micro="0.00" style="display: inline; background-color: darkgray; color: rgb(127, 0, 0); padding-left: 5px;"></button><button class="step16" data-active="no" data-acc="0.5" data-cond="1.0" data-sub="1" data-micro="0.00" style="display: inline; background-color: darkgray; color: rgb(127, 0, 0); padding-left: 5px;"></button></div>
+                    <button class="continue">►</button>
+                </div>
+            <div id="seq-row-2-1">
+                    <button class="row-clear" style="background-color: gray;">2</button>
+                    <label for="inst-2" id="new-inst-2">909-Clap1</label>
+                    <input id="inst-2" type="file" accept=".mp3, .wav">
+                    <audio id="audio-2" src="./presets/909-Clap1.wav" autoplay=""></audio>
+                    <button class="mute" style="background-color: gray;"> M </button>
+                    <button class="solo" style="background-color: gray;"> S </button>
+                    <div class="steps">
+                        <button class="step1" data-active="no" data-acc="0.5" data-cond="1.0" data-sub="1" data-micro="0.00" style="background-color: darkgray; color: rgb(127, 0, 0); padding-left: 5px;"></button>
+                        <button class="step2" data-active="no" data-acc="0.5" data-cond="1.0" data-sub="1" data-micro="0.00" style="background-color: darkgray; color: rgb(127, 0, 0); padding-left: 5px;"></button>
+                        <button class="step3" data-active="no" data-acc="0.5" data-cond="1.0" data-sub="1" data-micro="0.00" style="background-color: darkgray; color: rgb(127, 0, 0); padding-left: 5px;"></button>
+                        <button class="step4" data-active="no" data-acc="0.5" data-cond="1.0" data-sub="1" data-micro="0.00" style="background-color: darkgray; color: rgb(127, 0, 0); padding-left: 5px;"></button>
+                        <div class="divider">⎮</div>
+                        <button class="step5" data-active="yes" data-acc="0.5" data-cond="1.0" data-sub="1" data-micro="0.00" style="background-color: lawngreen; color: rgb(127, 0, 0); padding-left: 5px;">1</button>
+                        <button class="step6" data-active="no" data-acc="0.5" data-cond="1.0" data-sub="1" data-micro="0.00" style="background-color: darkgray; color: rgb(127, 0, 0); padding-left: 5px;"></button>
+                        <button class="step7" data-active="no" data-acc="0.5" data-cond="1.0" data-sub="1" data-micro="0.00" style="background-color: darkgray; color: rgb(127, 0, 0); padding-left: 5px;"></button>
+                        <button class="step8" data-active="no" data-acc="0.5" data-cond="1.0" data-sub="1" data-micro="0.00" style="background-color: darkgray; color: rgb(127, 0, 0); padding-left: 5px;"></button>
+                        <div class="divider">⎮</div>
+                        <button class="step9" data-active="no" data-acc="0.5" data-cond="1.0" data-sub="1" data-micro="0.00" style="background-color: darkgray; color: rgb(127, 0, 0); padding-left: 5px;"></button>
+                        <button class="step10" data-active="no" data-acc="0.5" data-cond="1.0" data-sub="1" data-micro="0.00" style="background-color: darkgray; color: rgb(127, 0, 0); padding-left: 5px;"></button>
+                        <button class="step11" data-active="no" data-acc="0.5" data-cond="1.0" data-sub="1" data-micro="0.00" style="background-color: darkgray; color: rgb(127, 0, 0); padding-left: 5px;"></button>
+                        <button class="step12" data-active="no" data-acc="0.5" data-cond="1.0" data-sub="1" data-micro="0.00" style="background-color: darkgray; color: rgb(127, 0, 0); padding-left: 5px;"></button>
+                        <div class="divider">⎮</div>
+                        <button class="step13" data-active="yes" data-acc="0.5" data-cond="1.0" data-sub="1" data-micro="0.00" style="background-color: lawngreen; color: rgb(127, 0, 0); padding-left: 5px;">1</button>
+                        <button class="step14" data-active="no" data-acc="0.5" data-cond="1.0" data-sub="1" data-micro="0.00" style="background-color: darkgray; color: rgb(127, 0, 0); padding-left: 5px;"></button>
+                        
+                        
+                    <button class="step15" data-active="no" data-acc="0.5" data-cond="1.0" data-sub="1" data-micro="0.00" style="display: inline; background-color: darkgray; color: rgb(127, 0, 0); padding-left: 5px;"></button><button class="step16" data-active="no" data-acc="0.5" data-cond="1.0" data-sub="1" data-micro="0.00" style="display: inline; background-color: darkgray; color: rgb(127, 0, 0); padding-left: 5px;"></button></div>
+                    <button class="continue">►</button>
+                </div><div id="seq-row-3-1">
+                    <button class="row-clear" style="background-color: gray;">3</button>
+                    <label for="inst-3" id="new-inst-3">909-Closed HiHat1</label>
+                    <input id="inst-3" type="file" accept=".mp3, .wav">
+                    <audio id="audio-3" src="./presets/909-Closed HiHat1.wav" autoplay=""></audio>
+                    <button class="mute" style="background-color: gray;"> M </button>
+                    <button class="solo" style="background-color: gray;"> S </button>
+                    <div class="steps">
+                        <button class="step1" data-active="yes" data-acc="0.5" data-cond="1.0" data-sub="1" data-micro="0.00" style="background-color: lawngreen; color: rgb(127, 0, 0); padding-left: 5px;">1</button>
+                        <button class="step2" data-active="no" data-acc="0.5" data-cond="1.0" data-sub="1" data-micro="0.00" style="background-color: darkgray; color: rgb(127, 0, 0); padding-left: 5px;"></button>
+                        <button class="step3" data-active="yes" data-acc="0.5" data-cond="1.0" data-sub="1" data-micro="0.00" style="background-color: lawngreen; color: rgb(127, 0, 0); padding-left: 5px;">1</button>
+                        <button class="step4" data-active="no" data-acc="0.5" data-cond="1.0" data-sub="1" data-micro="0.00" style="background-color: darkgray; color: rgb(127, 0, 0); padding-left: 5px;"></button>
+                        <div class="divider">⎮</div>
+                        <button class="step5" data-active="yes" data-acc="0.5" data-cond="1.0" data-sub="1" data-micro="0.00" style="background-color: lawngreen; color: rgb(127, 0, 0); padding-left: 5px;">1</button>
+                        <button class="step6" data-active="yes" data-acc="0.5" data-cond="1.0" data-sub="1" data-micro="0.00" style="background-color: lawngreen; color: rgb(127, 0, 0); padding-left: 5px;">1</button>
+                        <button class="step7" data-active="no" data-acc="0.5" data-cond="1.0" data-sub="1" data-micro="0.00" style="background-color: darkgray; color: rgb(127, 0, 0); padding-left: 5px;"></button>
+                        <button class="step8" data-active="no" data-acc="0.5" data-cond="1.0" data-sub="1" data-micro="0.00" style="background-color: darkgray; color: rgb(127, 0, 0); padding-left: 5px;"></button>
+                        <div class="divider">⎮</div>
+                        <button class="step9" data-active="yes" data-acc="0.5" data-cond="1.0" data-sub="1" data-micro="0.00" style="background-color: lawngreen; color: rgb(127, 0, 0); padding-left: 5px;">1</button>
+                        <button class="step10" data-active="no" data-acc="0.5" data-cond="1.0" data-sub="1" data-micro="0.00" style="background-color: darkgray; color: rgb(127, 0, 0); padding-left: 5px;"></button>
+                        <button class="step11" data-active="yes" data-acc="0.5" data-cond="1.0" data-sub="1" data-micro="0.00" style="background-color: lawngreen; color: rgb(127, 0, 0); padding-left: 5px;">1</button>
+                        <button class="step12" data-active="no" data-acc="0.5" data-cond="1.0" data-sub="1" data-micro="0.00" style="background-color: darkgray; color: rgb(127, 0, 0); padding-left: 5px;"></button>
+                        <div class="divider">⎮</div>
+                        <button class="step13" data-active="yes" data-acc="0.5" data-cond="1.0" data-sub="1" data-micro="0.00" style="background-color: lawngreen; color: rgb(127, 0, 0); padding-left: 5px;">1</button>
+                        <button class="step14" data-active="yes" data-acc="0.5" data-cond="1.0" data-sub="1" data-micro="0.00" style="background-color: lawngreen; color: rgb(127, 0, 0); padding-left: 5px;">1</button>
+                        
+                        
+                    <button class="step15" data-active="no" data-acc="0.5" data-cond="1.0" data-sub="1" data-micro="0.00" style="display: inline; background-color: darkgray; color: rgb(127, 0, 0); padding-left: 5px;"></button><button class="step16" data-active="no" data-acc="0.5" data-cond="1.0" data-sub="1" data-micro="0.00" style="display: inline; background-color: darkgray; color: rgb(127, 0, 0); padding-left: 5px;"></button></div>
+                    <button class="continue">►</button>
+                </div><div id="seq-row-4-1">
+                    <button class="row-clear" style="background-color: gray;">4</button>
+                    <label for="inst-4" id="new-inst-4">909-Snare</label>
+                    <input id="inst-4" type="file" accept=".mp3, .wav">
+                    <audio id="audio-4" src="./presets/909-Snare.wav" autoplay=""></audio>
+                    <button class="mute" style="background-color: gray;"> M </button>
+                    <button class="solo" style="background-color: gray;"> S </button>
+                    <div class="steps">
+                        <button class="step1" data-active="no" data-acc="0.5" data-cond="1.0" data-sub="1" data-micro="0.00" style="background-color: darkgray; color: rgb(127, 0, 0); padding-left: 5px;"></button>
+                        <button class="step2" data-active="no" data-acc="0.5" data-cond="1.0" data-sub="1" data-micro="0.00" style="background-color: darkgray; color: rgb(127, 0, 0); padding-left: 5px;"></button>
+                        <button class="step3" data-active="yes" data-acc="0.5" data-cond="1.0" data-sub="1" data-micro="0.00" style="background-color: lawngreen; color: rgb(127, 0, 0); padding-left: 5px;">1</button>
+                        <button class="step4" data-active="no" data-acc="0.5" data-cond="1.0" data-sub="1" data-micro="0.00" style="background-color: darkgray; color: rgb(127, 0, 0); padding-left: 5px;"></button>
+                        <div class="divider">⎮</div>
+                        <button class="step5" data-active="no" data-acc="0.5" data-cond="1.0" data-sub="1" data-micro="0.00" style="background-color: darkgray; color: rgb(127, 0, 0); padding-left: 5px;"></button>
+                        <button class="step6" data-active="no" data-acc="0.5" data-cond="1.0" data-sub="1" data-micro="0.00" style="background-color: darkgray; color: rgb(127, 0, 0); padding-left: 5px;"></button>
+                        <button class="step7" data-active="yes" data-acc="0.5" data-cond="1.0" data-sub="1" data-micro="0.00" style="background-color: lawngreen; color: rgb(127, 0, 0); padding-left: 5px;">1</button>
+                        <button class="step8" data-active="no" data-acc="0.5" data-cond="1.0" data-sub="1" data-micro="0.00" style="background-color: darkgray; color: rgb(127, 0, 0); padding-left: 5px;"></button>
+                        <div class="divider">⎮</div>
+                        <button class="step9" data-active="no" data-acc="0.5" data-cond="1.0" data-sub="1" data-micro="0.00" style="background-color: darkgray; color: rgb(127, 0, 0); padding-left: 5px;"></button>
+                        <button class="step10" data-active="no" data-acc="0.5" data-cond="1.0" data-sub="1" data-micro="0.00" style="background-color: darkgray; color: rgb(127, 0, 0); padding-left: 5px;"></button>
+                        <button class="step11" data-active="yes" data-acc="0.5" data-cond="1.0" data-sub="1" data-micro="0.00" style="background-color: lawngreen; color: rgb(127, 0, 0); padding-left: 5px;">1</button>
+                        <button class="step12" data-active="no" data-acc="0.5" data-cond="1.0" data-sub="1" data-micro="0.00" style="background-color: darkgray; color: rgb(127, 0, 0); padding-left: 5px;"></button>
+                        <div class="divider">⎮</div>
+                        <button class="step13" data-active="no" data-acc="0.5" data-cond="1.0" data-sub="1" data-micro="0.00" style="background-color: darkgray; color: rgb(127, 0, 0); padding-left: 5px;"></button>
+                        <button class="step14" data-active="no" data-acc="0.5" data-cond="1.0" data-sub="1" data-micro="0.00" style="background-color: darkgray; color: rgb(127, 0, 0); padding-left: 5px;"></button>
+                        
+                        
+                    <button class="step15" data-active="yes" data-acc="0.5" data-cond="1.0" data-sub="1" data-micro="0.00" style="display: inline; background-color: lawngreen; color: rgb(127, 0, 0); padding-left: 5px;">1</button><button class="step16" data-active="no" data-acc="0.5" data-cond="1.0" data-sub="1" data-micro="0.00" style="display: inline; background-color: darkgray; color: rgb(127, 0, 0); padding-left: 5px;"></button></div>
+                    <button class="continue">►</button>
+                </div></div>
+        </div>
+
+    

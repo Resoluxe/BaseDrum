@@ -13,13 +13,22 @@ let loadedProject;
 let coll = document.getElementsByClassName("collapsible");
 let selectedRow = 1; // Which row to import samples to
 
+
 /* Commonly Used Functions */
 
 document.querySelector("#load-cancel").onclick = function closeDialog() {
     document.getElementById("load-dialog").close();
 }
 
-document.querySelector("#load-own").onclick = function loadSample(e) {
+document.querySelector("#kit-cancel").onclick = function closeDialog() {
+    document.getElementById("kit-dialog").close();
+}
+
+document.querySelector("#preset-cancel").onclick = function closeDialog() {
+    document.getElementById("preset-dialog").close();
+}
+
+document.querySelector("#load-own").onclick = function loadSample() {
     document.querySelector("#temp-input").click();
     document.getElementById("load-dialog").close();
 }
@@ -34,8 +43,12 @@ document.querySelector("#temp-input").addEventListener('change', function loadSa
             $('#audio-' + selectedRow.toString()).attr('src', e.target.result);
         }
         reader.readAsDataURL(file);
+        for (let page=1; page <= pageCount; page++) {
+            document.querySelector("#pattern-" + page.toString() + " #seq-row-" + selectedRow.toString() + "-" + page.toString() + " #new-inst-" + selectedRow.toString()).textContent = target.files[0].name;
+        }
+
     }
-    document.querySelector("#new-inst-" + selectedRow.toString()).textContent = target.files[0].name;
+
 });
 
 document.querySelector("#load-preset").onclick = function browsePresets() {
@@ -46,10 +59,102 @@ document.querySelector("#load-preset").onclick = function browsePresets() {
 document.querySelector("#preset-list").onchange = function loadPreset() {
     document.getElementById("preset-dialog").close();
     $('#audio-' + selectedRow.toString()).attr('src', "./presets/" + this.value + ".wav");
-    document.querySelector("#new-inst-" + selectedRow.toString()).textContent = this.value;
+    for (let page=1; page <= pageCount; page++) {
+        document.querySelector("#pattern-" + page.toString() + " #seq-row-" + selectedRow.toString() + "-" + page.toString() + " #new-inst-" + selectedRow.toString()).textContent = this.value;
+    }
 }
 
+document.querySelector("#load-kit").onclick = function selectKit() {
+    document.getElementById("load-dialog").close();
+    document.getElementById("kit-dialog").showModal();
+}
 
+document.querySelector("#kit-78").onclick = function load78() {
+    document.getElementById("kit-dialog").close();
+    clearInterval(intervalId)
+    $.get("./patterns/BDv1_1-78-example.html", function (data) {
+        let copy78 = convertStringToHTML(data);
+        document.querySelector("#grid-container").replaceChild(copy78.querySelector("#project"),document.querySelector("#project"));
+        totalRow = 5;
+        baseVal = 4;
+        bpm = 120;
+        pos = 1;
+        maxPos = 16;
+        maxPosAll = 16;
+        currentKBLocation = null;
+        currentPage = 1;
+        pageCount = 1;
+        document.querySelector("#file-name").value = "78-example"
+        for (let row = 1; row <= totalRow; row++) {
+            initializeRow(1,row);
+        }
+    });
+}
+
+document.querySelector("#kit-808").onclick = function load808() {
+    document.getElementById("kit-dialog").close();
+    clearInterval(intervalId)
+    $.get("./patterns/BDv1_1-808-example.html", function (data) {
+        let copy78 = convertStringToHTML(data);
+        document.querySelector("#grid-container").replaceChild(copy78.querySelector("#project"),document.querySelector("#project"));
+        totalRow = 9;
+        baseVal = 4;
+        bpm = 120;
+        pos = 1;
+        maxPos = 16;
+        maxPosAll = 16;
+        currentKBLocation = null;
+        currentPage = 1;
+        pageCount = 1;
+        document.querySelector("#file-name").value = "808-example"
+        for (let row = 1; row <= totalRow; row++) {
+            initializeRow(1,row);
+        }
+    });
+}
+
+document.querySelector("#kit-909").onclick = function load909() {
+    document.getElementById("kit-dialog").close();
+    clearInterval(intervalId)
+    $.get("./patterns/BDv1_1-909-example.html", function (data) {
+        let copy78 = convertStringToHTML(data);
+        document.querySelector("#grid-container").replaceChild(copy78.querySelector("#project"),document.querySelector("#project"));
+        totalRow = 4;
+        baseVal = 4;
+        bpm = 120;
+        pos = 1;
+        maxPos = 16;
+        maxPosAll = 16;
+        currentKBLocation = null;
+        currentPage = 1;
+        pageCount = 1;
+        document.querySelector("#file-name").value = "909-example"
+        for (let row = 1; row <= totalRow; row++) {
+            initializeRow(1,row);
+        }
+    });
+}
+document.querySelector("#kit-LM2").onclick = function loadLM2() {
+    document.getElementById("kit-dialog").close();
+    clearInterval(intervalId)
+    $.get("./patterns/BDv1_1-LM2-example.html", function (data) {
+        let copy78 = convertStringToHTML(data);
+        document.querySelector("#grid-container").replaceChild(copy78.querySelector("#project"),document.querySelector("#project"));
+        totalRow = 6;
+        baseVal = 4;
+        bpm = 120;
+        pos = 1;
+        maxPos = 16;
+        maxPosAll = 16;
+        currentKBLocation = null;
+        currentPage = 1;
+        pageCount = 1;
+        document.querySelector("#file-name").value = "LM2-example"
+        for (let row = 1; row <= totalRow; row++) {
+            initializeRow(1,row);
+        }
+    });
+}
 
 function toggleColor(current, active, inactive) {
     if (current.style.backgroundColor === active) {
@@ -201,6 +306,11 @@ document.querySelector("#file-name").addEventListener('blur', function changeFil
 });
 
 // Upload Pattern
+document.querySelector("#upload").onclick = function () {
+
+
+    document.querySelector("#upload-input").click();
+}
 
 document.querySelector("#upload-input").onchange = function replaceProject() {
 
@@ -234,15 +344,10 @@ document.querySelector("#upload-input").onchange = function replaceProject() {
         document.querySelector("#subptn").value = 1;
         currentPage = 1;
         pos = 1;
-        lastSelection = null;
         clearInterval(intervalId);
     };
     projectReader.readAsText(file);
 }
-
-document.querySelector("#upload").addEventListener('click', function uploadProject() {
-    document.querySelector("#upload-input").click()
-});
 
 // Download pattern (as HTML)
 
@@ -376,12 +481,17 @@ function initializeRow(page, row) {
                 document.querySelector("#pattern-" + page.toString() + " #seq-row-" + row.toString() + "-" + page.toString() + " .step" + step.toString()).style.paddingLeft = "5px";
 
             }
+
+            document.querySelector("#audio-" + row.toString()).currentTime = 0;
+            document.querySelector("#audio-" + row.toString()).play()
+
         });
     }
 
     // Enable Row Clear
     document.querySelector("#pattern-" + page.toString() + " #seq-row-" + row.toString() + "-" + page.toString() + " .row-clear").addEventListener('click', function rowClear() {
             for (let step = 1; step <= maxPos; step++) {
+                document.querySelector("#seq-row-" + row.toString() + "-" + currentPage.toString()  + " .row-clear").style.backgroundColor = "gray";
                 document.querySelector("#pattern-" + page.toString() + " #seq-row-" + this.textContent + "-" + page.toString() + " .steps .step" + step.toString()).style.backgroundColor = "darkgray";
                 document.querySelector("#pattern-" + page.toString() + " #seq-row-" + this.textContent + "-" + page.toString() + " .steps .step" + step.toString()).textContent = "";
                 document.querySelector("#pattern-" + page.toString() + " #seq-row-" + this.textContent + "-" + page.toString() + " .steps .step" + step.toString()).dataset.active = "no"
@@ -390,7 +500,6 @@ function initializeRow(page, row) {
     });
 
     // Enable Loading Samples / presets
-
     $('#inst-' + row.toString()).on('click', function chooseSample(e) {
         selectedRow = row;
         e.preventDefault();
@@ -718,7 +827,6 @@ document.querySelector("#add-page").onclick = function addPage() {
 
 
     for (let row = 1; row <= totalRow; row++) {
-        document.querySelector("#new-inst-" + row.toString()).textContent = document.querySelector("#pattern-1" + " #inst-" + row.toString()).value.replace("C:\\fakepath\\", "");
         initializeRow(pageCount, row);
     }
 
@@ -726,7 +834,8 @@ document.querySelector("#add-page").onclick = function addPage() {
         $("#pattern-" + page.toString()).addClass("invisible");
         for (let row = 1; row <= totalRow; row++) {
             document.querySelectorAll(".continue").forEach((element) => element.style.backgroundColor = "lawngreen");
-        }document.querySelector("#pattern-" + currentPage.toString() + " #seq-row-" + row.toString() + "-" + currentPage.toString() + " .row-clear").click();
+            document.querySelector("#pattern-" + currentPage.toString() + " #seq-row-" + row.toString() + "-" + currentPage.toString() + " .row-clear").click();
+        }
     }
     $("#pattern-" + pageCount).removeClass("invisible");
 
