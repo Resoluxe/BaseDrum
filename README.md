@@ -76,6 +76,9 @@ When the 'Keyboard Mode' is toggled on with 'K', those additional inputs will be
     - Say thanks,
     - Report a bug (there's an issue tracker for that though...),
     - or (even better) provide me with good career opportunities. (No spam please. Had enough with Python.)
+   
+## Acknowledgements
+- Preset samples obtained from [here](https://github.com/oramics/sampled)
 
 My intention of making BaseDrum was to share the joy of crafting drum patterns with everyone (even those without software(DAW)/hardware drum sequencers).  
 At least I had a lot of fun with it, and I hope you can have some fun too! (Also hope there are no critical bugs anymore...)  
