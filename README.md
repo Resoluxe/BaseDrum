@@ -9,8 +9,6 @@ The individual sounds are not the main concern here - rather it's more about the
 If you want a 2-minute sequence of 8 parts with 17/5 time signature running at 200BPM, then go for it! (Note: Unfound Claim.)  
 The sky, and my HTML + CSS + JS spaghetti "code" is the limit.
 
-- **Notice** From version 1.2.0 and onwards, track count is limited to 32 (due to Web Audio API specifications)  
-
 2. BaseDrum features precise **per-step manipulations**, like:
 
 - Accents (Default at 50% = 0.5, 0% ~ 100%)
