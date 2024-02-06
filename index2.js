@@ -9,9 +9,9 @@ let currentKBLocation = null; // Keyboard Cursor Location : Normally Array([row,
 let currentPage = 1; // Current Page
 let pageCount = 1; // Pattern Count
 let loadedProject;
-let intervalId;
 let coll = document.getElementsByClassName("collapsible");
 let selectedRow = 1; // Which row to import samples to
+let loop = false;
 
 let canvasWidth = 500;
 let canvasHeight = 200;
@@ -20,6 +20,105 @@ let canvasHeight = 200;
 const audioContext = new AudioContext();
 let audioBuffers = [];
 let gainNodes = [];
+
+const lookahead = 25.0; // How frequently to call scheduling function (in milliseconds)
+const scheduleAheadTime = 0.1; // How far ahead to schedule audio (sec)
+let currentNote = 0;
+let nextNoteTime = 0.0; // when the next note is due.
+const notesInQueue = [];
+let timerID;
+
+// Lookahead Scheduling
+function nextNote() {
+    const secondsPerBeat = 60.0 / (bpm * baseVal);
+    nextNoteTime += secondsPerBeat;
+    currentNote = (currentNote + 1) % maxPos;
+}
+
+// Toggle Column
+function toggleColumn(loop) {
+
+    for (let row = 1; row <= totalRow; row++) {
+
+        let current_step = document.querySelector("#pattern-" + currentPage.toString() + " #seq-row-" + row.toString() + "-" + currentPage.toString() + " .step" + pos.toString());
+
+        document.querySelector("#accent").style.backgroundColor = "gray";
+        document.querySelector("#tempo").style.backgroundColor = "gray";
+        document.querySelector("#page_right").style.backgroundColor = "gray";
+        document.querySelector("#conditional").style.backgroundColor = "gray";
+
+        if (pos === 1) {
+            document.querySelector("#tempo").style.backgroundColor = "orange";
+            document.querySelector("#page_right").style.backgroundColor = "orange";
+        } else if (pos % baseVal === 1) {
+            document.querySelector("#tempo").style.backgroundColor = "orange";
+        }
+
+        if (document.querySelector("#pattern-" + currentPage.toString() + " #seq-row-" + row.toString() + "-" + currentPage.toString() + " .mute").style.backgroundColor === "red") {
+            gainNodes[row - 1].gain.value = 0;
+        } else {
+            gainNodes[row - 1].gain.value = Number(current_step.dataset.acc);
+        }
+
+        if (current_step.dataset.active === "yes") {
+            if (Math.random() < current_step.dataset.cond) {
+                notesInQueue.push({ note: row, time : 0 });
+                current_step.textContent = current_step.dataset.sub;
+                toggleColor(document.querySelector("#accent"), "#" + Math.floor(Number(current_step.dataset.acc) * 255).toString(16) + "0000", "gray");
+
+                setTimeout(function () {
+                    for (let sub = 1; sub <= Number(current_step.dataset.sub); sub++) {
+                        setTimeout(function () {
+                            toggleColor(document.querySelector("#seq-row-" + row.toString() + "-" + currentPage.toString()  + " .row-clear"), 'yellow', 'gray');
+                            toggleColor(current_step, 'yellow', 'lawngreen');
+                            playSample(audioBuffers[row - 1], row);
+                        }, 60000 / (bpm * baseVal * sub));
+                        toggleColor((document.querySelector("#seq-row-" + row.toString() + "-" + currentPage.toString()  + " .row-clear")), 'yellow', 'gray');
+                        toggleColor(current_step, 'yellow', 'lawngreen');
+                    }
+                }, (60000 * Number(current_step.dataset.micro)) / (bpm * baseVal));
+            } else {
+                document.querySelector("#conditional").style.backgroundColor = "orange";
+                current_step.textContent = "X";
+            }
+        }
+    }
+
+    pos++;
+
+    if (pos > maxPos) {
+        pos = 1;
+        if (pageCount > 1 && loop === false) {
+            currentPage++;
+            for (let page = 1; page <= pageCount; page++) {
+                $("#pattern-" + page.toString()).addClass("invisible");
+            }
+            $("#pattern-" + currentPage.toString()).removeClass("invisible");
+        }
+    }
+
+    if (currentPage > pageCount) {
+        currentPage = 1;
+        pos = 1;
+        for (let page = 1; page <= pageCount; page++) {
+            $("#pattern-" + page.toString()).addClass("invisible");
+        }
+        $("#pattern-1".toString()).removeClass("invisible");
+    }
+
+    document.querySelector("#subptn").value = currentPage.toString();
+
+}
+
+function scheduler() {
+    while (nextNoteTime < audioContext.currentTime + scheduleAheadTime) {
+        toggleColumn(loop);
+        nextNote();
+    }
+    timerID = setTimeout(scheduler, lookahead);
+}
+
+// Visualization
 
 let visualizer = new AnalyserNode(audioContext);
 visualizer.connect(audioContext.destination)
@@ -172,7 +271,7 @@ document.querySelector("#load-kit").onclick = function selectKit() {
 
 document.querySelector("#kit-78").onclick = function load78() {
     document.getElementById("kit-dialog").close();
-    clearInterval(intervalId)
+    clearTimeout(timerID)
     $.get("./patterns/BDv1_1-78-example.html", function (data) {
         let copy78 = convertStringToHTML(data);
         document.querySelector("#grid-container").replaceChild(copy78.querySelector("#project"),document.querySelector("#project"));
@@ -194,7 +293,7 @@ document.querySelector("#kit-78").onclick = function load78() {
 
 document.querySelector("#kit-808").onclick = function load808() {
     document.getElementById("kit-dialog").close();
-    clearInterval(intervalId)
+    clearTimeout(timerID)
     $.get("./patterns/BDv1_1-808-example.html", function (data) {
         let copy78 = convertStringToHTML(data);
         document.querySelector("#grid-container").replaceChild(copy78.querySelector("#project"),document.querySelector("#project"));
@@ -216,7 +315,7 @@ document.querySelector("#kit-808").onclick = function load808() {
 
 document.querySelector("#kit-909").onclick = function load909() {
     document.getElementById("kit-dialog").close();
-    clearInterval(intervalId)
+    clearTimeout(timerID)
     $.get("./patterns/BDv1_1-909-example.html", function (data) {
         let copy78 = convertStringToHTML(data);
         document.querySelector("#grid-container").replaceChild(copy78.querySelector("#project"),document.querySelector("#project"));
@@ -237,7 +336,7 @@ document.querySelector("#kit-909").onclick = function load909() {
 }
 document.querySelector("#kit-LM2").onclick = function loadLM2() {
     document.getElementById("kit-dialog").close();
-    clearInterval(intervalId)
+    clearTimeout(timerID)
     $.get("./patterns/BDv1_1-LM2-example.html", function (data) {
         let copy78 = convertStringToHTML(data);
         document.querySelector("#grid-container").replaceChild(copy78.querySelector("#project"),document.querySelector("#project"));
@@ -270,140 +369,6 @@ let convertStringToHTML = function (str) {
     let doc = parser.parseFromString(str, 'text/html');
     return doc.body;
 };
-
-
-// Toggle Column
-function toggleColumn() {
-
-    let tempPos= pos;
-
-    for (let row = 1; row <= totalRow; row++) {
-
-        let current_step = document.querySelector("#pattern-" + currentPage.toString() + " #seq-row-" + row.toString() + "-" + currentPage.toString() + " .step" + tempPos.toString());
-
-        document.querySelector("#accent").style.backgroundColor = "gray";
-        document.querySelector("#tempo").style.backgroundColor = "gray";
-        document.querySelector("#page_right").style.backgroundColor = "gray";
-        document.querySelector("#conditional").style.backgroundColor = "gray";
-
-        if (pos === 1) {
-            document.querySelector("#tempo").style.backgroundColor = "orange";
-            document.querySelector("#page_right").style.backgroundColor = "orange";
-        } else if (pos % baseVal === 1) {
-            document.querySelector("#tempo").style.backgroundColor = "orange";
-        }
-
-        if (document.querySelector("#pattern-" + currentPage.toString() + " #seq-row-" + row.toString() + "-" + currentPage.toString() + " .mute").style.backgroundColor === "red") {
-            gainNodes[row - 1].gain.value = 0;
-        } else {
-            gainNodes[row - 1].gain.value = Number(current_step.dataset.acc);
-        }
-
-        if (current_step.dataset.active === "yes") {
-            if (Math.random() < current_step.dataset.cond) {
-
-                current_step.textContent = current_step.dataset.sub;
-                toggleColor(document.querySelector("#accent"), "#" + Math.floor(Number(current_step.dataset.acc) * 255).toString(16) + "0000", "gray");
-
-                setTimeout(function () {
-                    for (let sub = 1; sub <= Number(current_step.dataset.sub); sub++) {
-                        setTimeout(function () {
-                            toggleColor(document.querySelector("#seq-row-" + row.toString() + "-" + currentPage.toString()  + " .row-clear"), 'yellow', 'gray');
-                            toggleColor(current_step, 'yellow', 'lawngreen');
-                            playSample(audioBuffers[row - 1], row);
-                        }, 60000 / (bpm * baseVal * sub));
-                        toggleColor((document.querySelector("#seq-row-" + row.toString() + "-" + currentPage.toString()  + " .row-clear")), 'yellow', 'gray');
-                        toggleColor(current_step, 'yellow', 'lawngreen');
-                    }
-                }, (60000 * Number(current_step.dataset.micro)) / (bpm * baseVal));
-            } else {
-                document.querySelector("#conditional").style.backgroundColor = "orange";
-                current_step.textContent = "X";
-            }
-        }
-    }
-
-    pos++;
-
-    if (pos > maxPos) {
-        pos = 1;
-    }
-}
-
-// Toggle Column (Through All Pages)
-function toggleColumnAll() {
-
-    let tempPos= pos;
-    let tempPage = currentPage;
-
-    for (let row = 1; row <= totalRow; row++) {
-
-        let current_step = document.querySelector("#pattern-" + tempPage.toString() + " #seq-row-" + row.toString() + "-" + tempPage.toString() + " .step" + tempPos.toString());
-
-        document.querySelector("#accent").style.backgroundColor = "gray";
-        document.querySelector("#tempo").style.backgroundColor = "gray";
-        document.querySelector("#page_right").style.backgroundColor = "gray";
-        document.querySelector("#conditional").style.backgroundColor = "gray";
-
-        if (pos === 1) {
-            document.querySelector("#tempo").style.backgroundColor = "orange";
-            document.querySelector("#page_right").style.backgroundColor = "orange";
-        } else if (pos % baseVal === 1) {
-            document.querySelector("#tempo").style.backgroundColor = "orange";
-        }
-
-        if (document.querySelector("#pattern-" + tempPage.toString() + " #seq-row-" + row.toString() + "-" + tempPage.toString() + " .mute").style.backgroundColor === "red") {
-            gainNodes[row - 1].gain.value = 0;
-        } else {
-            gainNodes[row - 1].gain.value = Number(current_step.dataset.acc);
-        }
-
-        if (current_step.dataset.active === "yes") {
-            if (Math.random() < current_step.dataset.cond) {
-                current_step.textContent = current_step.dataset.sub;
-                toggleColor(document.querySelector("#accent"), "#" + Math.floor(Number(current_step.dataset.acc) * 255).toString(16) + "0000", "gray");
-
-                setTimeout(function () {
-                    for (let sub = 1; sub <= Number(current_step.dataset.sub); sub++) {
-                        setTimeout(function () {
-                            toggleColor(document.querySelector("#seq-row-" + row.toString() + "-" + tempPage.toString()  + " .row-clear"), 'yellow', 'gray');
-                            toggleColor(current_step, 'yellow', 'lawngreen');
-                            playSample(audioBuffers[row - 1], row);
-                        }, 60000 / (bpm * baseVal * sub));
-                        toggleColor((document.querySelector("#seq-row-" + row.toString() + "-" + tempPage.toString()  + " .row-clear")), 'yellow', 'gray');
-                        toggleColor(current_step, 'yellow', 'lawngreen');
-                    }
-                }, (60000 * Number(current_step.dataset.micro)) / (bpm * baseVal));
-            } else {
-                document.querySelector("#conditional").style.backgroundColor = "orange";
-                current_step.textContent = "X";
-            }
-        }
-    }
-
-    pos++;
-
-    if (pos > maxPos) {
-        currentPage++;
-        pos = 1;
-        for (let page = 1; page <= pageCount; page++) {
-            $("#pattern-" + page.toString()).addClass("invisible");
-        }
-        $("#pattern-" + currentPage.toString()).removeClass("invisible");
-    }
-
-    if (currentPage > pageCount) {
-        currentPage = 1;
-        pos = 1;
-        for (let page = 1; page <= pageCount; page++) {
-            $("#pattern-" + page.toString()).addClass("invisible");
-        }
-        $("#pattern-1".toString()).removeClass("invisible");
-    }
-
-    document.querySelector("#subptn").value = currentPage.toString();
-
-}
 
 
 /* Initialize Nav Bar */
@@ -454,7 +419,7 @@ document.querySelector("#upload-input").onchange = function replaceProject() {
         document.querySelector("#subptn").value = 1;
         currentPage = 1;
         pos = 1;
-        clearInterval(intervalId);
+        clearTimeout(timerID);
     };
     projectReader.readAsText(file);
 }
@@ -668,7 +633,7 @@ window.onload = function (){
 document.querySelector("#nuke-all").addEventListener('click', function nukeAll() {
     let nukeConfirm = confirm("This will ERASE ALL patterns. Are you really sure?");
     if (nukeConfirm === true) {
-        clearInterval(intervalId);
+        clearTimeout(timerID);
         document.querySelector("#play-all").style.backgroundColor = "gray"
         document.querySelector("#loop").style.backgroundColor = "gray"
         document.querySelectorAll(".steps button").forEach((element) => element.style.backgroundColor = "darkgray");
@@ -700,7 +665,7 @@ document.querySelector("#chaos").addEventListener('click', function totalChaos()
     if (parseInt(chaosVal) === 0) {
         let chaosConfirm = confirm("This will mix up ALL STEPS in this page. Are you really sure?");
         if (chaosConfirm === true) {
-            clearInterval(intervalId);
+            clearTimeout(timerID);
             document.querySelector("#play-all").style.backgroundColor = "gray";
             document.querySelector("#loop").style.backgroundColor = "gray";
 
@@ -723,7 +688,7 @@ document.querySelector("#chaos").addEventListener('click', function totalChaos()
     } else if (parseInt(chaosVal) === -1) {
         let trueChaosConfirm = confirm("-TOP SECRET-\nThis will randomize all steps along with its parameters.\nCHECK YOUR VOLUME BEFORE PROCEEDING.\nAre you REALLY sure?");
         if (trueChaosConfirm === true) {
-            clearInterval(intervalId);
+            clearTimeout(timerID);
             document.querySelector("#play-all").style.backgroundColor = "gray";
             document.querySelector("#loop").style.backgroundColor = "gray";
 
@@ -827,14 +792,11 @@ document.querySelector("#bpm-label").addEventListener('input', function setBPM()
     if (document.querySelector("#bpm").value > 0) {
         bpm = document.querySelector("#bpm").value
         document.querySelector("#project").dataset.tempo = bpm.toString();
-        clearInterval(intervalId);
-        if (document.querySelector("#play-all").style.backgroundColor === "lawngreen") {
-            intervalId = setInterval(toggleColumnAll, 60000 / (bpm * baseVal));
-        }
+        clearTimeout(timerID);
     } else {
         alert("BPM must be higher than 0!");
         document.querySelector("#bpm").value = ""
-        clearInterval(intervalId);
+        clearTimeout(timerID);
     }
 });
 
@@ -863,42 +825,49 @@ document.querySelector("#beat").onchange = function beatChange() {
 document.querySelector("#play-all").onclick = function playPattern() {
 
     toggleColor(document.querySelector("#play-all"), "lawngreen", "gray");
+    loop = false;
 
     if (document.querySelector("#loop").style.backgroundColor === "lawngreen") {
         document.querySelector("#loop").style.backgroundColor = "gray"
     }
 
     if (document.querySelector("#play-all").style.backgroundColor === "lawngreen") {
-        clearInterval(intervalId);
-        pos = 1;
-        currentPage = 1;
-        for (let page = 1; page <= pageCount; page++) {
-            $("#pattern-" + page.toString()).addClass("invisible");
+
+        if (audioContext.state === "suspended") {
+            audioContext.resume();
         }
-        $("#pattern-1").removeClass("invisible");
-        document.querySelector("#subptn").value = "1"
-        intervalId = setInterval(toggleColumnAll, 60000 / (bpm * baseVal));
+
+        currentNote = 0;
+        nextNoteTime = audioContext.currentTime;
+        scheduler();
         draw();
         drawWave();
-    } else {clearInterval(intervalId);}
+    } else {
+        clearTimeout(timerID);
+    }
 }
 
 // Loop through one pattern
 document.querySelector("#loop").onclick = function loopPattern() {
 
     toggleColor(document.querySelector("#loop"), "lawngreen", "gray");
+    loop = true;
 
     if (document.querySelector("#play-all").style.backgroundColor === "lawngreen") {
         document.querySelector("#play-all").style.backgroundColor = "gray"
     }
 
     if (document.querySelector("#loop").style.backgroundColor === "lawngreen") {
-        clearInterval(intervalId);
-        pos = 1;
-        intervalId = setInterval(toggleColumn, 60000 / (bpm * baseVal));
+        if (audioContext.state === "suspended") {
+            audioContext.resume();
+        }
+
+        currentNote = 0;
+        nextNoteTime = audioContext.currentTime;
+        scheduler();
         draw();
         drawWave();
-    } else {clearInterval(intervalId);}
+    } else {clearTimeout(timerID);}
 }
 
 
