@@ -23,7 +23,6 @@ let gainNodes = [];
 
 const lookahead = 25.0; // How frequently to call scheduling function (in milliseconds)
 const scheduleAheadTime = 0.1; // How far ahead to schedule audio (sec)
-let currentNote = 0;
 let nextNoteTime = 0.0; // when the next note is due.
 const notesInQueue = [];
 let timerID;
@@ -32,11 +31,31 @@ let timerID;
 function nextNote() {
     const secondsPerBeat = 60.0 / (bpm * baseVal);
     nextNoteTime += secondsPerBeat;
-    currentNote = (currentNote + 1) % maxPos;
+    pos++;
+
+    if (pos > maxPos) {
+        pos = 1;
+        if (pageCount > 1 && loop === false) {
+            currentPage++;
+            for (let page = 1; page <= pageCount; page++) {
+                $("#pattern-" + page.toString()).addClass("invisible");
+            }
+            $("#pattern-" + currentPage.toString()).removeClass("invisible");
+        }
+    }
+
+    if (currentPage > pageCount) {
+        currentPage = 1;
+        pos = 1;
+        for (let page = 1; page <= pageCount; page++) {
+            $("#pattern-" + page.toString()).addClass("invisible");
+        }
+        $("#pattern-1".toString()).removeClass("invisible");
+    }
 }
 
 // Toggle Column
-function toggleColumn(loop) {
+function toggleColumn(loop, time) {
 
     for (let row = 1; row <= totalRow; row++) {
 
@@ -62,7 +81,7 @@ function toggleColumn(loop) {
 
         if (current_step.dataset.active === "yes") {
             if (Math.random() < current_step.dataset.cond) {
-                notesInQueue.push({ note: row, time : 0 });
+                notesInQueue.push({ note: time});
                 current_step.textContent = current_step.dataset.sub;
                 toggleColor(document.querySelector("#accent"), "#" + Math.floor(Number(current_step.dataset.acc) * 255).toString(16) + "0000", "gray");
 
@@ -71,11 +90,12 @@ function toggleColumn(loop) {
                         setTimeout(function () {
                             toggleColor(document.querySelector("#seq-row-" + row.toString() + "-" + currentPage.toString()  + " .row-clear"), 'yellow', 'gray');
                             toggleColor(current_step, 'yellow', 'lawngreen');
-                            playSample(audioBuffers[row - 1], row);
+                            playSample(audioBuffers[row - 1], row, time);
                         }, 60000 / (bpm * baseVal * sub));
                         toggleColor((document.querySelector("#seq-row-" + row.toString() + "-" + currentPage.toString()  + " .row-clear")), 'yellow', 'gray');
                         toggleColor(current_step, 'yellow', 'lawngreen');
                     }
+                    toggleColor(document.querySelector("#accent"), "#" + Math.floor(Number(current_step.dataset.acc) * 255).toString(16) + "0000", "gray");
                 }, (60000 * Number(current_step.dataset.micro)) / (bpm * baseVal));
             } else {
                 document.querySelector("#conditional").style.backgroundColor = "orange";
@@ -83,36 +103,12 @@ function toggleColumn(loop) {
             }
         }
     }
-
-    pos++;
-
-    if (pos > maxPos) {
-        pos = 1;
-        if (pageCount > 1 && loop === false) {
-            currentPage++;
-            for (let page = 1; page <= pageCount; page++) {
-                $("#pattern-" + page.toString()).addClass("invisible");
-            }
-            $("#pattern-" + currentPage.toString()).removeClass("invisible");
-        }
-    }
-
-    if (currentPage > pageCount) {
-        currentPage = 1;
-        pos = 1;
-        for (let page = 1; page <= pageCount; page++) {
-            $("#pattern-" + page.toString()).addClass("invisible");
-        }
-        $("#pattern-1".toString()).removeClass("invisible");
-    }
-
     document.querySelector("#subptn").value = currentPage.toString();
-
 }
 
 function scheduler() {
     while (nextNoteTime < audioContext.currentTime + scheduleAheadTime) {
-        toggleColumn(loop);
+        toggleColumn(loop, nextNoteTime);
         nextNote();
     }
     timerID = setTimeout(scheduler, lookahead);
@@ -204,13 +200,13 @@ async function setupSample(filePath) {
     return await getFile(filePath);
 }
 
-function playSample(audioBuffer, row) {
+function playSample(audioBuffer, row, time) {
     const sampleSource = new AudioBufferSourceNode(audioContext, {
         buffer: audioBuffer,
         playbackRate : 1,
     });
     sampleSource.connect(gainNodes[row - 1]);
-    sampleSource.start(0);
+    sampleSource.start(time);
     return sampleSource;
 }
 
@@ -837,7 +833,6 @@ document.querySelector("#play-all").onclick = function playPattern() {
             audioContext.resume();
         }
 
-        currentNote = 0;
         nextNoteTime = audioContext.currentTime;
         scheduler();
         draw();
@@ -862,7 +857,6 @@ document.querySelector("#loop").onclick = function loopPattern() {
             audioContext.resume();
         }
 
-        currentNote = 0;
         nextNoteTime = audioContext.currentTime;
         scheduler();
         draw();
