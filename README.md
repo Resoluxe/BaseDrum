@@ -3,6 +3,7 @@
 ## BaseDrum
 BaseDrum is a web-based 'Drum Pattern Playground' where you can experiment with various rhythmic elements.  
 The individual sounds are not the main concern here - rather it's more about the rhythm and dynamics!
+**Now powered with Web Audio API!**
 
 ## Features
 1. BaseDrum **DOES NOT place artificial limitations** on well... most of things.  
