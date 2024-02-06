@@ -16,10 +16,10 @@ let selectedRow = 1; // Which row to import samples to
 let canvasWidth = 500;
 let canvasHeight = 200;
 
-
 // Implementing Web Audio API
 const audioContext = new AudioContext();
 let audioBuffers = [];
+let gainNodes = [];
 
 let visualizer = new AnalyserNode(audioContext);
 visualizer.connect(audioContext.destination)
@@ -93,13 +93,6 @@ function drawWave() {
 
     canvasCtxWave.lineTo(canvasWidth, canvasHeight / 2);
     canvasCtxWave.stroke();
-}
-
-let gainNodes = [];
-for (let i = 1; i <= 32; i++) {
-    gainNodes[i - 1] = new GainNode(audioContext);
-    gainNodes[i - 1].gain.value = 0.5;
-    gainNodes[i - 1].connect(visualizer);
 }
 
 async function getFile(filepath) {
@@ -527,6 +520,9 @@ function initializeRow(page, row) {
     document.querySelector("#audio-" + row.toString()).addEventListener('canplaythrough', function () {
         setupSample(document.querySelector("#audio-" + row.toString()).src).then((sample) => {
             audioBuffers[row - 1] = sample;
+            gainNodes[row - 1] = new GainNode(audioContext);
+            gainNodes[row - 1].gain.value = 0.5;
+            gainNodes[row - 1].connect(visualizer);
         });
     });
 
@@ -757,8 +753,6 @@ document.querySelector("#chaos").addEventListener('click', function totalChaos()
 // Add an instrument row
 document.querySelector("#add-inst").addEventListener('click', function addRow() {
 
-    // Add a new row
-    if (totalRow < 32) {
         totalRow++;
         for (let page = 1; page <= pageCount; page++) {
             let new_row = document.querySelector("#seq-row-1-1").cloneNode(true);
@@ -768,15 +762,11 @@ document.querySelector("#add-inst").addEventListener('click', function addRow() 
             new_row.querySelector("label").setAttribute("id", "new-inst-" + totalRow.toString());
             new_row.querySelector("input").setAttribute("id", "inst-" + totalRow.toString());
             new_row.querySelector("audio").setAttribute("id", "audio-" + totalRow.toString());
-            let targetContainer= document.querySelector('#pattern-' + page.toString());
+            let targetContainer = document.querySelector('#pattern-' + page.toString());
             targetContainer.appendChild(document.importNode(new_row, true));
             initializeRow(page, totalRow);
             clearRow(page, totalRow);
         }
-    } else {
-        alert("Cannot add more rows!");
-    }
-
 });
 
 // Remove the lowermost instrument
