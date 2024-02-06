@@ -74,10 +74,31 @@ button:hover {
     grid-template-rows: repeat(2, 2rem) auto;
     user-select: none;
     border: black 2px solid;
-    max-width: fit-content;
-    max-height: fit-content;
+    width: fit-content;
+    height: fit-content;
     padding: 10px;
-    margin: auto;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#visual-container{
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+    margin-bottom: 5px;
+    width: fit-content;
+}
+
+#visualizer-canvas{
+    display: inline-block;
+    border: 2px black solid;
+    margin-bottom: 5px;
+}
+
+#wave-canvas{
+    display: inline-block;
+    border: 2px black solid;
+    margin-bottom: 5px;
 }
 
 /* The Information Bar */

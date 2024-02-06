@@ -10,7 +10,7 @@
     <link rel="icon" type="image/x-icon" href="./Kinfinity%20Logo.png">
 </head>
 <body>
-    <h1 class="logo">BaseDrum<span id="version-number">v1.1.3</span><br/><span class="intro">A Web-Based Drum Machine / Pattern Playground</span></h1>
+    <h1 class="logo">BaseDrum<span id="version-number">v1.2.0</span><br/><span class="intro">A Web-Based Drum Machine / Pattern Playground</span></h1>
     <h2 id="kb-mode">Keyboard Mode: <span id="kb-indicator">OFF</span></h2>
 
 
@@ -120,11 +120,16 @@
 
     <input id="temp-input"  class="invisible" type="file" accept=".mp3, .wav"/>
 
-    <hr/>
-
     <div id="unique-divider">⎮</div>
     <button class="step-" data-active="no" data-acc="0.5" data-cond="1.0" data-sub="1" data-micro="0.00"></button>
 
+
+    <div id="visual-container">
+        <label for="visualizer-canvas" id="spectrum-label">Spectrum</label>
+        <canvas id="visualizer-canvas"> </canvas>
+        <canvas id="wave-canvas"> </canvas>
+        <label for="wave-canvas" id="wave-label">Oscilloscope</label>
+    </div>
 
 
     <div id="grid-container">
@@ -290,6 +295,6 @@
     <h4 class="footer">Link to GitHub Repo:  <a href="https://github.com/Resoluxe/BaseDrum">Here!</a></h4>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-    <script src="index.js" charset="utf-8"></script>
+    <script src="index2.js" charset="utf-8"></script>
 </body>
 </html>
