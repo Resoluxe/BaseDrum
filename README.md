@@ -9,7 +9,10 @@ The individual sounds are not the main concern here - rather it's more about the
 If you want a 2-minute sequence of 8 parts with 17/5 time signature running at 200BPM, then go for it! (Note: Unfound Claim.)  
 The sky, and my HTML + CSS + JS spaghetti "code" is the limit.
 
-2. BaseDrum features precise **per-step manipulations**, like:  
+- **Notice** From version 1.2.0 and onwards, track count is limited to 32 (due to Web Audio API specifications)  
+
+2. BaseDrum features precise **per-step manipulations**, like:
+
 - Accents (Default at 50% = 0.5, 0% ~ 100%)
 - Conditionals (Default at 100% = 1.0, 0% ~ 100%)
 - Substeps (Default at 1, maximum of 5)
@@ -49,8 +52,8 @@ After all, that's what you came for, is it not?
     - Again, it's the last step that gets affected first.
 11. **Track (Row) clear button + Track trigger indicator**
 12. **Instrument (Sample) load / display** section
-   - Samples are loaded as (local) links to your audio files.
-   - Tip: You can even replace samples while playing through a pattern!
+    - Samples are loaded as (local) links to your audio files.
+    - Tip: You can even replace samples while playing through a pattern!
 13. **Mute / Solo** button / indicator
 14. **Steps**
     - Default setup: 16 steps per pattern, 4 steps = 1 beat
