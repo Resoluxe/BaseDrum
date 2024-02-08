@@ -414,3 +414,7 @@ div[id^='seq-row-'] .steps .divider{
     margin-left: auto;
     margin-right: auto;
 }
+
+.source{
+    text-align: center;
+}

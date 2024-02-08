@@ -1,8 +1,8 @@
-![BaseDrum Interface](./BaseDrum_v1_1@2x.png)
+![BaseDrum Interface](img/BaseDrum_v1_1@2x.png)
 
 ## BaseDrum
 BaseDrum is a web-based 'Drum Pattern Playground' where you can experiment with various rhythmic elements.  
-The individual sounds are not the main concern here - rather it's more about the rhythm and dynamics!
+The individual sounds are not the main concern here - rather it's more about the rhythm and dynamics!  
 **Now powered with Web Audio API!**
 
 ## Features
@@ -29,7 +29,7 @@ When saving patterns, links to your audio files are automatically erased for add
 After all, that's what you came for, is it not?
 
 ## Interface
-![BaseDrum Interface Explanation](./BaseDrum_v1_1_Interface@2x.png)
+![BaseDrum Interface Explanation](img/BaseDrum_v1_1_Interface@2x.png)
 1. **Filename input / display**
 2. **File Upload - Download**
    - Files are downloaded / uploaded as HTML files with 'bdv(major version number)-' prefix.
@@ -67,7 +67,7 @@ After all, that's what you came for, is it not?
    
 ## Keyboard Shortcuts
 When the 'Keyboard Mode' is toggled on with 'K', those additional inputs will be available :
-![BaseDrum Keyboard Shortcuts](./BaseDrum_kbd.png)
+![BaseDrum Keyboard Shortcuts](img/BaseDrum_kbd.png)
  
 ## License
 - You are free to use this application (BaseDrum) as-is (with no warranty provided, so if anything bad happens I cannot take any responsibility).
@@ -79,8 +79,12 @@ When the 'Keyboard Mode' is toggled on with 'K', those additional inputs will be
     - Report a bug (there's an issue tracker for that though...),
     - or (even better) provide me with good career opportunities. (No spam please. Had enough with Python.)
    
-## Acknowledgements
-- Preset samples obtained from [here](https://github.com/oramics/sampled)
+## Sample Sources
+- Preset samples obtained from [here](https://github.com/oramics/sampled)  
+- Korean (Gugak) percussion samples from [National Gugak Center](https://www.gugak.go.kr/site/main/index001?menuid=001&lang=en)
+  - 본 Repository에는 국립국악원 악기연구소에서 제공하는 국악 디지털 음원이 사용되고 있습니다.   
+
+---
 
 My intention of making BaseDrum was to share the joy of crafting drum patterns with everyone (even those without software(DAW)/hardware drum sequencers).  
 At least I had a lot of fun with it, and I hope you can have some fun too! (Also hope there are no critical bugs anymore...)  

@@ -1,3 +1,9 @@
+/*
+THIS IS A LEGACY FILE WHICH UTILIZES HTML5 AUDIO.
+ */
+
+
+
 let totalRow= 1; // Number of seq-rows (Global)
 let baseVal = 4; // Time Signature
 let bpm = 120; // BPM (Global)

@@ -10,7 +10,7 @@
     <link rel="icon" type="image/x-icon" href="./Kinfinity%20Logo.png">
 </head>
 <body>
-    <h1 class="logo">BaseDrum<span id="version-number">v1.2.3</span><br/><span class="intro">A Web-Based Drum Machine / Pattern Playground</span></h1>
+    <h1 class="logo">BaseDrum<span id="version-number">v1.2.4</span><br/><span class="intro">A Web-Based Drum Machine / Pattern Playground</span></h1>
     <h2 id="kb-mode">Keyboard Mode: <span id="kb-indicator">OFF</span></h2>
 
 
@@ -28,12 +28,12 @@
         <button id="kit-808" class="dialog-button">808</button>
         <button id="kit-909" class="dialog-button">909</button>
         <button id="kit-LM2" class="dialog-button">LM2</button>
+        <button id="kit-Korea" class="dialog-button">Korean(국악)</button>
         <button id="kit-cancel" class="dialog-button">Cancel</button>
     </dialog>
 
     <dialog id="preset-dialog">
         <p>Please search / select the preset you want to load:</p>
-        <p>Samples obtained from <a href="https://github.com/oramics/sampled">Here</a></p>
         <input onfocus="this.value=''" list="presets" id="preset-list" placeholder="">
         <datalist autofocus id="presets">
             <option>78-Bongo(Hi)</option>
@@ -85,6 +85,10 @@
             <option>909-Tom(Hi)</option>
             <option>909-Tom(Lo)</option>
             <option>909-Tom(Mid)</option>
+            <option>Gugak-JangGu1(장구)</option>
+            <option>Gugak-JangGu2(장구)</option>
+            <option>Gugak-JangGu3(장구)</option>
+            <option>Gugak-KkwaengGwari(꽹과리)</option>
             <option>LM2-Cabasa</option>
             <option>LM2-Clap</option>
             <option>LM2-Closed HiHat</option>
@@ -213,7 +217,7 @@
 
     <button type="button" class="collapsible" id="instruction_btn">Interface / Keyboard Manual</button>
     <div id="instruction">
-        <img id="instruction_pic" src="./BaseDrum_v1_1_Interface@2x.png" alt="A screenshot of BaseDrum interface" />
+        <img id="instruction_pic" src="img/BaseDrum_v1_1_Interface@2x.png" alt="A screenshot of BaseDrum interface" />
         <ol id="instruction-list">
             <li>File management : Filename input / display</li>
             <li>File Upload - Download
@@ -286,13 +290,16 @@
                 </ul>
             </li>
         </ol>
-        <img id="kbd_pic" src="./BaseDrum_kbd.png" alt="A screenshot of BaseDrum Keyboard Shortcuts" />
+        <img id="kbd_pic" src="img/BaseDrum_kbd.png" alt="A screenshot of BaseDrum Keyboard Shortcuts" />
     </div>
 
     <hr/>
 
     <h4 class="footer">Made with ❤️ from 🇰🇷 by Resoluxe (Minsoo Kang)</h4>
     <h4 class="footer">Link to GitHub Repo:  <a href="https://github.com/Resoluxe/BaseDrum">Here!</a></h4>
+
+    <p class="source">Drum machine samples from <a href="https://github.com/oramics/sampled">Here</a></p>
+    <p class="source">Korean (Gugak) percussion samples from <a href="https://www.gugak.go.kr/site/main/index001?menuid=001&lang=en">National Gugak Center</a></p>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="index2.js" charset="utf-8"></script>
