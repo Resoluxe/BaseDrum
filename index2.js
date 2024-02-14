@@ -485,6 +485,7 @@ function initializeRow(page, row) {
             gainNodes[row - 1].gain.value = 0.5;
             gainNodes[row - 1].connect(visualizer);
         });
+        document.querySelector("#pattern-" + page.toString() + " #seq-row-" + row.toString() + "-" + page.toString() + " #new-inst-" + row.toString()).style.backgroundColor = "lawngreen";
     });
 
 
