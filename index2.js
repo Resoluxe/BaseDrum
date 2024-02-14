@@ -291,8 +291,8 @@ document.querySelector("#kit-808").onclick = function load808() {
     document.getElementById("kit-dialog").close();
     clearTimeout(timerID)
     $.get("./patterns/BDv1_1-808-example.html", function (data) {
-        let copy78 = convertStringToHTML(data);
-        document.querySelector("#grid-container").replaceChild(copy78.querySelector("#project"),document.querySelector("#project"));
+        let copy808 = convertStringToHTML(data);
+        document.querySelector("#grid-container").replaceChild(copy808.querySelector("#project"),document.querySelector("#project"));
         totalRow = 9;
         baseVal = 4;
         bpm = 120;
@@ -313,8 +313,8 @@ document.querySelector("#kit-909").onclick = function load909() {
     document.getElementById("kit-dialog").close();
     clearTimeout(timerID)
     $.get("./patterns/BDv1_1-909-example.html", function (data) {
-        let copy78 = convertStringToHTML(data);
-        document.querySelector("#grid-container").replaceChild(copy78.querySelector("#project"),document.querySelector("#project"));
+        let copy909 = convertStringToHTML(data);
+        document.querySelector("#grid-container").replaceChild(copy909.querySelector("#project"),document.querySelector("#project"));
         totalRow = 4;
         baseVal = 4;
         bpm = 120;
@@ -334,8 +334,8 @@ document.querySelector("#kit-LM2").onclick = function loadLM2() {
     document.getElementById("kit-dialog").close();
     clearTimeout(timerID)
     $.get("./patterns/BDv1_1-LM2-example.html", function (data) {
-        let copy78 = convertStringToHTML(data);
-        document.querySelector("#grid-container").replaceChild(copy78.querySelector("#project"),document.querySelector("#project"));
+        let copyLM2 = convertStringToHTML(data);
+        document.querySelector("#grid-container").replaceChild(copyLM2.querySelector("#project"),document.querySelector("#project"));
         totalRow = 6;
         baseVal = 4;
         bpm = 120;
@@ -987,6 +987,7 @@ document.addEventListener('keydown', function kbControl(event) {
         kbMode = true;
         document.querySelector("#kb-indicator").textContent = "ON";
         document.querySelector("#kb-indicator").style.color = "red";
+
     } else if (kbMode === true && event.key === "k") {
         kbMode = false;
         document.querySelector("#kb-indicator").textContent = "OFF";
